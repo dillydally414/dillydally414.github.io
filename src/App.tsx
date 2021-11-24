@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import tabs from './tabs';
 
 const HomeContainer = styled.div`
+  align-items: center;
   background-color: #6bbff175;
   display: flex;
   flex-direction: column;
