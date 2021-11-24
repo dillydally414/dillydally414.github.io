@@ -1,14 +1,12 @@
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import AboutMe from './AboutMe';
-import Games from './Games';
-import Projects from './Projects';
+import tabs from './tabs';
 
 const HomeContainer = styled.div`
+  background-color: #6bbff175;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  padding: 1rem;
+  padding: 0 5rem;
 `;
 
 const TabTitle = styled.h2`
@@ -28,10 +26,13 @@ const TabTitle = styled.h2`
 
 const TopRow = styled.div`
   align-items: center;
+  background-color: #FFFDD0;
+  box-shadow: 0 -0.5rem 1rem 0.25rem black;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 1rem;
+  position: sticky;
+  top: 0;
 `;
 
 const tabTitles = [
@@ -40,15 +41,9 @@ const tabTitles = [
   "Games",
 ];
 
-const tabs = [
-  <AboutMe />, // About Me
-  <Projects />, // Projects
-  <Games />, // Games
-];
 
 const App = (): ReactElement => {
   const [tabIndex, setTabIndex]: [number, Function] = useState<number>(0);
-  console.log(tabIndex);
   return (
     <>
       <TopRow>
@@ -58,7 +53,6 @@ const App = (): ReactElement => {
               onClick={() => setTabIndex(index)}
               key={tab}
               style={index === tabIndex ? {
-                fontWeight: "bold",
                 opacity: "100%",
                 textDecoration: "underline",
               } : {}}

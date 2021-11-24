@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as AnimatedIcon } from './animation-icon.svg';
+import { ReactComponent as AnimatedIcon } from '../animation-icon.svg';
 
 const NameHeader = styled.h1`
   font-family: Outfit;
@@ -10,7 +10,6 @@ const NameHeader = styled.h1`
 const iconProportion: number = 5;
 
 const Icon = styled(AnimatedIcon)`
-  cursor: pointer;
   height: ${iconProportion}rem;
   padding: 1rem;
   width: ${iconProportion}rem;
