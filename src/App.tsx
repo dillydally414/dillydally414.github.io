@@ -2,9 +2,12 @@ import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import tabs from './tabs';
 
+const cream = "#FFFDD0";
+const lightBlue = "#6bbff175";
+
 const HomeContainer = styled.div`
   align-items: center;
-  background-color: #6bbff175;
+  background-color: ${lightBlue};
   display: flex;
   flex-direction: column;
   padding: 0 5rem;
@@ -27,7 +30,7 @@ const TabTitle = styled.h2`
 
 const TopRow = styled.div`
   align-items: center;
-  background-color: #FFFDD0;
+  background-color: ${cream};
   box-shadow: 0 -0.5rem 1rem 0.25rem black;
   display: flex;
   flex-direction: row;
