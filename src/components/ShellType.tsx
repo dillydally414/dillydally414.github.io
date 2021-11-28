@@ -38,8 +38,6 @@ const animation = (text: string): Keyframes => {
   }
   if (text.length % 2 === 0) animationStr += `
   100% {content: '${text + ' '}'}`;
-  console.log(text);
-  console.log(animationStr);
   return keyframes`${animationStr}`;
 }
 
