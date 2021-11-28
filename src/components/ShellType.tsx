@@ -8,7 +8,7 @@ const StyledH2 = styled.h2`
     animation(props.color)
   ) : (
     'none'
-  )} 3s ease-in-out 0.75s;
+  )} 3s ease-in-out ${props => props.id ? props.id : "0s"};
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     content: ${props => props.color ? (
@@ -42,14 +42,16 @@ const animation = (text: string): Keyframes => {
 }
 
 const ShellType = ({
+  delay,
   text,
   className = "",
 }: {
+  delay: string,
   text: string,
   className?: string,
 }): ReactElement => {
   return (
-    <StyledH2 className={className} color={text}>
+    <StyledH2 className={className} color={text} id={delay}>
       &gt;&nbsp;
     </StyledH2>
   );
