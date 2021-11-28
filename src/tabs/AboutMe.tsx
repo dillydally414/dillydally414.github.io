@@ -105,7 +105,8 @@ const AboutMe = (): ReactElement => {
       <StyledShellType text="Who I Am" delay="1s" />
       <WhoIAm>
         <WhoIAmText>
-          // TODO: Fill in this section
+          {// TODO: Fill in this section
+          }
         </WhoIAmText>
         <SelfImage src={src} alt="A picture of me!"
           style={{
@@ -129,7 +130,8 @@ const AboutMe = (): ReactElement => {
         </Link>
       </LinkColumns>
       <StyledShellType text="Resume" delay="7s" />
-      // TODO: Add resume + make it downloadable on click
+      {// TODO: Add resume + make it downloadable on click
+      }
     </>
   );
 };
