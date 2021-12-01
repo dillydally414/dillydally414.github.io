@@ -97,6 +97,24 @@ const useProgressiveImg = (lowQualitySrc: string, highQualitySrc: string): [stri
   return [src, { blur: src === lowQualitySrc }];
 };
 
+const contactInfo = [
+  {
+    link: 'mailto:scott.di@northeastern.edu',
+    icon: <MailIcon />,
+    text: 'scott.di@northeastern.edu',
+  },
+  {
+    link: 'https://linkedin.com/in/dillon-scott',
+    icon: <LinkedinIcon />,
+    text: 'linkedin.com/in/dillon-scott',
+  },
+  {
+    link: 'https://github.com/dillydally414',
+    icon: <GithubIcon />,
+    text: 'github.com/dillydally414',
+  },
+];
+
 const AboutMe = (): ReactElement => {
   const [src, { blur }] = useProgressiveImg(ScottJpgLowRes, ScottJpgHiRes);
   return (
@@ -116,18 +134,14 @@ const AboutMe = (): ReactElement => {
       </WhoIAm>
       <StyledShellType text="Contact" delay="4s" />
       <LinkColumns>
-        <Link href="mailto:scott.di@northeastern.edu" target="_blank">
-          <MailIcon />
-          <LinkText>scott.di@northeastern.edu</LinkText>
-        </Link>
-        <Link href="https://linkedin.com/in/dillon-scott" target="_blank">
-          <LinkedinIcon />
-          <LinkText>linkedin.com/in/dillon-scott</LinkText>
-        </Link>
-        <Link href="https://github.com/dillydally414" target="_blank">
-          <GithubIcon />
-          <LinkText>github.com/dillydally414</LinkText>
-        </Link>
+        {contactInfo.map((value) => {
+          return (
+            <Link href={value.link} target="_blank" key={value.text}>
+              {value.icon}
+              <LinkText>{value.text}</LinkText>
+            </Link>
+          );
+        })}
       </LinkColumns>
       <StyledShellType text="Resume" delay="7s" />
       {// TODO: Add resume + make it downloadable on click
