@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import styled from 'styled-components';
 import projects from '../assets/projects';
 import Project from '../components/Project';
 import { ProjectType } from '../types';

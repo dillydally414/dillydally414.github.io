@@ -7,7 +7,7 @@ import ScottJpgHiRes from '../assets/scottHiRes.jpg';
 import ScottJpgLowRes from '../assets/scottLowRes.jpg';
 import ShellType from '../components/ShellType';
 
-const Link = styled.a`
+export const Link = styled.a`
   align-items: center;
   align-self: center;
   color: inherit;
@@ -43,7 +43,7 @@ const LinkColumns = styled.div`
   flex-direction: column;
 `;
 
-const LinkText = styled.p`
+export const LinkText = styled.p`
   align-self: center;
   font-family: Montserrat;
   justify-self: flex-start;
@@ -130,7 +130,8 @@ const AboutMe = (): ReactElement => {
           style={{
             filter: blur ? "blur(20px)" : "none",
             transition: blur ? "none" : "filter 1s ease-out"
-          }} />
+          }}
+          width="15%" />
       </WhoIAm>
       <StyledShellType text="Contact" delay="4s" />
       <LinkColumns>

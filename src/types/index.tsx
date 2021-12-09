@@ -6,5 +6,7 @@ export type ProjectType = {
   visualLink?: string,
   start: string,
   end?: string,
-  image?: string,
+  image: string,
+  alt: string,
+  order: number,
 };
