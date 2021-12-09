@@ -37,6 +37,7 @@ const TopRow = styled.div`
   justify-content: center;
   position: sticky;
   top: 0;
+  z-index: 1;
 `;
 
 const tabTitles = [
