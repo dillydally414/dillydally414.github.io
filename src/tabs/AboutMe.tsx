@@ -1,10 +1,9 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as MailIcon } from '../assets/mail.svg';
 import { ReactComponent as LinkedinIcon } from '../assets/linkedin.svg';
 import { ReactComponent as GithubIcon } from '../assets/github.svg';
-import ScottJpgHiRes from '../assets/scottHiRes.jpg';
-import ScottJpgLowRes from '../assets/scottLowRes.jpg';
+import ScottJpg from '../assets/scott.jpg';
 import ShellType from '../components/ShellType';
 
 export const Link = styled.a`
@@ -83,20 +82,6 @@ const WhoIAmText = styled.p`
   max-width: 50%;
 `;
 
-// https://benhoneywill.com/progressive-image-loading-with-react-hooks/
-const useProgressiveImg = (lowQualitySrc: string, highQualitySrc: string): [string, { blur: boolean }] => {
-  const [src, setSrc] = useState(lowQualitySrc);
-  useEffect(() => {
-    setSrc(lowQualitySrc);
-    const img = new Image();
-    img.src = highQualitySrc;
-    img.onload = () => {
-      setSrc(highQualitySrc);
-    };
-  }, [lowQualitySrc, highQualitySrc]);
-  return [src, { blur: src === lowQualitySrc }];
-};
-
 const contactInfo = [
   {
     link: 'mailto:scott.di@northeastern.edu',
@@ -116,7 +101,6 @@ const contactInfo = [
 ];
 
 const AboutMe = (): ReactElement => {
-  const [src, { blur }] = useProgressiveImg(ScottJpgLowRes, ScottJpgHiRes);
   return (
     <>
       <NameHeader>Dillon Scott</NameHeader>
@@ -126,12 +110,7 @@ const AboutMe = (): ReactElement => {
           {// TODO: Fill in this section
           }
         </WhoIAmText>
-        <SelfImage src={src} alt="A picture of me!"
-          style={{
-            filter: blur ? "blur(20px)" : "none",
-            transition: blur ? "none" : "filter 1s ease-out"
-          }}
-          width="15%" />
+        <SelfImage src={ScottJpg} alt="A picture of me!" width="15%" />
       </WhoIAm>
       <StyledShellType text="Contact" delay="4s" />
       <LinkColumns>
