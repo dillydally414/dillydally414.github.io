@@ -35,7 +35,7 @@ export const ProjectDiv = styled.div`
   height: fit-content;
   justify-content: space-around;
   margin-bottom: 1rem;
-  width: 60%;
+  width: 80%;
 `;
 
 export const ProjectImage = styled.img`
@@ -70,7 +70,7 @@ export const ProjectName = styled(ShellType)`
 export const ProjectTimeframe = styled.p`
   cursor: default;
   font-family: Montserrat;
-  margin-top: 0rem;
+  margin: 0;
 `;
 
 const Project = ({
