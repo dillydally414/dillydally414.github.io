@@ -7,7 +7,10 @@ import websiteImg from './website-icon.svg';
 const knowYourOptions: ProjectType = {
   name: "Know Your Options",
   order: 0,
-  description: "",
+  description: `Know Your Options is the first project I worked on with Sandbox at Northeastern. 
+  The project aims to make contraceptive information more accessible to the general public, and provided 
+  research information to a professor at Northeastern. I worked as a full stack developer on this project, 
+  and this was my introduction to all things React.`,
   techUsed: "React, Typescript, styled-components, Next.js, PostgreSQL",
   githubLink: "https://github.com/sandboxnu/knowyouroptions",
   start: "September 2021",
@@ -18,10 +21,11 @@ const knowYourOptions: ProjectType = {
 const thisWebsite: ProjectType = {
   name: "This Website",
   order: 1,
-  description: "",
+  description: `This website was created to serve as a digital portfolio, for other people to see what kind of things I work on.
+  Though the information is regularly updated, the website itself was built in a few weeks using Create-React-App.`,
   techUsed: "React, Typescript, styled-components",
   githubLink: "https://github.com/dillydally414/dillydally414.github.io",
-  visualLink: "https://dillydally414.github.io",
+  // visualLink: "https://dillydally414.github.io", This is kinda pointless since they're already on the website.
   start: "November 2021",
   image: websiteImg,
   alt: "Website icon",
@@ -30,7 +34,10 @@ const thisWebsite: ProjectType = {
 const advent: ProjectType = {
   name: "Advent of Code",
   order: 2,
-  description: "",
+  description: `Advent of Code is a yearly challenge where programmers all over the world compete to solve algorithmic puzzles
+  as quick as possible. Though I had worked on previous year's challenges asynchronously, this was the first year I actually did the
+  puzzles day by day as they were released. In addition, I added an extra challenge for myself by completing the challenges in Python,
+  which I had never coded with previously.`,
   techUsed: "Python",
   githubLink: "https://github.com/dillydally414/AoC-2021",
   start: "December 2021",
@@ -42,7 +49,9 @@ const advent: ProjectType = {
 const imageEditor: ProjectType = {
   name: "Image Editor",
   order: 3,
-  description: "",
+  description: `This project was created for my Object-Oriented Design class. It supports features including layering images,
+  image filters (blur, sharpen, sepia, etc), resizing images, and saving/loading edited images. Because it is a class project, 
+  I cannot post the code publicly, but I would be happy to share the code and/or editor program on request.`,
   techUsed: "Java, Swing",
   start: "May 2021",
   end: "June 2021",

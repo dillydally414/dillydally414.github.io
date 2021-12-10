@@ -18,7 +18,7 @@ export const ProjectDesc = styled.p`
   margin: 0;
   margin-top: 1rem;
   padding: 0 2rem;
-  text-align: center;
+  text-align: justify;
 `;
 
 export const ProjectDetails = styled.div`
