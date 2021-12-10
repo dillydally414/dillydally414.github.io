@@ -5,6 +5,7 @@ import { ReactComponent as LinkedinIcon } from '../assets/linkedin.svg';
 import { ReactComponent as GithubIcon } from '../assets/github.svg';
 import ScottJpg from '../assets/scott.jpg';
 import ShellType from '../components/ShellType';
+import advent from '../assets/advent.jpg';
 
 export const Link = styled.a`
   align-items: center;
@@ -56,10 +57,16 @@ const NameHeader = styled.h1`
   margin-top: 2rem;
 `;
 
+const SandboxLink = styled(Link)`
+  display: inline;
+  margin: 0;
+`
+
 const SelfImage = styled.img`
   border-radius: 50%;
   box-shadow: 0.2rem 0.2rem 1rem gray;
   height: auto;
+  margin-left: 3rem;
   max-width: 15%;
 `;
 
@@ -73,13 +80,15 @@ const WhoIAm = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 80%;
 `;
 
 const WhoIAmText = styled.p`
   align-self: center;
   font-family: Montserrat;
   max-width: 50%;
+  text-align: justify;
 `;
 
 const contactInfo = [
@@ -107,8 +116,16 @@ const AboutMe = (): ReactElement => {
       <StyledShellType text="Who I Am" delay="1s" />
       <WhoIAm>
         <WhoIAmText>
-          {// TODO: Fill in this section
-          }
+          I am a second year Computer Science and Biology student at Northeastern University. As a software developer at&nbsp;
+          <SandboxLink href="https://sandboxnu.com" target="_blank">
+            Sandbox at Northeastern
+          </SandboxLink>
+          , currently on the team Know Your Options, I have experience working with React, Typescript, and other related libraries.
+          I also work as a Teaching Assistant for Accelerated Fundamentals of Computer Science 2, which focuses primarily on Java
+          and object-oriented programming.
+          <br />
+          <br />
+          <b>I am currently looking for co-op/internship opportunities for July-December 2022.</b>
         </WhoIAmText>
         <SelfImage src={ScottJpg} alt="A picture of me!" width="15%" />
       </WhoIAm>
