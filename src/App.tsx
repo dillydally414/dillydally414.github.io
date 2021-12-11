@@ -10,6 +10,7 @@ const HomeContainer = styled.div`
   background-color: ${lightBlue};
   display: flex;
   flex-direction: column;
+  min-height: 95vh;
   padding: 0 5rem;
 `;
 
