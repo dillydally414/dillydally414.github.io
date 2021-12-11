@@ -139,6 +139,10 @@ const AboutMe = (): ReactElement => {
           );
         })}
       </LinkColumns>
+      <StyledShellType text="Resume" delay="7s" />
+      {
+        // TODO: Add Resume
+      }
     </>
   );
 };
