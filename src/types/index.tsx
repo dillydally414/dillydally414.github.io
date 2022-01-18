@@ -8,5 +8,4 @@ export type ProjectType = {
   end?: string,
   image: string,
   alt: string,
-  order: number,
 };

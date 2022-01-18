@@ -6,8 +6,8 @@ import { ProjectType } from '../types';
 const Projects = (): ReactElement => {
   return (
     <>
-      {projects.map((project: ProjectType) => {
-        return <Project info={project} key={project.name} />;
+      {projects.map((project: ProjectType, index: number) => {
+        return <Project info={project} index={index} key={project.name} />;
       })}
     </>
   );

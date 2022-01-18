@@ -75,17 +75,19 @@ export const ProjectTimeframe = styled.p`
 
 const Project = ({
   info,
+  index,
 }: {
   info: ProjectType,
+  index: number,
 }): ReactElement => {
   return (
     <>
-      {info.order !== 0 && <HorizontalLine />}
+      {index !== 0 && <HorizontalLine />}
       <ProjectDiv style={{
-        flexDirection: info.order % 2 === 0 ? 'row' : 'row-reverse',
+        flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
       }}>
         <ProjectDetails>
-          <ProjectName text={info.name} delay={`${info.order * 3 + 1}s`} />
+          <ProjectName text={info.name} delay={`${index * 3 + 1}s`} />
           <ProjectTimeframe>
             {info.start}
             {info.end ? (
