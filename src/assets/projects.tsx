@@ -1,5 +1,6 @@
 import { ProjectType } from "../types";
 import adventImg from './advent.jpg';
+import edulawImg from './edulaw.png';
 import imageEditorImg from './image-editor.png';
 import knowYourOptionsImg from './know-your-options.png';
 import websiteImg from './website-icon.svg';
@@ -12,8 +13,9 @@ const eduLaw: ProjectType = {
   new features, reviewed PRs, and communicated expectations and progress with the client. `,
   techUsed: "React, Typescript, Next.js, CSS",
   githubLink: "https://github.com/sandboxnu/edulaw",
+  visualLink: "https://edulaw.vercel.app/",
   start: "January 2022",
-  image: knowYourOptionsImg, // TODO: Add image
+  image: edulawImg,
   alt: "EduLaw app homepage",
 }
 
