@@ -4,6 +4,19 @@ import imageEditorImg from './image-editor.png';
 import knowYourOptionsImg from './know-your-options.png';
 import websiteImg from './website-icon.svg';
 
+const eduLaw: ProjectType = {
+  name: "EduLaw",
+  description: `EduLaw is the project I am currently working on with Sandbox at Northeastern.
+  This project enables students and parents in the state of Massachusetts to report violations of educational
+  rights to the appropriate government offices. As project lead, I coordinated team members to implement 
+  new features, reviewed PRs, and communicated expectations and progress with the client. `,
+  techUsed: "React, Typescript, Next.js, CSS",
+  githubLink: "https://github.com/sandboxnu/edulaw",
+  start: "January 2022",
+  image: knowYourOptionsImg, // TODO: Add image
+  alt: "EduLaw app homepage",
+}
+
 const knowYourOptions: ProjectType = {
   name: "Know Your Options",
   description: `Know Your Options is the first project I worked on with Sandbox at Northeastern. 
@@ -13,6 +26,7 @@ const knowYourOptions: ProjectType = {
   techUsed: "React, Typescript, styled-components, Next.js, PostgreSQL",
   githubLink: "https://github.com/sandboxnu/knowyouroptions",
   start: "September 2021",
+  end: "December 2021",
   image: knowYourOptionsImg,
   alt: "Know your options app homepage",
 }
@@ -56,6 +70,7 @@ const imageEditor: ProjectType = {
 }
 
 const projects: Array<ProjectType> = [
+  eduLaw,
   knowYourOptions,
   thisWebsite,
   advent,
