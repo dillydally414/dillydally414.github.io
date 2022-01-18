@@ -6,8 +6,8 @@ import games from '../assets/games';
 const Games = (): ReactElement => {
   return (
     <>
-      {games.map((game: ProjectType) => {
-        return <Game info={game} key={game.name} />;
+      {games.map((game: ProjectType, index: number) => {
+        return <Game info={game} index={index} key={game.name} />;
       })}
     </>
   );
