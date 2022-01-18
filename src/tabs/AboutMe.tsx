@@ -115,16 +115,16 @@ const AboutMe = (): ReactElement => {
       <StyledShellType text="Who I Am" delay="1s" />
       <WhoIAm>
         <WhoIAmText>
-          I am a second year Computer Science and Biology student at Northeastern University. As a software developer at&nbsp;
+          I am a second year Computer Science and Biology student at Northeastern University. As a project lead on EduLaw at&nbsp;
           <SandboxLink href="https://sandboxnu.com" target="_blank">
             Sandbox at Northeastern
           </SandboxLink>
-          , currently on the team Know Your Options, I have experience working with React, Typescript, and other related libraries.
+          , I have leadership experience as well as technical experience working with React, Typescript, and other related libraries.
           I also work as a Teaching Assistant for Accelerated Fundamentals of Computer Science 2, which focuses primarily on Java
           and object-oriented programming.
           <br />
           <br />
-          <b>I am currently looking for co-op/internship opportunities for July-December 2022.</b>
+          <b>I am currently looking for co-op/internship opportunities for July - December 2022.</b>
         </WhoIAmText>
         <SelfImage src={ScottJpg} alt="A picture of me!" width="15%" />
       </WhoIAm>
