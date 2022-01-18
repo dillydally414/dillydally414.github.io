@@ -5,7 +5,6 @@ const trafficImg = "https://cdn.glitch.com/489f9bfc-deff-49e0-b7a3-ba935d6fefae%
 
 const tliRemastered: ProjectType = {
   name: "Traffic Light Remastered",
-  order: 0,
   description: `After the game jam, I decided I wanted to continue development on Traffic Light Incremental 
   and make it into a longer/full-length game. However, between schoolwork and a job, my progress was very limited. 
   A few months in, I decided that I wanted to work with a new tech stack to broaden my skills. Instead of working with Javascript and direct HTML/CSS, 
@@ -20,7 +19,6 @@ const tliRemastered: ProjectType = {
 
 const secret: ProjectType = {
   name: "Secret Incremental",
-  order: 1,
   description: `The incremental game community has a running April Fool's tradition, where prank games are posted on the subreddit
   in the spirit of the holiday. This game was created with that purpose in mind, and is intentionally user-unfriendly.
   Despite being made in a few days, this game allowed me to further explore the intricacies of Javascript and CSS.`,
@@ -35,7 +33,6 @@ const secret: ProjectType = {
 
 const tli: ProjectType = {
   name: "Traffic Light Incremental",
-  order: 2,
   description: `As a part of the second Incremental Game Jam, this game was created in one week with the theme 'Light'.
   Though Time deLayers was used as reference, the gameplay, storyline, and code was built from scratch. 
   This experience allowed me to more fully comprehend the workings of Javscript and HTML. 
@@ -50,7 +47,6 @@ const tli: ProjectType = {
 
 const timeDeLayers: ProjectType = {
   name: "Time deLayers",
-  order: 3,
   description: `My first venture into game development, Time deLayers is a modded version of another game, Time Layers. 
   The modification essentially makes the game much slower at first, giving it the title deLayers. 
   With this game, I was able to learn Javascript, HTML, and CSS basics, and work with the Vue library.`,
