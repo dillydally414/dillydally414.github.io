@@ -5,6 +5,7 @@ import { ReactComponent as LinkedinIcon } from '../assets/linkedin.svg';
 import { ReactComponent as GithubIcon } from '../assets/github.svg';
 import ScottJpg from '../assets/scott.jpg';
 import ShellType from '../components/ShellType';
+import Resume from '../components/Resume';
 
 export const Link = styled.a`
   align-items: center;
@@ -140,9 +141,7 @@ const AboutMe = (): ReactElement => {
         })}
       </LinkColumns>
       <StyledShellType text="Resume" delay="7s" />
-      {
-        // TODO: Add Resume
-      }
+      <Resume />
     </>
   );
 };
