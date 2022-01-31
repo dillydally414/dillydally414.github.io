@@ -92,9 +92,9 @@ const WhoIAmText = styled.p`
 
 const contactInfo = [
   {
-    link: 'mailto:scott.di@northeastern.edu',
+    link: 'mailto:dilloncscott1@gmail.com',
     icon: <MailIcon />,
-    text: 'scott.di@northeastern.edu',
+    text: 'dilloncscott1@gmail.com',
   },
   {
     link: 'https://linkedin.com/in/dillon-scott',

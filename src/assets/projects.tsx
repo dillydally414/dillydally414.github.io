@@ -1,13 +1,13 @@
 import { ProjectType } from "../types";
 import adventImg from './advent.jpg';
-import edulawImg from './edulaw.png';
+import edlawImg from './edlaw.png';
 import imageEditorImg from './image-editor.png';
 import knowYourOptionsImg from './know-your-options.png';
 import websiteImg from './website-icon.svg';
 
-const eduLaw: ProjectType = {
-  name: "EduLaw",
-  description: `EduLaw is the project I am currently working on with Sandbox at Northeastern.
+const edLaw: ProjectType = {
+  name: "EdLaw",
+  description: `EdLaw is the project I am currently working on with Sandbox at Northeastern.
   This project enables students and parents in the state of Massachusetts to report violations of educational
   rights to the appropriate government offices. As project lead, I coordinated team members to implement 
   new features, reviewed PRs, and communicated expectations and progress with the client. `,
@@ -15,8 +15,8 @@ const eduLaw: ProjectType = {
   githubLink: "https://github.com/sandboxnu/edulaw",
   visualLink: "https://edulaw.vercel.app/",
   start: "January 2022",
-  image: edulawImg,
-  alt: "EduLaw app homepage",
+  image: edlawImg,
+  alt: "EdLaw app homepage",
 }
 
 const knowYourOptions: ProjectType = {
@@ -72,7 +72,7 @@ const imageEditor: ProjectType = {
 }
 
 const projects: Array<ProjectType> = [
-  eduLaw,
+  edLaw,
   knowYourOptions,
   thisWebsite,
   advent,
