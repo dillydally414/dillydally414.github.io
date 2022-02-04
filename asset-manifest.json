@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.js": "/static/js/main.dc9ddbff.chunk.js",
-    "main.js.map": "/static/js/main.dc9ddbff.chunk.js.map",
+    "main.js": "/static/js/main.c27a9bbd.chunk.js",
+    "main.js.map": "/static/js/main.c27a9bbd.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c8755411.js",
     "runtime-main.js.map": "/static/js/runtime-main.c8755411.js.map",
-    "static/js/2.8b94f2ea.chunk.js": "/static/js/2.8b94f2ea.chunk.js",
-    "static/js/2.8b94f2ea.chunk.js.map": "/static/js/2.8b94f2ea.chunk.js.map",
+    "static/js/2.65b46181.chunk.js": "/static/js/2.65b46181.chunk.js",
+    "static/js/2.65b46181.chunk.js.map": "/static/js/2.65b46181.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.8b94f2ea.chunk.js.LICENSE.txt": "/static/js/2.8b94f2ea.chunk.js.LICENSE.txt",
+    "static/js/2.65b46181.chunk.js.LICENSE.txt": "/static/js/2.65b46181.chunk.js.LICENSE.txt",
     "static/media/advent.47d57292.jpg": "/static/media/advent.47d57292.jpg",
     "static/media/clock.46952321.svg": "/static/media/clock.46952321.svg",
-    "static/media/edulaw.0e2578e9.png": "/static/media/edulaw.0e2578e9.png",
+    "static/media/edlaw.0e2578e9.png": "/static/media/edlaw.0e2578e9.png",
     "static/media/github.33a11cf6.svg": "/static/media/github.33a11cf6.svg",
     "static/media/image-editor.662b26a3.png": "/static/media/image-editor.662b26a3.png",
     "static/media/know-your-options.c7fb5c00.png": "/static/media/know-your-options.c7fb5c00.png",
@@ -24,7 +24,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.c8755411.js",
-    "static/js/2.8b94f2ea.chunk.js",
-    "static/js/main.dc9ddbff.chunk.js"
+    "static/js/2.65b46181.chunk.js",
+    "static/js/main.c27a9bbd.chunk.js"
   ]
 }
