@@ -5,7 +5,6 @@ import { ReactComponent as LinkedinIcon } from '../assets/linkedin.svg';
 import { ReactComponent as GithubIcon } from '../assets/github.svg';
 import ScottJpg from '../assets/scott.jpg';
 import ShellType from '../components/ShellType';
-import Resume from '../components/Resume';
 
 export const Link = styled.a`
   align-items: center;
@@ -140,8 +139,9 @@ const AboutMe = (): ReactElement => {
           );
         })}
       </LinkColumns>
-      <StyledShellType text="Resume" delay="7s" />
-      <Resume />
+      <a href='https://s3.amazonaws.com/symp.csm.usprod/northeastern/files/98d/98dee0d1f29e4ee2326e947769c5119d.pdf?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAID3RBESXBCESHUGA%2F20220204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220204T011717Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Signature=5db5b1b3a84f9b5bdf787b333da89c7ea5b2cd0cf49a0761c61952be18530e18'>
+        <StyledShellType text="Resume" delay="7s" />
+      </a>
     </>
   );
 };
