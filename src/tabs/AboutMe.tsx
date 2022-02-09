@@ -146,7 +146,7 @@ const AboutMe = (): ReactElement => {
       </LinkColumns>
       <StyledShellType text="Resume" delay="7s" />
       <Resume
-        src='https://s3.amazonaws.com/symp.csm.usprod/northeastern/files/98d/98dee0d1f29e4ee2326e947769c5119d.pdf?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAID3RBESXBCESHUGA%2F20220204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220204T011717Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Signature=5db5b1b3a84f9b5bdf787b333da89c7ea5b2cd0cf49a0761c61952be18530e18'
+        src='https://s3.amazonaws.com/symp.csm.usprod/northeastern/files/98d/98dee0d1f29e4ee2326e947769c5119d.pdf?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAID3RBESXBCESHUGA%2F20220209%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220209T165132Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Signature=cf430d3736e7b22e07538e51871bc753b58e345986db5bcef84a3be79acc9397'
         width='650rem'
         height='900rem'
         title='Dillon Scott Resume'
