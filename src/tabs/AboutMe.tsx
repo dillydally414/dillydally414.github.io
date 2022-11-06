@@ -5,6 +5,7 @@ import { ReactComponent as LinkedinIcon } from '../assets/linkedin.svg';
 import { ReactComponent as GithubIcon } from '../assets/github.svg';
 import ScottJpg from '../assets/scott.jpg';
 import ShellType from '../components/ShellType';
+import COLORS from '../assets/colors';
 
 export const Link = styled.a`
   align-items: center;
@@ -21,9 +22,11 @@ export const Link = styled.a`
   width: 100%;
 
   :hover {
-    text-decoration-color: black;
+    color: ${COLORS.accent};
+    text-decoration-color: ${COLORS.accent};
 
     svg {
+      fill: ${COLORS.accent};
       opacity: 100%;
     }
   }
@@ -120,16 +123,20 @@ const AboutMe = (): ReactElement => {
       <StyledShellType text="Who I Am" delay="1s" />
       <WhoIAm>
         <WhoIAmText>
-          I am a second year Computer Science and Biology student at Northeastern University. As a project lead on EduLaw at&nbsp;
+          I am a third year Computer Science and Biology student at Northeastern University. From July - December 2022, I worked on the Computational Biology team at
+          <SandboxLink href="https://www.immunitastx.com/" target="_blank">
+            Immunitas Therapeutics
+          </SandboxLink>, learning both technical skills in Python/Jupyter Notebooks as well as furthering my communication skills through presentations.
+          As a project lead on EdLaw at&nbsp;
           <SandboxLink href="https://sandboxnu.com" target="_blank">
             Sandbox at Northeastern
           </SandboxLink>
           , I have leadership experience as well as technical experience working with React, Typescript, and other related libraries.
-          I also work as a Teaching Assistant for Accelerated Fundamentals of Computer Science 2, which focuses primarily on Java
-          and object-oriented programming.
+          I also worked as a Teaching Assistant for Accelerated Fundamentals of Computer Science 2, which focuses primarily on Java
+          and object-oriented programming, and Algorithms and Data, which attacks programming from a more theoretical perspective.
           <br />
           <br />
-          <b>I am currently looking for co-op/internship opportunities for July - December 2022.</b>
+          <b>I am currently looking for co-op/internship opportunities for May - December 2023.</b>
         </WhoIAmText>
         <SelfImage src={ScottJpg} alt="A picture of me!" width="15%" />
       </WhoIAm>

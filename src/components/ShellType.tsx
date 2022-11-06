@@ -1,8 +1,11 @@
 import React, { ReactElement } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
+import COLORS from "../assets/colors";
 
 
 const StyledH2 = styled.h2`
+  color: ${COLORS.accent};
+
   ::after {
     animation: ${props => props.color ? (
     animation(props.color)
