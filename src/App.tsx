@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import styled from "styled-components";
 import tabs from "./tabs";
-import COLORS from "./assets/colors";
+import COLORS from "./styles/colors";
 
 const HomeContainer = styled.div`
   align-items: center;
@@ -41,7 +41,7 @@ const TopRow = styled.div`
   z-index: 1;
 `;
 
-const tabTitles = ["About Me", "Projects"];
+const tabTitles = ["About Me", "Experience", "Projects"];
 
 const App = (): ReactElement => {
   const [tabIndex, setTabIndex]: [number, Function] = useState<number>(0);

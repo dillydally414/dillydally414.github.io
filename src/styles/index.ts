@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import COLORS from '../assets/colors';
+import COLORS from './colors';
 import ShellType from '../components/ShellType'
 
 export const Link = styled.a`
@@ -61,6 +61,7 @@ export const Resume = styled.iframe`
 `;
 
 export const SandboxLink = styled(Link)`
+  color: ${COLORS.accent};
   display: inline;
   margin: 0;
 `;

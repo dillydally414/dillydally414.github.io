@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import projects from "../assets/projects";
+import projects from "../data/projects";
 import Project from "../components/Project";
 import { ProjectType } from "../types";
 

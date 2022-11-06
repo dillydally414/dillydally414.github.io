@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
-import COLORS from "../assets/colors";
+import COLORS from "../styles/colors";
 
 type ShellTypeProps = {
   text: string;
