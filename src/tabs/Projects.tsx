@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react';
-import projects from '../assets/projects';
-import Project from '../components/Project';
-import { ProjectType } from '../types';
+import React, { ReactElement } from "react";
+import projects from "../assets/projects";
+import Project from "../components/Project";
+import { ProjectType } from "../types";
 
 const Projects = (): ReactElement => {
   return (

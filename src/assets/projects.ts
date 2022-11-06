@@ -1,9 +1,9 @@
 import { ProjectType } from "../types";
-import adventImg from './advent.jpg';
-import edlawImg from './edlaw.png';
-import imageEditorImg from './image-editor.png';
-import knowYourOptionsImg from './know-your-options.png';
-import websiteImg from './website-icon.svg';
+import adventImg from "./advent.jpg";
+import edlawImg from "./edlaw.png";
+import imageEditorImg from "./image-editor.png";
+import knowYourOptionsImg from "./know-your-options.png";
+import websiteImg from "./website-icon.svg";
 
 const edLaw: ProjectType = {
   name: "EdLaw",
@@ -17,7 +17,7 @@ const edLaw: ProjectType = {
   start: "January 2022",
   image: edlawImg,
   alt: "EdLaw app homepage",
-}
+};
 
 const knowYourOptions: ProjectType = {
   name: "Know Your Options",
@@ -31,7 +31,7 @@ const knowYourOptions: ProjectType = {
   end: "December 2021",
   image: knowYourOptionsImg,
   alt: "Know your options app homepage",
-}
+};
 
 const thisWebsite: ProjectType = {
   name: "This Website",
@@ -43,7 +43,7 @@ const thisWebsite: ProjectType = {
   start: "November 2021",
   image: websiteImg,
   alt: "Website icon",
-}
+};
 
 const advent: ProjectType = {
   name: "Advent of Code",
@@ -57,7 +57,7 @@ const advent: ProjectType = {
   end: "December 2021",
   image: adventImg,
   alt: "Advent star",
-}
+};
 
 const imageEditor: ProjectType = {
   name: "Image Editor",
@@ -69,7 +69,7 @@ const imageEditor: ProjectType = {
   end: "June 2021",
   image: imageEditorImg,
   alt: "Picture of image editor in use",
-}
+};
 
 const projects: Array<ProjectType> = [
   edLaw,

@@ -1,7 +1,7 @@
-import React, { ReactElement, useState } from 'react';
-import styled from 'styled-components';
-import tabs from './tabs';
-import COLORS from './assets/colors'
+import React, { ReactElement, useState } from "react";
+import styled from "styled-components";
+import tabs from "./tabs";
+import COLORS from "./assets/colors";
 
 const HomeContainer = styled.div`
   align-items: center;
@@ -41,11 +41,7 @@ const TopRow = styled.div`
   z-index: 1;
 `;
 
-const tabTitles = [
-  "About Me",
-  "Projects"
-];
-
+const tabTitles = ["About Me", "Projects"];
 
 const App = (): ReactElement => {
   const [tabIndex, setTabIndex]: [number, Function] = useState<number>(0);
@@ -57,19 +53,21 @@ const App = (): ReactElement => {
             <TabTitle
               onClick={() => setTabIndex(index)}
               key={tab}
-              style={index === tabIndex ? {
-                opacity: "100%",
-                textDecoration: "underline",
-              } : {}}
+              style={
+                index === tabIndex
+                  ? {
+                      opacity: "100%",
+                      textDecoration: "underline",
+                    }
+                  : {}
+              }
             >
               {tab}
             </TabTitle>
           );
         })}
       </TopRow>
-      <HomeContainer>
-        {tabs[tabIndex]}
-      </HomeContainer>
+      <HomeContainer>{tabs[tabIndex]}</HomeContainer>
     </>
   );
 };
