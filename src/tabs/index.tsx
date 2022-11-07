@@ -1,11 +1,7 @@
 import AboutMe from "./AboutMe";
-import Games from "./Games";
+import Experience from "./Experience";
 import Projects from "./Projects";
 
-const tabs = [
-  <AboutMe />,
-  <Projects />,
-  <Games />,
-]
+const tabs = [<AboutMe />, <Experience />, <Projects />];
 
 export default tabs;

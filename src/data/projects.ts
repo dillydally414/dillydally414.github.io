@@ -1,37 +1,72 @@
 import { ProjectType } from "../types";
-import adventImg from './advent.jpg';
-import edlawImg from './edlaw.png';
-import imageEditorImg from './image-editor.png';
-import knowYourOptionsImg from './know-your-options.png';
-import websiteImg from './website-icon.svg';
+import adventImg from "../assets/advent.jpg";
+import edlawImg from "../assets/edlaw.png";
+import imageEditorImg from "../assets/image-editor.png";
+import knowYourOptionsImg from "../assets/know-your-options.png";
+import websiteImg from "../assets/website-icon.svg";
+import carpoolImg from "../assets/carpool.png";
+import monkeybreadImg from "../assets/monkeybread.png";
+
+const monkeybread: ProjectType = {
+  name: "Monkeybread",
+  description: `Monkeybread is a Python package I developed while at Immunitas Therapeutics.
+  The package provides tools for analyzing single-cell spatial transcriptomics, a relatively modern
+  area of interest. At the company, the tool is used to investigate target genes for cancer drugs.`,
+  techUsed: "Python, Numpy, Pandas, Matplotlib",
+  githubLink: "https://github.com/immunitastx/monkeybread",
+  visualLink: "https://monkeybread.readthedocs.io/",
+  start: "July 2022",
+  image: monkeybreadImg,
+  alt: "Monkeybread logo",
+  type: "PROJECT",
+};
+
+const nuCarpool: ProjectType = {
+  name: "NUCarpool",
+  description: `NUCarpool is the app I'm currently working on with Sandbox at Northeastern.
+  This app provides an interface for students going on co-op to find other students to carpool with,
+  particularly co-ops outside of the city. As a developer, I'm working on features including recommendations
+  and onboarding flow.`,
+  techUsed: "React, Typescript, Next.js, MySQL, Mapbox, Jest, CSS",
+  githubLink: "https://github.com/sandboxnu/nucarpool",
+  visualLink: "https://nucarpool-46y7.vercel.app/",
+  start: "September 2022",
+  image: carpoolImg,
+  alt: "Carpool logo",
+  type: "PROJECT",
+};
 
 const edLaw: ProjectType = {
   name: "EdLaw",
-  description: `EdLaw is the project I am currently working on with Sandbox at Northeastern.
+  description: `EdLaw is the project I led with Sandbox at Northeastern.
   This project enables students and parents in the state of Massachusetts to report violations of educational
   rights to the appropriate government offices. As project lead, I coordinated team members to implement 
   new features, reviewed PRs, and communicated expectations and progress with the client. `,
-  techUsed: "React, Typescript, Next.js, CSS",
+  techUsed: "React, Typescript, Next.js, MongoDB, CSS",
   githubLink: "https://github.com/sandboxnu/edulaw",
   visualLink: "https://edulaw.vercel.app/",
   start: "January 2022",
+  end: "September 2022",
   image: edlawImg,
   alt: "EdLaw app homepage",
-}
+  type: "PROJECT",
+};
 
 const knowYourOptions: ProjectType = {
   name: "Know Your Options",
   description: `Know Your Options is the first project I worked on with Sandbox at Northeastern. 
   The project aims to make contraceptive information more accessible to the general public, and provided 
   research information to a professor at Northeastern. I worked as a full stack developer on this project, 
-  and this was my introduction to all things React.`,
+  and this was my introduction to all things React. Unfortunately, the project was dropped by the client in
+  spring 2022 due to external circumstances`,
   techUsed: "React, Typescript, styled-components, Next.js, PostgreSQL",
   githubLink: "https://github.com/sandboxnu/knowyouroptions",
   start: "September 2021",
   end: "December 2021",
   image: knowYourOptionsImg,
   alt: "Know your options app homepage",
-}
+  type: "PROJECT",
+};
 
 const thisWebsite: ProjectType = {
   name: "This Website",
@@ -43,7 +78,8 @@ const thisWebsite: ProjectType = {
   start: "November 2021",
   image: websiteImg,
   alt: "Website icon",
-}
+  type: "PROJECT",
+};
 
 const advent: ProjectType = {
   name: "Advent of Code",
@@ -57,7 +93,8 @@ const advent: ProjectType = {
   end: "December 2021",
   image: adventImg,
   alt: "Advent star",
-}
+  type: "PROJECT",
+};
 
 const imageEditor: ProjectType = {
   name: "Image Editor",
@@ -69,9 +106,12 @@ const imageEditor: ProjectType = {
   end: "June 2021",
   image: imageEditorImg,
   alt: "Picture of image editor in use",
-}
+  type: "PROJECT",
+};
 
 const projects: Array<ProjectType> = [
+  monkeybread,
+  nuCarpool,
   edLaw,
   knowYourOptions,
   thisWebsite,

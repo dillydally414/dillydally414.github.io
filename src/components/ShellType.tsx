@@ -1,60 +1,88 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
+import COLORS from "../styles/colors";
 
+type ShellTypeProps = {
+  text: string;
+  className?: string;
+};
 
-const StyledH2 = styled.h2`
+const StyledH2 = styled.h2<ShellTypeProps & { animate: boolean }>`
+  color: ${COLORS.accent};
+
   ::after {
-    animation: ${props => props.color ? (
-    animation(props.color)
-  ) : (
-    'none'
-  )} 3s ease-in-out ${props => props.id ? props.id : "0s"};
+    animation: ${(props) => (props.animate ? animation(props.text) : "none")} ${props => (props.text.length + (props.text.length % 2 === 0 ? 1 : 0.5)) / 5}s
+      ease-in-out ${(props) => (props.id ? props.id : "0s")};
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    content: ${props => props.color ? (
-    "'" + ' '.repeat(props.color.length + 1) + "'"
-  ) : (
-    "'error'"
-  )};
+    content: ${(props) => "'" + " ".repeat(props.text.length + 1) + "'"};
     white-space: pre;
   }
 `;
 
 const animation = (text: string): Keyframes => {
   var animationStr = "";
-  const frameRate = (100 / (text.length + (text.length % 2 === 0 ? 1 : 0.5)));
+  const frameRate = 100 / (text.length + (text.length % 2 === 0 ? 1 : 0.5));
   for (let i = 0; i <= text.length; i++) {
-    if (i % 2 === 0) {
+    if (i % 6 <= 2) {
       animationStr += `
-      ${(frameRate * i).toFixed(2)}% {content: '${text.substring(0, i) + ' '.repeat(text.length - i + 1)}'}`;
-      animationStr += `
-      ${(frameRate * i + frameRate / 2).toFixed(2)}% {content: '${text.substring(0, i)}_${i < text.length ? ' '.repeat(text.length - i) : ''}'}`;
+      ${(frameRate * i).toFixed(2)}% {content: '${text.substring(0, i)}_${
+        i < text.length ? " ".repeat(text.length - i) : ""
+      }'}`;
     } else {
       animationStr += `
-      ${(frameRate * i).toFixed(2)}% {content: '${text.substring(0, i)}_${i < text.length ? ' '.repeat(text.length - i) : ''}'}`;
-      animationStr += `
-      ${(frameRate * i + frameRate / 2).toFixed(2)}% {content: '${text.substring(0, i) + ' '.repeat(text.length - i + 1)}'}`;
+      ${(frameRate * i).toFixed(2)}% {content: '${
+        text.substring(0, i) + " ".repeat(text.length - i + 1)
+      }'}`;
     }
   }
-  if (text.length % 2 === 0) animationStr += `
-  100% {content: '${text + ' '}'}`;
+  animationStr += `
+  100% {content: '${text + " "}'}`;
   return keyframes`${animationStr}`;
-}
+};
 
-const ShellType = ({
-  delay,
-  text,
-  className = "",
-}: {
-  delay: string,
-  text: string,
-  className?: string,
-}): ReactElement => {
+const ShellType = ({ text, className = "" }: ShellTypeProps): ReactElement => {
+  const ref: any = useRef<HTMLHeadingElement>();
+  const onScreen = useOnScreen(ref, "-100px");
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (onScreen) setAnimate(true);
+  }, [onScreen]);
+
   return (
-    <StyledH2 className={className} color={text} id={delay}>
+    <StyledH2 className={className} text={text} animate={animate} ref={ref}>
       &gt;&nbsp;
     </StyledH2>
   );
+};
+
+// https://usehooks.com/useOnScreen/
+function useOnScreen<T extends Element>(
+  ref: React.MutableRefObject<T>,
+  rootMargin: string = "0px"
+): boolean {
+  // State and setter for storing whether element is visible
+  const [isIntersecting, setIntersecting] = useState<boolean>(false);
+  useEffect(() => {
+    const current = ref.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Update our state when observer callback fires
+        setIntersecting(entry.isIntersecting);
+      },
+      {
+        rootMargin,
+      }
+    );
+    if (current) {
+      observer.observe(current);
+    }
+    return () => {
+      observer.unobserve(current);
+    };
+  }, []); // Empty array ensures that effect is only run on mount and unmount
+  return isIntersecting;
 }
 
 export default ShellType;

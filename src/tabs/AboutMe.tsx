@@ -1,115 +1,38 @@
-import React, { ReactElement } from 'react';
-import styled from 'styled-components';
-import { ReactComponent as MailIcon } from '../assets/mail.svg';
-import { ReactComponent as LinkedinIcon } from '../assets/linkedin.svg';
-import { ReactComponent as GithubIcon } from '../assets/github.svg';
-import ScottJpg from '../assets/scott.jpg';
-import ShellType from '../components/ShellType';
-
-export const Link = styled.a`
-  align-items: center;
-  align-self: center;
-  color: inherit;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-self: center;
-  margin: 0.5rem 0;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  transition-duration: 0.5s;
-  width: 100%;
-
-  :hover {
-    text-decoration-color: black;
-
-    svg {
-      opacity: 100%;
-    }
-  }
-
-  svg {
-    align-self: flex-start;
-    margin-right: 0.75rem;
-    opacity: 50%;
-    transition-duration: 0.5s;
-  }
-`;
-
-const LinkColumns = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const LinkText = styled.p`
-  align-self: center;
-  font-family: Montserrat;
-  justify-self: flex-start;
-  margin: 0;
-`;
-
-const NameHeader = styled.h1`
-  font-family: Outfit;
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-`;
-
-const Resume = styled.iframe`
-  border-color: transparent;
-  margin: 1rem 0;
-`;
-
-const SandboxLink = styled(Link)`
-  display: inline;
-  margin: 0;
-`
-
-const SelfImage = styled.img`
-  border-radius: 50%;
-  box-shadow: 0.2rem 0.2rem 1rem gray;
-  height: auto;
-  margin-left: 3rem;
-  max-width: 15%;
-`;
-
-const StyledShellType = styled(ShellType)`
-  align-self: center;
-  font-family: Roboto Mono;
-  margin: 1rem;
-`;
-
-const WhoIAm = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 80%;
-`;
-
-const WhoIAmText = styled.p`
-  align-self: center;
-  font-family: Montserrat;
-  max-width: 50%;
-  text-align: justify;
-`;
+import React, { ReactElement } from "react";
+import { ReactComponent as MailIcon } from "../assets/mail.svg";
+import { ReactComponent as LinkedinIcon } from "../assets/linkedin.svg";
+import { ReactComponent as GithubIcon } from "../assets/github.svg";
+import ScottJpg from "../assets/scott.jpg";
+import Fade from "react-reveal/Fade";
+import {
+  NameHeader,
+  StyledShellType,
+  WhoIAm,
+  WhoIAmText,
+  SandboxLink,
+  SelfImage,
+  LinkColumns,
+  Link,
+  LinkText,
+  Resume,
+  FadeDiv,
+} from "../styles";
 
 const contactInfo = [
   {
-    link: 'mailto:dilloncscott1@gmail.com',
+    link: "mailto:dilloncscott1@gmail.com",
     icon: <MailIcon />,
-    text: 'dilloncscott1@gmail.com',
+    text: "dilloncscott1@gmail.com",
   },
   {
-    link: 'https://linkedin.com/in/dillon-scott',
+    link: "https://linkedin.com/in/dillon-scott",
     icon: <LinkedinIcon />,
-    text: 'linkedin.com/in/dillon-scott',
+    text: "linkedin.com/in/dillon-scott",
   },
   {
-    link: 'https://github.com/dillydally414',
+    link: "https://github.com/dillydally414",
     icon: <GithubIcon />,
-    text: 'github.com/dillydally414',
+    text: "github.com/dillydally414",
   },
 ];
 
@@ -117,41 +40,82 @@ const AboutMe = (): ReactElement => {
   return (
     <>
       <NameHeader>Dillon Scott</NameHeader>
-      <StyledShellType text="Who I Am" delay="1s" />
-      <WhoIAm>
-        <WhoIAmText>
-          I am a second year Computer Science and Biology student at Northeastern University. As a project lead on EduLaw at&nbsp;
-          <SandboxLink href="https://sandboxnu.com" target="_blank">
-            Sandbox at Northeastern
-          </SandboxLink>
-          , I have leadership experience as well as technical experience working with React, Typescript, and other related libraries.
-          I also work as a Teaching Assistant for Accelerated Fundamentals of Computer Science 2, which focuses primarily on Java
-          and object-oriented programming.
-          <br />
-          <br />
-          <b>I am currently looking for co-op/internship opportunities for July - December 2022.</b>
-        </WhoIAmText>
-        <SelfImage src={ScottJpg} alt="A picture of me!" width="15%" />
-      </WhoIAm>
-      <StyledShellType text="Contact" delay="4s" />
-      <LinkColumns>
-        {contactInfo.map((value) => {
-          return (
-            <Link href={value.link} target="_blank" key={value.text}>
-              {value.icon}
-              <LinkText>{value.text}</LinkText>
-            </Link>
-          );
-        })}
-      </LinkColumns>
-      <StyledShellType text="Resume" delay="7s" />
-      <Resume
-        src={process.env.NODE_ENV === 'development' ? 'http://localhost:3000/resume.pdf' : 'https://dillydally414.github.io/resume.pdf'}
-        width='650rem'
-        height='900rem'
-        title='Dillon Scott Resume'
-        allowFullScreen={true}
-      />
+      <StyledShellType text="Who I Am" />
+      <Fade left>
+        <FadeDiv>
+          <WhoIAm>
+            <WhoIAmText>
+              &emsp;On the personal side: I'm from Allentown, PA, and have a mini
+              labradoodle (I can provide pictures) and an older brother. I love
+              talking about pop culture, music, and current events. My guilty pleasure
+              of choice is&nbsp;
+              <SandboxLink href="https://gongchausa.com/massachusetts-northeastern-university/" target="_blank">
+                bubble tea
+              </SandboxLink>
+              , and I actually dressed up as boba for Halloween 2022!
+              <br />
+              <br />
+              &emsp;On the technical side: I am a third year Computer Science and Biology student at
+              Northeastern University. From July - December 2022, I worked on
+              the Computational Biology team at&nbsp;
+              <SandboxLink href="https://www.immunitastx.com/" target="_blank">
+                Immunitas Therapeutics
+              </SandboxLink>
+              , learning both technical skills in Python/Jupyter Notebooks as
+              well as furthering my communication skills through presentations.
+              As a project lead on EdLaw at&nbsp;
+              <SandboxLink href="https://sandboxnu.com" target="_blank">
+                Sandbox at Northeastern
+              </SandboxLink>
+              , I have leadership experience as well as technical experience
+              working with React, Typescript, and other related libraries. I
+              also worked as a Teaching Assistant for Accelerated Fundamentals
+              of Computer Science 2, which focuses primarily on Java and
+              object-oriented programming, and Algorithms and Data, which
+              attacks programming from a more theoretical perspective. Click 
+              around to learn more about my experiences and projects!
+              <br />
+              <br />
+              <b>
+                I am currently looking for co-op/internship opportunities for
+                May - December 2023.
+              </b>
+            </WhoIAmText>
+            <SelfImage src={ScottJpg} alt="A picture of me!" width="15%" />
+          </WhoIAm>
+        </FadeDiv>
+      </Fade>
+      <StyledShellType text="Contact" />
+      <Fade right>
+        <FadeDiv>
+          <LinkColumns>
+            {contactInfo.map((value) => {
+              return (
+                <Link href={value.link} target="_blank" key={value.text}>
+                  {value.icon}
+                  <LinkText>{value.text}</LinkText>
+                </Link>
+              );
+            })}
+          </LinkColumns>
+        </FadeDiv>
+      </Fade>
+      <StyledShellType text="Resume" />
+      <Fade left>
+        <FadeDiv>
+          <Resume
+            src={
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000/resume.pdf"
+                : "https://dillydally414.github.io/resume.pdf"
+            }
+            width="650rem"
+            height="900rem"
+            title="Dillon Scott Resume"
+            allowFullScreen={true}
+          />
+        </FadeDiv>
+      </Fade>
     </>
   );
 };

@@ -1,13 +1,12 @@
-import React, { ReactElement, useState } from 'react';
-import styled from 'styled-components';
-import tabs from './tabs';
-
-const cream = "#FFFDD0";
-const lightBlue = "#6bbff175";
+import React, { ReactElement, useState } from "react";
+import styled from "styled-components";
+import tabs from "./tabs";
+import COLORS from "./styles/colors";
 
 const HomeContainer = styled.div`
   align-items: center;
-  background-color: ${lightBlue};
+  background-color: ${COLORS.background1};
+  color: ${COLORS.text1};
   display: flex;
   flex-direction: column;
   min-height: 95vh;
@@ -16,6 +15,7 @@ const HomeContainer = styled.div`
 
 const TabTitle = styled.h2`
   align-self: center;
+  color: ${COLORS.text2};
   cursor: pointer;
   display: flex;
   font-family: Outfit;
@@ -31,7 +31,7 @@ const TabTitle = styled.h2`
 
 const TopRow = styled.div`
   align-items: center;
-  background-color: ${cream};
+  background-color: ${COLORS.background2};
   box-shadow: 0 -0.5rem 1rem 0.25rem black;
   display: flex;
   flex-direction: row;
@@ -41,12 +41,7 @@ const TopRow = styled.div`
   z-index: 1;
 `;
 
-const tabTitles = [
-  "About Me",
-  "Projects",
-  "Games",
-];
-
+const tabTitles = ["About Me", "Experience", "Projects"];
 
 const App = (): ReactElement => {
   const [tabIndex, setTabIndex]: [number, Function] = useState<number>(0);
@@ -58,19 +53,21 @@ const App = (): ReactElement => {
             <TabTitle
               onClick={() => setTabIndex(index)}
               key={tab}
-              style={index === tabIndex ? {
-                opacity: "100%",
-                textDecoration: "underline",
-              } : {}}
+              style={
+                index === tabIndex
+                  ? {
+                      opacity: "100%",
+                      textDecoration: "underline",
+                    }
+                  : {}
+              }
             >
               {tab}
             </TabTitle>
           );
         })}
       </TopRow>
-      <HomeContainer>
-        {tabs[tabIndex]}
-      </HomeContainer>
+      <HomeContainer>{tabs[tabIndex]}</HomeContainer>
     </>
   );
 };
