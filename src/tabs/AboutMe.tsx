@@ -45,7 +45,7 @@ const AboutMe = (): ReactElement => {
         <FadeDiv>
           <WhoIAm>
             <WhoIAmText>
-              I am a third year Computer Science and Biology student at
+              &emsp;I am a third year Computer Science and Biology student at
               Northeastern University. From July - December 2022, I worked on
               the Computational Biology team at&nbsp;
               <SandboxLink href="https://www.immunitastx.com/" target="_blank">

@@ -10,7 +10,8 @@ const Experience = (): ReactElement => {
         return (
           <Project
             info={experience}
-            index={index}
+            divider={index !== 0}
+            side={index % 2 === 0 ? "left" : "right"}
             key={experience.placeOfWork}
           />
         );

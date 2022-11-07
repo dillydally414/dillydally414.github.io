@@ -11,7 +11,7 @@ const StyledH2 = styled.h2<ShellTypeProps & { animate: boolean }>`
   color: ${COLORS.accent};
 
   ::after {
-    animation: ${(props) => (props.animate ? animation(props.text) : "none")} 3s
+    animation: ${(props) => (props.animate ? animation(props.text) : "none")} ${props => (props.text.length + (props.text.length % 2 === 0 ? 1 : 0.5)) / 5}s
       ease-in-out ${(props) => (props.id ? props.id : "0s")};
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -24,30 +24,19 @@ const animation = (text: string): Keyframes => {
   var animationStr = "";
   const frameRate = 100 / (text.length + (text.length % 2 === 0 ? 1 : 0.5));
   for (let i = 0; i <= text.length; i++) {
-    if (i % 2 === 0) {
-      animationStr += `
-      ${(frameRate * i).toFixed(2)}% {content: '${
-        text.substring(0, i) + " ".repeat(text.length - i + 1)
-      }'}`;
-      animationStr += `
-      ${(frameRate * i + frameRate / 2).toFixed(
-        2
-      )}% {content: '${text.substring(0, i)}_${
-        i < text.length ? " ".repeat(text.length - i) : ""
-      }'}`;
-    } else {
+    if (i % 6 <= 2) {
       animationStr += `
       ${(frameRate * i).toFixed(2)}% {content: '${text.substring(0, i)}_${
         i < text.length ? " ".repeat(text.length - i) : ""
       }'}`;
+    } else {
       animationStr += `
-      ${(frameRate * i + frameRate / 2).toFixed(2)}% {content: '${
+      ${(frameRate * i).toFixed(2)}% {content: '${
         text.substring(0, i) + " ".repeat(text.length - i + 1)
       }'}`;
     }
   }
-  if (text.length % 2 === 0)
-    animationStr += `
+  animationStr += `
   100% {content: '${text + " "}'}`;
   return keyframes`${animationStr}`;
 };

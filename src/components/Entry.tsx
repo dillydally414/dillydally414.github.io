@@ -23,22 +23,23 @@ const formatTime = ({ start, end }: { start: string; end?: string }) => {
 
 const Entry = ({
   info,
-  index,
+  divider,
+  side
 }: {
   info: EntryType;
-  index: number;
+  divider: boolean;
+  side: "left" | "right"
 }): ReactElement => {
   return (
     <>
-      {index !== 0 && <HorizontalLine />}
+      {divider && <HorizontalLine />}
       <ProjectDiv>
         <Fade
-          left={info.type === "EXPERIENCE"}
-          right={info.type === "PROJECT"}
-          mirror={index % 2 === 0}
+          left
+          mirror={side === "left"}
         >
           <FadeDiv
-            style={{ flexDirection: index % 2 === 0 ? "row" : "row-reverse" }}
+            style={{ flexDirection: side === "left" ? "row" : "row-reverse" }}
           >
             <ProjectDetails>
               <ProjectName
@@ -47,23 +48,23 @@ const Entry = ({
               {info.type === "PROJECT" ? (
                 <>
                   <ProjectTimeframe>{formatTime(info)}</ProjectTimeframe>
-                  <ProjectDesc>{info.description}</ProjectDesc>
+                  <ProjectDesc>&emsp;{info.description}</ProjectDesc>
                 </>
               ) : (
                 info.positions.map((position) => (
                   <>
                     <ProjectTimeframe>
-                      {position.title},&nbsp;
+                      {position.title}&nbsp;&bull;&nbsp;
                       {formatTime(position)}
                     </ProjectTimeframe>
-                    <ProjectDesc>{position.description}</ProjectDesc>
+                    <ProjectDesc>&emsp;{position.description}</ProjectDesc>
                   </>
                 ))
               )}
-              <ProjectDesc>
+              <ProjectDesc style={{"textAlign": "center"}}>
                 {info.type === "PROJECT"
-                  ? `Tech Used: ${info.techUsed}`
-                  : `Relevant Tech: ${info.relevantTech}`}
+                  ? info.techUsed
+                  : info.relevantTech}
               </ProjectDesc>
               {info.type === "PROJECT" && (
                 <ProjectLinks>
