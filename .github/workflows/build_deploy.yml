@@ -22,6 +22,8 @@ jobs:
       - run: yarn install
       - run: yarn build
       - uses: actions/upload-pages-artifact@v1
+        with:
+          path: build
 
 
   # Deploy job
