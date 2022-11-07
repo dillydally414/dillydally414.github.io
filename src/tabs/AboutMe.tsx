@@ -45,7 +45,17 @@ const AboutMe = (): ReactElement => {
         <FadeDiv>
           <WhoIAm>
             <WhoIAmText>
-              &emsp;I am a third year Computer Science and Biology student at
+              &emsp;On the personal side: I'm from Allentown, PA, and have a mini
+              labradoodle (I can provide pictures) and an older brother. I love
+              talking about pop culture, music, and current events. My guilty pleasure
+              of choice is&nbsp;
+              <SandboxLink href="https://gongchausa.com/massachusetts-northeastern-university/" target="_blank">
+                bubble tea
+              </SandboxLink>
+              , and I actually dressed up as boba for Halloween 2022!
+              <br />
+              <br />
+              &emsp;On the technical side: I am a third year Computer Science and Biology student at
               Northeastern University. From July - December 2022, I worked on
               the Computational Biology team at&nbsp;
               <SandboxLink href="https://www.immunitastx.com/" target="_blank">
@@ -62,7 +72,8 @@ const AboutMe = (): ReactElement => {
               also worked as a Teaching Assistant for Accelerated Fundamentals
               of Computer Science 2, which focuses primarily on Java and
               object-oriented programming, and Algorithms and Data, which
-              attacks programming from a more theoretical perspective.
+              attacks programming from a more theoretical perspective. Click 
+              around to learn more about my experiences and projects!
               <br />
               <br />
               <b>
