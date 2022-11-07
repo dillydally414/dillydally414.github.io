@@ -1,13 +1,19 @@
 import React, { ReactElement } from "react";
 import experience from "../data/experience";
-import Project from "../components/Project";
-import { ProjectType } from "../types";
+import Project from "../components/Entry";
+import { ExperienceType } from "../types";
 
 const Experience = (): ReactElement => {
   return (
     <>
-      {experience.map((experience: ProjectType, index: number) => {
-        return <Project info={experience} index={index} key={experience.name} />;
+      {experience.map((experience: ExperienceType, index: number) => {
+        return (
+          <Project
+            info={experience}
+            index={index}
+            key={experience.placeOfWork}
+          />
+        );
       })}
     </>
   );

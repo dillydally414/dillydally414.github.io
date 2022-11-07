@@ -5,19 +5,20 @@ import imageEditorImg from "../assets/image-editor.png";
 import knowYourOptionsImg from "../assets/know-your-options.png";
 import websiteImg from "../assets/website-icon.svg";
 import carpoolImg from "../assets/carpool.png";
-import monkeybreadImg from "../assets/monkeybread.png"
+import monkeybreadImg from "../assets/monkeybread.png";
 
 const monkeybread: ProjectType = {
   name: "Monkeybread",
   description: `Monkeybread is a Python package I developed while at Immunitas Therapeutics.
   The package provides tools for analyzing single-cell spatial transcriptomics, a relatively modern
   area of interest. At the company, the tool is used to investigate target genes for cancer drugs.`,
-  techUsed: "Python, Numpy, Pandas, Matplotlib, Jupyter Notebooks, Google Cloud",
+  techUsed: "Python, Numpy, Pandas, Matplotlib",
   githubLink: "https://github.com/immunitastx/monkeybread",
   visualLink: "https://monkeybread.readthedocs.io/",
   start: "July 2022",
   image: monkeybreadImg,
-  alt: "Monkeybread logo"
+  alt: "Monkeybread logo",
+  type: "PROJECT",
 };
 
 const nuCarpool: ProjectType = {
@@ -31,7 +32,8 @@ const nuCarpool: ProjectType = {
   visualLink: "https://nucarpool-46y7.vercel.app/",
   start: "September 2022",
   image: carpoolImg,
-  alt: "Carpool logo"
+  alt: "Carpool logo",
+  type: "PROJECT",
 };
 
 const edLaw: ProjectType = {
@@ -47,6 +49,7 @@ const edLaw: ProjectType = {
   end: "September 2022",
   image: edlawImg,
   alt: "EdLaw app homepage",
+  type: "PROJECT",
 };
 
 const knowYourOptions: ProjectType = {
@@ -62,6 +65,7 @@ const knowYourOptions: ProjectType = {
   end: "December 2021",
   image: knowYourOptionsImg,
   alt: "Know your options app homepage",
+  type: "PROJECT",
 };
 
 const thisWebsite: ProjectType = {
@@ -74,6 +78,7 @@ const thisWebsite: ProjectType = {
   start: "November 2021",
   image: websiteImg,
   alt: "Website icon",
+  type: "PROJECT",
 };
 
 const advent: ProjectType = {
@@ -88,6 +93,7 @@ const advent: ProjectType = {
   end: "December 2021",
   image: adventImg,
   alt: "Advent star",
+  type: "PROJECT",
 };
 
 const imageEditor: ProjectType = {
@@ -100,6 +106,7 @@ const imageEditor: ProjectType = {
   end: "June 2021",
   image: imageEditorImg,
   alt: "Picture of image editor in use",
+  type: "PROJECT",
 };
 
 const projects: Array<ProjectType> = [

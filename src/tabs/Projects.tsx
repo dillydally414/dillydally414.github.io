@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import projects from "../data/projects";
-import Project from "../components/Project";
+import Project from "../components/Entry";
 import { ProjectType } from "../types";
 
 const Projects = (): ReactElement => {

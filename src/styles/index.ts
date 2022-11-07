@@ -1,7 +1,6 @@
-
-import styled from 'styled-components';
-import COLORS from './colors';
-import ShellType from '../components/ShellType'
+import styled from "styled-components";
+import COLORS from "./colors";
+import ShellType from "../components/ShellType";
 
 export const Link = styled.a`
   align-items: center;
@@ -165,11 +164,11 @@ export const ProjectName = styled(ShellType)`
   align-self: center;
   font-family: Roboto Mono;
   margin: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0rem;
 `;
 
 export const ProjectTimeframe = styled.p`
   cursor: default;
   font-family: Montserrat;
-  margin: 0;
+  margin: 1rem 0 0;
 `;

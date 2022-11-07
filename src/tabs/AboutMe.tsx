@@ -4,7 +4,19 @@ import { ReactComponent as LinkedinIcon } from "../assets/linkedin.svg";
 import { ReactComponent as GithubIcon } from "../assets/github.svg";
 import ScottJpg from "../assets/scott.jpg";
 import Fade from "react-reveal/Fade";
-import { NameHeader, StyledShellType, WhoIAm, WhoIAmText, SandboxLink, SelfImage, LinkColumns, Link, LinkText, Resume, FadeDiv } from "../styles";
+import {
+  NameHeader,
+  StyledShellType,
+  WhoIAm,
+  WhoIAmText,
+  SandboxLink,
+  SelfImage,
+  LinkColumns,
+  Link,
+  LinkText,
+  Resume,
+  FadeDiv,
+} from "../styles";
 
 const contactInfo = [
   {
