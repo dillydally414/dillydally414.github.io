@@ -24,20 +24,17 @@ const formatTime = ({ start, end }: { start: string; end?: string }) => {
 const Entry = ({
   info,
   divider,
-  side
+  side,
 }: {
   info: EntryType;
   divider: boolean;
-  side: "left" | "right"
+  side: "left" | "right";
 }): ReactElement => {
   return (
     <>
       {divider && <HorizontalLine />}
       <ProjectDiv>
-        <Fade
-          left
-          mirror={side === "left"}
-        >
+        <Fade left mirror={side === "left"}>
           <FadeDiv
             style={{ flexDirection: side === "left" ? "row" : "row-reverse" }}
           >
@@ -61,10 +58,8 @@ const Entry = ({
                   </>
                 ))
               )}
-              <ProjectDesc style={{"textAlign": "center"}}>
-                {info.type === "PROJECT"
-                  ? info.techUsed
-                  : info.relevantTech}
+              <ProjectDesc style={{ textAlign: "center" }}>
+                {info.type === "PROJECT" ? info.techUsed : info.relevantTech}
               </ProjectDesc>
               {info.type === "PROJECT" && (
                 <ProjectLinks>

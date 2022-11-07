@@ -11,7 +11,9 @@ const StyledH2 = styled.h2<ShellTypeProps & { animate: boolean }>`
   color: ${COLORS.accent};
 
   ::after {
-    animation: ${(props) => (props.animate ? animation(props.text) : "none")} ${props => (props.text.length + (props.text.length % 2 === 0 ? 1 : 0.5)) / 5}s
+    animation: ${(props) => (props.animate ? animation(props.text) : "none")}
+      ${(props) =>
+        (props.text.length + (props.text.length % 2 === 0 ? 1 : 0.5)) / 5}s
       ease-in-out ${(props) => (props.id ? props.id : "0s")};
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -81,6 +83,7 @@ function useOnScreen<T extends Element>(
     return () => {
       observer.unobserve(current);
     };
+    // eslint-disable-next-line
   }, []); // Empty array ensures that effect is only run on mount and unmount
   return isIntersecting;
 }

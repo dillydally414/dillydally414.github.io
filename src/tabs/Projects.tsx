@@ -8,13 +8,13 @@ const Projects = (): ReactElement => {
     <>
       {projects.map((project: ProjectType, index: number) => {
         return (
-        <Project 
-            info={project} 
-            divider={index !== 0} 
-            side={index % 2 === 1 ? "left" : "right"} 
-            key={project.name} 
+          <Project
+            info={project}
+            divider={index !== 0}
+            side={index % 2 === 1 ? "left" : "right"}
+            key={project.name}
           />
-        )
+        );
       })}
     </>
   );
