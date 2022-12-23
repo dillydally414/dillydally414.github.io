@@ -18,7 +18,7 @@ import {
 } from "../styles";
 
 const formatTime = ({ start, end }: { start: string; end?: string }) => {
-  return `${start}${end ? end !== start && " - " + end : " - Current"}`;
+  return `${start}${end ? (end !== start ? " - " + end : "") : " - Current"}`;
 };
 
 const Entry = ({
