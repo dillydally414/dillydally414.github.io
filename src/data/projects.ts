@@ -16,6 +16,7 @@ const monkeybread: ProjectType = {
   githubLink: "https://github.com/immunitastx/monkeybread",
   visualLink: "https://monkeybread.readthedocs.io/",
   start: "July 2022",
+  end: "December 2022",
   image: monkeybreadImg,
   alt: "Monkeybread logo",
   type: "PROJECT",
@@ -23,14 +24,15 @@ const monkeybread: ProjectType = {
 
 const nuCarpool: ProjectType = {
   name: "NUCarpool",
-  description: `NUCarpool is the app I'm currently working on with Sandbox at Northeastern.
+  description: `NUCarpool is the app I did development work on last semester with Sandbox at Northeastern.
   This app provides an interface for students going on co-op to find other students to carpool with,
-  particularly co-ops outside of the city. As a developer, I'm working on features including recommendations
+  particularly co-ops outside of the city. As a developer, I worked on features including recommendations
   and onboarding flow.`,
   techUsed: "React, Typescript, Next.js, MySQL, Mapbox, Jest, CSS",
   githubLink: "https://github.com/sandboxnu/nucarpool",
   visualLink: "https://nucarpool-46y7.vercel.app/",
   start: "September 2022",
+  end: "December 2022",
   image: carpoolImg,
   alt: "Carpool logo",
   type: "PROJECT",
@@ -55,10 +57,10 @@ const edLaw: ProjectType = {
 const knowYourOptions: ProjectType = {
   name: "Know Your Options",
   description: `Know Your Options is the first project I worked on with Sandbox at Northeastern. 
-  The project aims to make contraceptive information more accessible to the general public, and provided 
+  The project aimed to make contraceptive information more accessible to the general public, and provided 
   research information to a professor at Northeastern. I worked as a full stack developer on this project, 
   and this was my introduction to all things React. Unfortunately, the project was dropped by the client in
-  spring 2022 due to external circumstances`,
+  spring 2022 due to external circumstances, but was still a great learning experience.`,
   techUsed: "React, Typescript, styled-components, Next.js, PostgreSQL",
   githubLink: "https://github.com/sandboxnu/knowyouroptions",
   start: "September 2021",
@@ -81,7 +83,21 @@ const thisWebsite: ProjectType = {
   type: "PROJECT",
 };
 
-const advent: ProjectType = {
+const advent2022: ProjectType = {
+  name: "Advent of Code",
+  description: `Advent of Code is a yearly challenge where programmers all over the world compete to solve algorithmic puzzles
+  as quick as possible. This was the second year I participated in Advent, doing the
+  puzzles day by day as they were released. Keeping with tradition, I completed the challenges in a new language, this year being Rust.`,
+  techUsed: "Rust",
+  githubLink: "https://github.com/dillydally414/AoC-2022",
+  start: "December 2022",
+  end: "December 2022",
+  image: adventImg,
+  alt: "Advent star",
+  type: "PROJECT",
+};
+
+const advent2021: ProjectType = {
   name: "Advent of Code",
   description: `Advent of Code is a yearly challenge where programmers all over the world compete to solve algorithmic puzzles
   as quick as possible. Though I had worked on previous year's challenges asynchronously, this was the first year I actually did the
@@ -112,10 +128,11 @@ const imageEditor: ProjectType = {
 const projects: Array<ProjectType> = [
   monkeybread,
   nuCarpool,
+  advent2022,
   edLaw,
   knowYourOptions,
   thisWebsite,
-  advent,
+  advent2021,
   imageEditor,
 ];
 
