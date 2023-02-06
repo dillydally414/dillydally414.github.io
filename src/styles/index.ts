@@ -69,8 +69,7 @@ export const SelfImage = styled.img`
   border-radius: 50%;
   box-shadow: 0.2rem 0.2rem 1rem gray;
   height: auto;
-  margin-left: 3rem;
-  max-width: 15%;
+  max-width: 50%;
 `;
 
 export const StyledShellType = styled(ShellType)`
@@ -84,13 +83,11 @@ export const WhoIAm = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 80%;
 `;
 
 export const WhoIAmText = styled.p`
   align-self: center;
   font-family: Montserrat;
-  max-width: 50%;
   text-align: justify;
 `;
 
@@ -98,6 +95,22 @@ export const FadeDiv = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-around;
+  width: 90%;
+`;
+
+export const ResumeDiv = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+`;
+
+export const FadeColumn = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0;
 `;
 
 export const HorizontalLine = styled.div`
