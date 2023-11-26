@@ -1,12 +1,12 @@
 import React, { ReactElement, useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import tabs from "./tabs";
-import COLORS from "./styles/colors";
+import { darkTheme, lightTheme } from "./styles/theme";
 
 const HomeContainer = styled.div`
   align-items: center;
-  background-color: ${COLORS.background1};
-  color: ${COLORS.text1};
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
   display: flex;
   flex-direction: column;
   min-height: 95vh;
@@ -15,7 +15,7 @@ const HomeContainer = styled.div`
 
 const TabTitle = styled.h2`
   align-self: center;
-  color: ${COLORS.text2};
+  color: ${(props) => props.theme.text2};
   cursor: pointer;
   display: flex;
   font-family: Outfit;
@@ -31,7 +31,7 @@ const TabTitle = styled.h2`
 
 const TopRow = styled.div`
   align-items: center;
-  background-color: ${COLORS.background2};
+  background-color: ${(props) => props.theme.background};
   box-shadow: 0 -0.5rem 1rem 0.25rem black;
   display: flex;
   flex-direction: row;
@@ -45,8 +45,14 @@ const tabTitles = ["About Me", "Experience", "Projects"];
 
 const App = (): ReactElement => {
   const [tabIndex, setTabIndex]: [number, Function] = useState<number>(0);
+  const [theme, setTheme] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? darkTheme
+      : lightTheme
+  );
+  console.log(theme);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <TopRow>
         {tabTitles.map((tab: string, index: number) => {
           return (
@@ -68,7 +74,7 @@ const App = (): ReactElement => {
         })}
       </TopRow>
       <HomeContainer>{tabs[tabIndex]}</HomeContainer>
-    </>
+    </ThemeProvider>
   );
 };
 

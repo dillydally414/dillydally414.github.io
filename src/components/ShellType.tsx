@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
-import COLORS from "../styles/colors";
+import styled, { keyframes } from "styled-components";
 
 type ShellTypeProps = {
   text: string;
@@ -8,7 +7,7 @@ type ShellTypeProps = {
 };
 
 const StyledH2 = styled.h2<{ $text: string; $animate: boolean }>`
-  color: ${COLORS.accent};
+  color: ${(props) => props.theme.accent};
 
   &:after {
     animation: ${(props) => (props.$animate ? animation(props.$text) : "none")}

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import COLORS from "./colors";
 import ShellType from "../components/ShellType";
 
 export const Link = styled.a`
@@ -17,19 +16,20 @@ export const Link = styled.a`
   width: 100%;
 
   &:hover {
-    color: ${COLORS.accent};
-    text-decoration-color: ${COLORS.accent};
+    color: ${(props) => props.theme.accent};
+    text-decoration-color: ${(props) => props.theme.accent};
 
     svg {
-      fill: ${COLORS.accent};
+      fill: ${(props) => props.theme.accent};
       opacity: 100%;
     }
   }
 
   svg {
+    fill: ${(props) => props.theme.text};
     align-self: flex-start;
     margin-right: 0.75rem;
-    opacity: 50%;
+    opacity: 100%;
     transition-duration: 0.5s;
   }
 `;
@@ -60,7 +60,7 @@ export const Resume = styled.iframe`
 `;
 
 export const SandboxLink = styled(Link)`
-  color: ${COLORS.accent};
+  color: ${(props) => props.theme.accent};
   display: inline;
   margin: 0;
 `;
@@ -114,7 +114,7 @@ export const FadeColumn = styled.div`
 `;
 
 export const HorizontalLine = styled.div`
-  border-bottom: 0.1rem solid black;
+  border-bottom: 0.1rem solid ${(props) => props.theme.accent2};
   margin: 1rem 0;
   width: 20%;
 `;
