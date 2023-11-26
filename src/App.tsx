@@ -1,9 +1,14 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import tabs from "./tabs";
 import { darkTheme, lightTheme } from "./styles/theme";
+import {
+  SupabaseContext,
+  SupabaseContextType,
+  supabase,
+} from "./data/supabase";
 
-const HomeContainer = styled.div`
+const BodyContainer = styled.div`
   ${(props) => props.theme.defaultProps}
 
   align-items: center;
@@ -11,7 +16,7 @@ const HomeContainer = styled.div`
   color: ${(props) => props.theme.text};
   display: flex;
   flex-direction: column;
-  min-height: 95vh;
+  min-height: calc(92vh - 2rem);
   padding: 1rem min(5rem, 5%);
 `;
 
@@ -85,6 +90,7 @@ const TopRow = styled.div`
   box-shadow: 0 1rem 1rem 0.5rem ${(props) => props.theme.background};
   display: flex;
   flex-direction: row;
+  height: calc(8vh - 2rem);
   justify-content: space-between;
   padding: 1rem min(5rem, 5%);
   position: sticky;
@@ -131,6 +137,22 @@ const App = (): ReactElement => {
   const [darkThemeEnabled, setDarkThemeEnabled] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
+  const [supabaseData, setSupabaseData] = useState<SupabaseContextType>({
+    home: null,
+  });
+  useEffect(() => {
+    const load = async () => {
+      const homePromise = supabase
+        .from("home")
+        .select()
+        .order("created_at", { ascending: true });
+      const [homeData] = await Promise.all([homePromise]);
+      setSupabaseData({
+        home: homeData.data,
+      });
+    };
+    load();
+  }, []);
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <TopRow>
@@ -158,9 +180,11 @@ const App = (): ReactElement => {
           />
         </ThemeLabel>
       </TopRow>
-      <HomeContainer>
-        {tabs.find(({ title }) => title === selectedTab)?.element}
-      </HomeContainer>
+      <SupabaseContext.Provider value={supabaseData}>
+        <BodyContainer>
+          {tabs.find(({ title }) => title === selectedTab)?.element}
+        </BodyContainer>
+      </SupabaseContext.Provider>
     </ThemeProvider>
   );
 };

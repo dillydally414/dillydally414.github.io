@@ -1,12 +1,20 @@
 import styled from "styled-components";
 import ShellType from "../components/ShellType";
 
-export const Link = styled.a`
+export const SubHeader = styled.h2<{ $align: "center" | "flex-start" }>`
+  align-self: ${(props) => props.$align};
+  font-family: ${(props) => props.theme.titleFont};
+  font-size: 2.5rem;
+  margin: 1rem 0 0.5rem;
+`;
+
+export const Link = styled.a<{ $startWithHoverColor?: boolean }>`
   ${(props) => props.theme.defaultProps}
 
   align-items: center;
   align-self: center;
-  color: ${(props) => props.theme.text};
+  color: ${(props) =>
+    props.$startWithHoverColor ? props.theme.accent : props.theme.text2};
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -29,7 +37,8 @@ export const Link = styled.a`
   }
 
   svg {
-    fill: ${(props) => props.theme.text};
+    fill: ${(props) =>
+      props.$startWithHoverColor ? props.theme.accent : props.theme.text2};
     align-self: flex-start;
     margin-right: 0.75rem;
     opacity: 100%;
@@ -37,24 +46,11 @@ export const Link = styled.a`
   }
 `;
 
-export const LinkColumns = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const LinkText = styled.p`
   align-self: center;
   font-family: ${(props) => props.theme.bodyFont};
   justify-self: flex-start;
   margin: 0;
-`;
-
-export const NameHeader = styled.h1`
-  font-family: ${(props) => props.theme.titleFont};
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
 `;
 
 export const Resume = styled.iframe`
@@ -68,13 +64,6 @@ export const SandboxLink = styled(Link)`
   margin: 0;
 `;
 
-export const SelfImage = styled.img`
-  border-radius: 50%;
-  box-shadow: 0.2rem 0.2rem 1rem gray;
-  height: auto;
-  max-width: 50%;
-`;
-
 export const StyledShellType = styled(ShellType)`
   align-self: center;
   font-family: ${(props) => props.theme.titleFont};
@@ -86,12 +75,6 @@ export const WhoIAm = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-`;
-
-export const WhoIAmText = styled.p`
-  align-self: center;
-  font-family: ${(props) => props.theme.bodyFont};
-  text-align: justify;
 `;
 
 export const FadeDiv = styled.div`
@@ -109,7 +92,7 @@ export const ResumeDiv = styled.div`
 `;
 
 export const FadeColumn = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
