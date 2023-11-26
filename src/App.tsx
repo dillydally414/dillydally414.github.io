@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import tabs from "./tabs";
 import { darkTheme, lightTheme } from "./styles/theme";
-import Switch from "@mui/material/Switch";
 
 const HomeContainer = styled.div`
   ${(props) => props.theme.defaultProps}
@@ -13,10 +12,35 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 95vh;
-  padding: 0 5rem;
+  padding: 1rem min(5rem, 5%);
 `;
 
-const TabTitle = styled.button<{ $active: boolean }>`
+const TabTitleSpan = styled.span<{ $active: boolean }>`
+  ${(props) => props.theme.defaultProps}
+
+  align-self: center;
+  background-color: inherit;
+  border: inherit;
+  display: flex;
+  flex: auto;
+  flex-basis: content;
+
+  &:before {
+    align-self: center;
+    width: 1rem;
+    height: 1rem;
+    background-color: ${(props) => props.theme.accent};
+    content: "";
+    -webkit-mask: url(/star.svg) no-repeat 50% 50%;
+    mask: url(/star.svg) no-repeat 50% 50%;
+    -webkit-mask-size: ${(props) => (props.$active ? "100%" : "0%")};
+    mask-size: ${(props) => (props.$active ? "100%" : "0%")};
+    transition-property: background-color, -webkit-mask-size, mask-size;
+    ${(props) => props.theme.defaultProps}
+  }
+`;
+
+const TabTitle = styled.button<{ $active: boolean; $title: string }>`
   ${(props) => props.theme.defaultProps}
 
   align-self: center;
@@ -25,17 +49,32 @@ const TabTitle = styled.button<{ $active: boolean }>`
   color: ${(props) =>
     props.$active ? props.theme.accent : props.theme.accent2};
   cursor: pointer;
-  display: flex;
+  display: inline-block;
   font-family: ${(props) => props.theme.titleFont};
   font-weight: ${(props) => (props.$active ? 600 : 200)};
   font-size: 1.5rem;
-  margin: 1rem 2rem;
-  text-align: center;
-  transition-property: color;
+  transition-property: color, font-weight;
 
   &:hover {
     color: ${(props) => props.theme.accent};
   }
+
+  &:before {
+    display: block;
+    content: "${(props) => props.$title}";
+    font-weight: 600;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+`;
+
+const TabWidth = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex: auto;
+  max-width: 40rem;
+  min-width: fit-content;
 `;
 
 const TopRow = styled.div`
@@ -43,59 +82,14 @@ const TopRow = styled.div`
 
   align-items: center;
   background-color: ${(props) => props.theme.background};
-  box-shadow: 0 -0.5rem 1rem 0.25rem black;
+  box-shadow: 0 1rem 1rem 0.5rem ${(props) => props.theme.background};
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 1rem min(5rem, 5%);
   position: sticky;
   top: 0;
   z-index: 1;
-`;
-
-const ThemeSwitch = styled(Switch)`
-  & {
-    ${(props) => props.theme.defaultProps}
-    width: 6rem;
-    height: 4rem;
-    padding: 0;
-    display: flex !important;
-  }
-
-  & .MuiSwitch-switchBase {
-    display: flex !important;
-    padding: 0;
-    margin: 25%;
-    &.Mui-checked {
-      transform: translateX(75%);
-    }
-  }
-  & .MuiSwitch-input {
-    display: flex !important;
-  }
-  & .MuiSwitch-thumb {
-    display: flex !important;
-    color: ${(props) => props.theme.accent};
-    box-shadow: none;
-    box-sizing: border-box;
-    width: 16px;
-    height: 16px;
-    transition-property: color;
-    ${(props) => props.theme.defaultProps}
-  }
-  & .MuiSwitch-track {
-    display: flex !important;
-    border-radius: 13px;
-    border: 2px solid ${(props) => props.theme.accent} !important;
-    background-color: ${(props) => props.theme.background} !important;
-    background: url("/sun.svg") right center, url("/moon.svg") left center;
-    background-size: contain;
-    background-origin: content-box;
-    background-repeat: no-repeat;
-    opacity: 1 !important;
-    padding: 0 2px;
-    transition-property: border, background-color;
-    ${(props) => props.theme.defaultProps}
-  }
 `;
 
 const ThemeLabel = styled.label<{ $checked: boolean }>`
@@ -131,27 +125,30 @@ const ThemeButton = styled.button`
   transition-property: background-color;
 `;
 
-const tabTitles = ["About Me", "Experience", "Projects"];
-
 const App = (): ReactElement => {
-  const [tabIndex, setTabIndex]: [number, Function] = useState<number>(0);
+  const [selectedTab, setSelectedTab] =
+    useState<(typeof tabs)[number]["title"]>("home");
   const [darkThemeEnabled, setDarkThemeEnabled] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <TopRow>
-        {tabTitles.map((tab: string, index: number) => {
-          return (
-            <TabTitle
-              onClick={() => setTabIndex(index)}
-              key={tab}
-              $active={index === tabIndex}
-            >
-              {tab}
-            </TabTitle>
-          );
-        })}
+        <TabWidth>
+          {tabs.map(({ title, element }, index) => {
+            return (
+              <TabTitleSpan $active={title === selectedTab} key={title}>
+                <TabTitle
+                  onClick={() => setSelectedTab(title)}
+                  $title={title}
+                  $active={title === selectedTab}
+                >
+                  {title}
+                </TabTitle>
+              </TabTitleSpan>
+            );
+          })}
+        </TabWidth>
         <ThemeLabel
           $checked={darkThemeEnabled}
           aria-label={`Turn ${darkThemeEnabled ? "off" : "on"} dark mode`}
@@ -161,7 +158,9 @@ const App = (): ReactElement => {
           />
         </ThemeLabel>
       </TopRow>
-      <HomeContainer>{tabs[tabIndex]}</HomeContainer>
+      <HomeContainer>
+        {tabs.find(({ title }) => title === selectedTab)?.element}
+      </HomeContainer>
     </ThemeProvider>
   );
 };
