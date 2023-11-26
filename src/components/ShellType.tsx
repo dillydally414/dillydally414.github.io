@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import styled, { Keyframes, keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import COLORS from "../styles/colors";
 
 type ShellTypeProps = {
@@ -7,22 +7,22 @@ type ShellTypeProps = {
   className?: string;
 };
 
-const StyledH2 = styled.h2<ShellTypeProps & { animate: boolean }>`
+const StyledH2 = styled.h2<{ $text: string; $animate: boolean }>`
   color: ${COLORS.accent};
 
-  ::after {
-    animation: ${(props) => (props.animate ? animation(props.text) : "none")}
+  &:after {
+    animation: ${(props) => (props.$animate ? animation(props.$text) : "none")}
       ${(props) =>
-        (props.text.length + (props.text.length % 2 === 0 ? 1 : 0.5)) / 5}s
+        (props.$text.length + (props.$text.length % 2 === 0 ? 1 : 0.5)) / 5}s
       ease-in-out ${(props) => (props.id ? props.id : "0s")};
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    content: ${(props) => "'" + " ".repeat(props.text.length + 1) + "'"};
+    content: ${(props) => "'" + " ".repeat(props.$text.length + 1) + "'"};
     white-space: pre;
   }
 `;
 
-const animation = (text: string): Keyframes => {
+const animation = (text: string): ReturnType<typeof keyframes> => {
   var animationStr = "";
   const frameRate = 100 / (text.length + (text.length % 2 === 0 ? 1 : 0.5));
   for (let i = 0; i <= text.length; i++) {
@@ -53,7 +53,7 @@ const ShellType = ({ text, className = "" }: ShellTypeProps): ReactElement => {
   }, [onScreen]);
 
   return (
-    <StyledH2 className={className} text={text} animate={animate} ref={ref}>
+    <StyledH2 className={className} $text={text} $animate={animate} ref={ref}>
       &gt;&nbsp;
     </StyledH2>
   );

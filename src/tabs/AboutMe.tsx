@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react";
-import { ReactComponent as MailIcon } from "../assets/mail.svg";
-import { ReactComponent as LinkedinIcon } from "../assets/linkedin.svg";
-import { ReactComponent as GithubIcon } from "../assets/github.svg";
+import MailIcon from "../assets/mail.svg?react";
+import LinkedinIcon from "../assets/linkedin.svg?react";
+import GithubIcon from "../assets/github.svg?react";
 import ScottJpg from "../assets/scott.jpg";
-import Fade from "react-reveal/Fade";
+import { Fade } from "react-awesome-reveal";
 import {
   NameHeader,
   StyledShellType,
@@ -43,7 +43,7 @@ const AboutMe = (): ReactElement => {
     <>
       <NameHeader>Dillon Scott</NameHeader>
       <FadeDiv>
-        <Fade left>
+        <Fade direction="left">
           <FadeColumn>
             <StyledShellType text="Who I Am" />
             <WhoIAm>
@@ -94,7 +94,7 @@ const AboutMe = (): ReactElement => {
             </WhoIAm>
           </FadeColumn>
         </Fade>
-        <Fade right>
+        <Fade direction="right">
           <FadeColumn>
             <SelfImage src={ScottJpg} alt="A picture of me!" width="100%" />
             <StyledShellType text="Contact" />
@@ -112,11 +112,11 @@ const AboutMe = (): ReactElement => {
         </Fade>
       </FadeDiv>
       <StyledShellType text="Resume" />
-      <Fade right>
+      <Fade direction="right">
         <ResumeDiv>
           <Resume
             src={
-              process.env.NODE_ENV === "development"
+              import.meta.env.NODE_ENV === "development"
                 ? "http://localhost:3000/resume.pdf"
                 : "https://dillydally414.github.io/resume.pdf"
             }
