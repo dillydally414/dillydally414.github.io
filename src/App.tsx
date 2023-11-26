@@ -24,7 +24,7 @@ const TabTitle = styled.h2`
   text-align: center;
   transition: opacity 0.5s;
 
-  :hover {
+  &:hover {
     opacity: 100%;
   }
 `;

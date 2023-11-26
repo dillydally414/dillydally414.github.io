@@ -12,7 +12,7 @@ const Projects = (): ReactElement => {
             info={project}
             divider={index !== 0}
             side={index % 2 === 1 ? "left" : "right"}
-            key={project.name}
+            key={`${project.name} ${project.start}`}
           />
         );
       })}

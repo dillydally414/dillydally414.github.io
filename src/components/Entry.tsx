@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import { EntryType } from "../types";
-import { ReactComponent as GithubIcon } from "../assets/github.svg";
-import { ReactComponent as ClickIcon } from "../assets/mouse-click.svg";
-import Fade from "react-reveal/Fade";
+import GithubIcon from "../assets/github.svg?react";
+import ClickIcon from "../assets/mouse-click.svg?react";
+import { Fade } from "react-awesome-reveal";
 import {
   HorizontalLine,
   ProjectDiv,
@@ -34,7 +34,7 @@ const Entry = ({
     <>
       {divider && <HorizontalLine />}
       <ProjectDiv>
-        <Fade left mirror={side === "left"}>
+        <Fade direction={side}>
           <FadeDiv
             style={{ flexDirection: side === "left" ? "row" : "row-reverse" }}
           >
@@ -49,13 +49,15 @@ const Entry = ({
                 </>
               ) : (
                 info.positions.map((position) => (
-                  <>
+                  <React.Fragment
+                    key={`${info.placeOfWork} ${position.title} ${position.start}`}
+                  >
                     <ProjectTimeframe>
                       {position.title}&nbsp;&bull;&nbsp;
                       {formatTime(position)}
                     </ProjectTimeframe>
                     <ProjectDesc>&emsp;{position.description}</ProjectDesc>
-                  </>
+                  </React.Fragment>
                 ))
               )}
               <ProjectDesc style={{ textAlign: "center" }}>

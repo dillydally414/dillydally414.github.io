@@ -16,7 +16,7 @@ export const Link = styled.a`
   transition-duration: 0.5s;
   width: 100%;
 
-  :hover {
+  &:hover {
     color: ${COLORS.accent};
     text-decoration-color: ${COLORS.accent};
 
