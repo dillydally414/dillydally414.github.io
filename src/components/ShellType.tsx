@@ -7,7 +7,9 @@ type ShellTypeProps = {
 };
 
 const StyledH2 = styled.h2<{ $text: string; $animate: boolean }>`
+  ${(props) => props.theme.defaultProps}
   color: ${(props) => props.theme.accent};
+  transition-property: color;
 
   &:after {
     animation: ${(props) => (props.$animate ? animation(props.$text) : "none")}

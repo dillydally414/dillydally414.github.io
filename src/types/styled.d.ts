@@ -1,16 +1,16 @@
 // import original module declarations
 import "styled-components";
+import { css } from "styled-components";
 
-export type Theme = Record<
+type Theme = Record<
   "background" | "text" | "text2" | "accent" | "accent2",
   CSSProperties["color"]
->;
+> &
+  Record<"titleFont" | "bodyFont", CSSProperties["font"]> & {
+    defaultProps: ReturnType<typeof css>;
+  };
 
 // and extend them!
 declare module "styled-components" {
-  export interface DefaultTheme
-    extends Record<
-      "background" | "text" | "text2" | "accent" | "accent2",
-      CSSProperties["color"]
-    > {}
+  export interface DefaultTheme extends Theme {}
 }

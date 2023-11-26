@@ -2,9 +2,11 @@ import styled from "styled-components";
 import ShellType from "../components/ShellType";
 
 export const Link = styled.a`
+  ${(props) => props.theme.defaultProps}
+
   align-items: center;
   align-self: center;
-  color: inherit;
+  color: ${(props) => props.theme.text};
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -12,8 +14,9 @@ export const Link = styled.a`
   margin: 0.5rem 0;
   text-decoration: underline;
   text-decoration-color: transparent;
-  transition-duration: 0.5s;
   width: 100%;
+
+  transition-properties: text-decoration-color, color;
 
   &:hover {
     color: ${(props) => props.theme.accent};
@@ -42,13 +45,13 @@ export const LinkColumns = styled.div`
 
 export const LinkText = styled.p`
   align-self: center;
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.bodyFont};
   justify-self: flex-start;
   margin: 0;
 `;
 
 export const NameHeader = styled.h1`
-  font-family: Outfit;
+  font-family: ${(props) => props.theme.titleFont};
   font-size: 5rem;
   margin-bottom: 1rem;
   margin-top: 2rem;
@@ -74,7 +77,7 @@ export const SelfImage = styled.img`
 
 export const StyledShellType = styled(ShellType)`
   align-self: center;
-  font-family: Roboto Mono;
+  font-family: ${(props) => props.theme.titleFont};
   margin: 1rem;
 `;
 
@@ -87,7 +90,7 @@ export const WhoIAm = styled.div`
 
 export const WhoIAmText = styled.p`
   align-self: center;
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.bodyFont};
   text-align: justify;
 `;
 
@@ -114,6 +117,8 @@ export const FadeColumn = styled.div`
 `;
 
 export const HorizontalLine = styled.div`
+  ${(props) => props.theme.defaultProps}
+
   border-bottom: 0.1rem solid ${(props) => props.theme.accent2};
   margin: 1rem 0;
   width: 20%;
@@ -121,7 +126,7 @@ export const HorizontalLine = styled.div`
 
 export const ProjectDesc = styled.p`
   cursor: default;
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.bodyFont};
   margin: 0;
   margin-top: 1rem;
   padding: 0 2rem;
@@ -175,13 +180,13 @@ export const ProjectLinks = styled.div`
 
 export const ProjectName = styled(ShellType)`
   align-self: center;
-  font-family: Roboto Mono;
+  font-family: ${(props) => props.theme.titleFont};
   margin: 1rem;
   margin-bottom: 0rem;
 `;
 
 export const ProjectTimeframe = styled.p`
   cursor: default;
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.bodyFont};
   margin: 1rem 0 0;
 `;

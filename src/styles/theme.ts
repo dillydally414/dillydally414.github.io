@@ -1,4 +1,12 @@
-import { DefaultTheme } from "styled-components";
+import { css, DefaultTheme } from "styled-components";
+
+const themeDefaults = {
+  defaultProps: css`
+    transition-duration: 0.5s;
+  `,
+  titleFont: "DM Sans",
+  bodyFont: "Gothic A1",
+} as const;
 
 export const darkTheme: DefaultTheme = {
   background: "#232244",
@@ -6,6 +14,7 @@ export const darkTheme: DefaultTheme = {
   text2: "#F4D6CC",
   accent: "#FFC933",
   accent2: "#A6E1FA",
+  ...themeDefaults,
 };
 
 export const lightTheme: DefaultTheme = {
@@ -14,4 +23,5 @@ export const lightTheme: DefaultTheme = {
   text2: "#88665D",
   accent: "#3772FF",
   accent2: "#70877F",
+  ...themeDefaults,
 };
