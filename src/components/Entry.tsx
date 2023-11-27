@@ -17,7 +17,7 @@ import {
   ProjectImage,
 } from "../styles";
 
-const formatTime = ({ start, end }: { start: string; end?: string }) => {
+const formatTime = ({ start, end }: { start: string; end: string | null }) => {
   return `${start}${end ? (end !== start ? " - " + end : "") : " - Current"}`;
 };
 
@@ -40,7 +40,7 @@ const Entry = ({
           >
             <ProjectDetails>
               <ProjectName
-                text={info.type === "PROJECT" ? info.name : info.placeOfWork}
+                text={info.type === "PROJECT" ? info.name : info.place_of_work}
               />
               {info.type === "PROJECT" ? (
                 <>
@@ -50,7 +50,7 @@ const Entry = ({
               ) : (
                 info.positions.map((position) => (
                   <React.Fragment
-                    key={`${info.placeOfWork} ${position.title} ${position.start}`}
+                    key={`${info.place_of_work} ${position.title} ${position.start}`}
                   >
                     <ProjectTimeframe>
                       {position.title}&nbsp;&bull;&nbsp;
@@ -61,20 +61,20 @@ const Entry = ({
                 ))
               )}
               <ProjectDesc style={{ textAlign: "center" }}>
-                {info.type === "PROJECT" ? info.techUsed : info.relevantTech}
+                {info.type === "PROJECT" ? info.tech_used : info.relevant_tech}
               </ProjectDesc>
               {info.type === "PROJECT" && (
                 <ProjectLinks>
-                  {info.githubLink ? (
-                    <ProjectLink href={info.githubLink} target="_blank">
+                  {info.github_link ? (
+                    <ProjectLink href={info.github_link} target="_blank">
                       <GithubIcon />
                       <LinkText>See the code</LinkText>
                     </ProjectLink>
                   ) : (
                     <ProjectDesc>Available upon request</ProjectDesc>
                   )}
-                  {info.visualLink && (
-                    <ProjectLink href={info.visualLink} target="_blank">
+                  {info.visual_link && (
+                    <ProjectLink href={info.visual_link} target="_blank">
                       <ClickIcon height="24" />
                       <LinkText>See it in action</LinkText>
                     </ProjectLink>
@@ -82,7 +82,9 @@ const Entry = ({
                 </ProjectLinks>
               )}
             </ProjectDetails>
-            {info.image && <ProjectImage src={info.image} alt={info.image} />}
+            {info.image_url && (
+              <ProjectImage src={info.image_url} alt={info.alt_text} />
+            )}
           </FadeDiv>
         </Fade>
       </ProjectDiv>

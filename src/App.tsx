@@ -1,12 +1,8 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import tabs from "./tabs";
 import { darkTheme, lightTheme } from "./styles/theme";
-import {
-  SupabaseContext,
-  SupabaseContextType,
-  supabase,
-} from "./data/supabase";
+import { SupabaseContext, useSupabase } from "./data/supabase";
 
 const BodyContainer = styled.div`
   ${(props) => props.theme.defaultProps}
@@ -137,22 +133,7 @@ const App = (): ReactElement => {
   const [darkThemeEnabled, setDarkThemeEnabled] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
-  const [supabaseData, setSupabaseData] = useState<SupabaseContextType>({
-    home: null,
-  });
-  useEffect(() => {
-    const load = async () => {
-      const homePromise = supabase
-        .from("home")
-        .select()
-        .order("created_at", { ascending: true });
-      const [homeData] = await Promise.all([homePromise]);
-      setSupabaseData({
-        home: homeData.data,
-      });
-    };
-    load();
-  }, []);
+  const supabaseData = useSupabase();
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <TopRow>

@@ -4,9 +4,10 @@ import LinkedinIcon from "../assets/linkedin.svg?react";
 import GithubIcon from "../assets/github.svg?react";
 import ScottJpg from "../assets/scott.jpg";
 import { Fade } from "react-awesome-reveal";
-import { SandboxLink, Link, LinkText, FadeColumn, SubHeader } from "../styles";
+import { Link, LinkText, FadeColumn, SubHeader } from "../styles";
 import styled from "styled-components";
-import { SupabaseContext, SupabaseContextType } from "../data/supabase";
+import { SupabaseContext } from "../data/supabase";
+import ShellType from "../components/ShellType";
 
 const LeftColumn = styled(FadeColumn)`
   width: 30%;
@@ -26,13 +27,6 @@ const SelfImage = styled.img`
   height: auto;
   max-width: 75%;
   transition-property: border-color;
-`;
-
-const NameHeader = styled.h1`
-  font-family: ${(props) => props.theme.titleFont};
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
 `;
 
 const WhoIAmText = styled.p`
@@ -77,63 +71,8 @@ const contactInfo = [
   },
 ];
 
-const generateBlurb = (
-  home: SupabaseContextType["home"]
-): ReactElement | null => {
-  if (home === null) {
-    return null;
-  }
-  const paragraphs = home.filter(({ type }) => type === "paragraph");
-  const substitutions = home.filter(({ type }) => type === "substitution");
-  const substitutedParagraphs = paragraphs.map(({ paragraph }) => {
-    return (
-      <>
-        {substitutions.reduce(
-          (paragraphSoFar, { substitute_text, substitute_link }) => {
-            return paragraphSoFar.flatMap((text) => {
-              if (
-                typeof text !== "string" ||
-                !text.includes(substitute_text!)
-              ) {
-                return text;
-              }
-              const [firstPart, secondPart] = text.split(substitute_text!);
-              return [
-                firstPart,
-                <SandboxLink href={substitute_link!} target="_blank">
-                  {substitute_text}
-                </SandboxLink>,
-                secondPart,
-              ];
-            });
-          },
-          [paragraph!] as Array<string | ReactElement>
-        )}
-      </>
-    );
-  });
-  return (
-    <>
-      {substitutedParagraphs.map((paragraph, index) => {
-        if (index === substitutedParagraphs.length - 1) {
-          return paragraph;
-        } else {
-          return (
-            <>
-              {paragraph}
-              <br />
-              <br />
-            </>
-          );
-        }
-      })}
-    </>
-  );
-};
-
 const Home = (): ReactElement => {
-  const { home } = useContext(SupabaseContext);
-  const blurb = generateBlurb(home);
+  const { homeBlurb } = useContext(SupabaseContext);
   return (
     <HomeContainer>
       <LeftColumn>
@@ -152,8 +91,8 @@ const Home = (): ReactElement => {
       </LeftColumn>
       <RightColumn>
         <Fade direction="up" cascade>
-          <NameHeader>dillon c scott</NameHeader>
-          {blurb && <WhoIAmText>{blurb}</WhoIAmText>}
+          <ShellType text="dillon c scott" />
+          {homeBlurb && <WhoIAmText>{homeBlurb}</WhoIAmText>}
         </Fade>
       </RightColumn>
     </HomeContainer>

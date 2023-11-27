@@ -8,15 +8,14 @@ export const SubHeader = styled.h2<{ $align: "center" | "flex-start" }>`
   margin: 1rem 0 0.5rem;
 `;
 
-export const Link = styled.a<{ $startWithHoverColor?: boolean }>`
+export const Link = styled.a<{ $inline?: boolean }>`
   ${(props) => props.theme.defaultProps}
 
   align-items: center;
   align-self: center;
-  color: ${(props) =>
-    props.$startWithHoverColor ? props.theme.accent : props.theme.text2};
+  color: ${(props) => (props.$inline ? props.theme.accent : props.theme.text2)};
   cursor: pointer;
-  display: flex;
+  display: ${(props) => (props.$inline ? "inline" : "flex")};
   flex-direction: row;
   justify-self: center;
   margin: 0.5rem 0;
@@ -38,7 +37,7 @@ export const Link = styled.a<{ $startWithHoverColor?: boolean }>`
 
   svg {
     fill: ${(props) =>
-      props.$startWithHoverColor ? props.theme.accent : props.theme.text2};
+      props.$inline ? props.theme.accent : props.theme.text2};
     align-self: flex-start;
     margin-right: 0.75rem;
     opacity: 100%;
@@ -56,12 +55,6 @@ export const LinkText = styled.p`
 export const Resume = styled.iframe`
   border-color: transparent;
   margin: 1rem 0;
-`;
-
-export const SandboxLink = styled(Link)`
-  color: ${(props) => props.theme.accent};
-  display: inline;
-  margin: 0;
 `;
 
 export const StyledShellType = styled(ShellType)`

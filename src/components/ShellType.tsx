@@ -6,9 +6,13 @@ type ShellTypeProps = {
   className?: string;
 };
 
-const StyledH2 = styled.h2<{ $text: string; $animate: boolean }>`
+const StyledH2 = styled.h1<{ $text: string; $animate: boolean }>`
   ${(props) => props.theme.defaultProps}
-  color: ${(props) => props.theme.accent};
+  font-family: ${(props) => props.theme.titleFont};
+  color: ${(props) => props.theme.text};
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
   transition-property: color;
 
   &:after {
@@ -54,9 +58,7 @@ const ShellType = ({ text, className = "" }: ShellTypeProps): ReactElement => {
   }, [onScreen]);
 
   return (
-    <StyledH2 className={className} $text={text} $animate={animate} ref={ref}>
-      &gt;&nbsp;
-    </StyledH2>
+    <StyledH2 className={className} $text={text} $animate={animate} ref={ref} />
   );
 };
 
