@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import ShellType from "../components/ShellType";
 
-export const SubHeader = styled.h2<{ $align: "center" | "flex-start" }>`
+export const SubHeader = styled.h2<{
+  $align: "center" | "flex-start";
+  $underline?: boolean;
+}>`
   align-self: ${(props) => props.$align};
   font-family: ${(props) => props.theme.titleFont};
   font-size: 2.5rem;
-  margin: 1rem 0 0.5rem;
+  margin: 1rem 0 -0.5rem;
+  text-decoration: ${(props) => (props.$underline ? "underline" : "none")};
 `;
 
 export const Link = styled.a<{ $inline?: boolean }>`
@@ -101,16 +105,16 @@ export const HorizontalLine = styled.div`
 `;
 
 export const ProjectDesc = styled.p`
+  ${(props) => props.theme.defaultProps}
   cursor: default;
   font-family: ${(props) => props.theme.bodyFont};
+  color: ${(props) => props.theme.text2};
   margin: 0;
-  margin-top: 1rem;
-  padding: 0 2rem;
-  text-align: justify;
+  margin-top: 0.5rem;
 `;
 
 export const ProjectDetails = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,18 +122,10 @@ export const ProjectDetails = styled.div`
 `;
 
 export const ProjectDiv = styled.div`
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
   display: flex;
-
-  > div {
-    align-items: center;
-    display: flex;
-    height: fit-content;
-    justify-content: space-around;
-    margin-bottom: 1rem;
-    width: 80%;
-  }
+  flex-direction: column;
 `;
 
 export const ProjectImage = styled.img`
@@ -161,8 +157,15 @@ export const ProjectName = styled(ShellType)`
   margin-bottom: 0rem;
 `;
 
-export const ProjectTimeframe = styled.p`
-  cursor: default;
-  font-family: ${(props) => props.theme.bodyFont};
+export const ProjectHighlight = styled.div`
   margin: 1rem 0 0;
+`;
+
+export const ProjectTimeframe = styled.p`
+  ${(props) => props.theme.defaultProps}
+  cursor: default;
+  font-family: ${(props) => props.theme.titleFont};
+  font-size: 1.25rem;
+  color: ${(props) => props.theme.accent};
+  margin: 0;
 `;

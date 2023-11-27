@@ -51,6 +51,7 @@ const LinkColumns = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  margin-top: 1.5rem;
 `;
 
 const contactInfo = [
@@ -90,7 +91,7 @@ const Home = (): ReactElement => {
         </LinkColumns>
       </LeftColumn>
       <RightColumn>
-        <Fade direction="up" cascade>
+        <Fade direction="up" cascade triggerOnce>
           <ShellType text="dillon c scott" />
           {homeBlurb && <WhoIAmText>{homeBlurb}</WhoIAmText>}
         </Fade>

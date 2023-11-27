@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import tabs from "./tabs";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { SupabaseContext, useSupabase } from "./data/supabase";
@@ -12,8 +12,9 @@ const BodyContainer = styled.div`
   color: ${(props) => props.theme.text};
   display: flex;
   flex-direction: column;
-  min-height: calc(92vh - 2rem);
-  padding: 1rem min(5rem, 5%);
+  min-height: calc(92vh - 4rem);
+  overflow: hidden;
+  padding: 1rem min(5rem, 5%) 3rem;
 `;
 
 const TabTitleSpan = styled.span<{ $active: boolean }>`
@@ -127,6 +128,16 @@ const ThemeButton = styled.button`
   transition-property: background-color;
 `;
 
+const OverscrollGlobalStyle = createGlobalStyle`
+  html {
+    background-color: ${(props) => props.theme.accent2};
+  }
+
+  body {
+    overscroll-behavior-x: none;
+  }
+`;
+
 const App = (): ReactElement => {
   const [selectedTab, setSelectedTab] =
     useState<(typeof tabs)[number]["title"]>("home");
@@ -136,6 +147,7 @@ const App = (): ReactElement => {
   const supabaseData = useSupabase();
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
+      <OverscrollGlobalStyle />
       <TopRow>
         <TabWidth>
           {tabs.map(({ title, element }, index) => {
