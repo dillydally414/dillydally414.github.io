@@ -1,4 +1,12 @@
-import React, { ReactElement, useState } from "react";
+import React, {
+  Dispatch,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { EntryType } from "../types";
 import GithubIcon from "../assets/github.svg?react";
 import ClickIcon from "../assets/mouse-click.svg?react";
@@ -25,11 +33,24 @@ const formatTime = ({ start, end }: { start: string; end: string | null }) => {
   }`;
 };
 
-const Entry = ({ info }: { info: EntryType }): ReactElement => {
+const Entry = ({
+  info,
+  passRef,
+}: {
+  info: EntryType;
+  passRef: (arg: React.RefObject<HTMLElement>) => void;
+}): ReactElement => {
+  const ref = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (ref !== null) {
+      passRef(ref);
+    }
+  }, [ref]);
+
   return (
     <>
       <ProjectDiv>
-        <SubHeader $align="flex-start" $underline>
+        <SubHeader $align="flex-start" $underline={info.id === 1} ref={ref}>
           {(info.type === "PROJECT"
             ? info.name
             : info.place_of_work

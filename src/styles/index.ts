@@ -5,11 +5,16 @@ export const SubHeader = styled.h2<{
   $align: "center" | "flex-start";
   $underline?: boolean;
 }>`
+  ${(props) => props.theme.defaultProps}
   align-self: ${(props) => props.$align};
   font-family: ${(props) => props.theme.titleFont};
   font-size: 2.5rem;
-  margin: 1rem 0 -0.5rem;
-  text-decoration: ${(props) => (props.$underline ? "underline" : "none")};
+  margin: 0 0 -0.5rem;
+  scroll-margin: 1.5rem;
+  text-decoration: underline;
+  text-decoration-color: ${(props) =>
+    props.$underline ? "underline" : "transparent"};
+  transition-property: text-decoration-color;
 `;
 
 export const Link = styled.a<{ $inline?: boolean }>`
@@ -27,7 +32,7 @@ export const Link = styled.a<{ $inline?: boolean }>`
   text-decoration-color: transparent;
   width: 100%;
 
-  transition-properties: text-decoration-color, color;
+  transition-property: text-decoration-color, color;
 
   &:hover {
     color: ${(props) => props.theme.accent};
@@ -93,6 +98,8 @@ export const FadeColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  overflow: hidden;
+  margin: -1rem 0;
   padding: 0;
 `;
 
@@ -126,19 +133,21 @@ export const ProjectDiv = styled.div`
   justify-content: space-around;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
 
-export const ProjectImage = styled.img`
-  filter: drop-shadow(0 0 1rem gray);
+export const ProjectImage = styled.img<{ $active: boolean }>`
+  ${(props) => props.theme.defaultProps}
+  background-color: ${(props) =>
+    props.$active ? props.theme.accent : props.theme.accent2};
   justify-content: center;
-  margin: 1rem;
-  max-width: 25%;
-  padding: 1rem 0;
+  max-width: calc(100% - 1rem);
+  padding: 0.5rem 0.5rem;
 `;
 
 export const ProjectLink = styled(Link)`
   justify-content: center;
-  margin: 1rem;
+  margin: 1rem 2rem 0 0;
   width: fit-content;
 `;
 

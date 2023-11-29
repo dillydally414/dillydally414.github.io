@@ -24,6 +24,7 @@ const SelfImage = styled.img`
   border-width: 4px;
   border-style: solid;
   border-color: ${(props) => props.theme.accent};
+  margin-bottom: 1rem;
   height: auto;
   max-width: 75%;
   transition-property: border-color;
@@ -37,11 +38,12 @@ const WhoIAmText = styled.p`
 `;
 
 const HomeContainer = styled.div`
+  align-self: center;
   display: flex;
   flex-direction: row;
   flex: auto;
   flex-basis: content;
-  padding: 10vh 0 2rem;
+  padding: calc(10vh-2rem) 0 2rem;
   align-items: flex-start;
   justify-content: space-between;
 `;

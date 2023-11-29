@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import tabs from "./tabs";
 import { darkTheme, lightTheme } from "./styles/theme";
@@ -7,14 +7,15 @@ import { SupabaseContext, useSupabase } from "./data/supabase";
 const BodyContainer = styled.div`
   ${(props) => props.theme.defaultProps}
 
-  align-items: center;
+  align-items: flex-start;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
   display: flex;
-  flex-direction: column;
-  min-height: calc(92vh - 4rem);
-  overflow: hidden;
-  padding: 1rem min(5rem, 5%) 3rem;
+  flex-direction: row;
+  height: calc(92vh - 5rem);
+  width: calc(100% - 2 * min(5rem, 5%));
+  overflow: scroll;
+  padding: 2rem min(5rem, 5%) 3rem;
 `;
 
 const TabTitleSpan = styled.span<{ $active: boolean }>`
@@ -135,6 +136,9 @@ const OverscrollGlobalStyle = createGlobalStyle`
 
   body {
     overscroll-behavior-x: none;
+    margin: 0;
+    min-height: 100vh;
+    width: 100vw;
   }
 `;
 

@@ -11,8 +11,8 @@ export const supabase = createClient<Database>(
 
 export type SupabaseContextType = {
   homeBlurb: ReactElement | null;
-  projects: ProjectType[] | null;
-  experiences: ExperienceType[] | null;
+  projects: ProjectType[];
+  experiences: ExperienceType[];
 };
 
 const defaultContext = {
@@ -59,7 +59,7 @@ export const useSupabase = (): SupabaseContextType => {
           projectsData.data?.map((project) => ({
             type: "PROJECT",
             ...project,
-          })) || null,
+          })) || [],
         experiences:
           experiencesData.data?.map((experience) => ({
             type: "EXPERIENCE",
@@ -68,7 +68,7 @@ export const useSupabase = (): SupabaseContextType => {
                 ({ experience_id }) => experience.id === experience_id
               ) || [],
             ...experience,
-          })) || null,
+          })) || [],
       });
     };
     load();
