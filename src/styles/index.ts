@@ -8,13 +8,14 @@ export const SubHeader = styled.h2<{
   ${(props) => props.theme.defaultProps}
   align-self: ${(props) => props.$align};
   font-family: ${(props) => props.theme.titleFont};
+  color: ${(props) => props.theme.text};
   font-size: 2.5rem;
   margin: 0 0 -0.5rem;
   scroll-margin: 1.5rem;
   text-decoration: underline;
   text-decoration-color: ${(props) =>
     props.$underline ? "underline" : "transparent"};
-  transition-property: text-decoration-color;
+  transition-property: text-decoration-color, color;
 `;
 
 export const Link = styled.a<{ $inline?: boolean }>`
@@ -61,11 +62,6 @@ export const LinkText = styled.p`
   margin: 0;
 `;
 
-export const Resume = styled.iframe`
-  border-color: transparent;
-  margin: 1rem 0;
-`;
-
 export const StyledShellType = styled(ShellType)`
   align-self: center;
   font-family: ${(props) => props.theme.titleFont};
@@ -84,13 +80,6 @@ export const FadeDiv = styled.div`
   display: flex;
   justify-content: space-around;
   width: 90%;
-`;
-
-export const ResumeDiv = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
 `;
 
 export const FadeColumn = styled.div`
