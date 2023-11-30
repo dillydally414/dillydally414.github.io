@@ -22,7 +22,6 @@ import {
   ProjectLinks,
   ProjectLink,
   LinkText,
-  ProjectImage,
   SubHeader,
   ProjectHighlight,
 } from "../styles";
@@ -51,10 +50,7 @@ const Entry = ({
     <>
       <ProjectDiv>
         <SubHeader $align="flex-start" $underline={info.id === 1} ref={ref}>
-          {(info.type === "PROJECT"
-            ? info.name
-            : info.place_of_work
-          ).toLowerCase()}
+          {info.type === "PROJECT" ? info.name : info.place_of_work}
         </SubHeader>
         {info.type === "PROJECT" ? (
           <>
@@ -69,9 +65,7 @@ const Entry = ({
               key={`${info.place_of_work} ${position.title} ${position.start}`}
             >
               <ProjectHighlight>
-                <ProjectTimeframe>
-                  {position.title.toLowerCase()}
-                </ProjectTimeframe>
+                <ProjectTimeframe>{position.title}</ProjectTimeframe>
                 <ProjectTimeframe>{formatTime(position)}</ProjectTimeframe>
               </ProjectHighlight>
               <ProjectDesc>{position.description}</ProjectDesc>

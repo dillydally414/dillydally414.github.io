@@ -58,7 +58,13 @@ const ShellType = ({ text, className = "" }: ShellTypeProps): ReactElement => {
   }, [onScreen]);
 
   return (
-    <StyledH2 className={className} $text={text} $animate={animate} ref={ref} />
+    <StyledH2
+      className={className}
+      $text={text}
+      $animate={animate}
+      ref={ref}
+      aria-label={text}
+    />
   );
 };
 

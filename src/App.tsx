@@ -4,7 +4,7 @@ import tabs from "./tabs";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { SupabaseContext, useSupabase } from "./data/supabase";
 
-const BodyContainer = styled.div`
+const BodyContainer = styled.main`
   ${(props) => props.theme.defaultProps}
 
   align-items: flex-start;
@@ -16,6 +16,7 @@ const BodyContainer = styled.div`
   width: calc(100% - 2 * min(5rem, 5%));
   overflow: scroll;
   padding: 2rem min(5rem, 5%) 3rem;
+  z-index: 1;
 `;
 
 const TabTitleSpan = styled.span<{ $active: boolean }>`
@@ -80,7 +81,7 @@ const TabWidth = styled.div`
   min-width: fit-content;
 `;
 
-const TopRow = styled.div`
+const TopRow = styled.header`
   ${(props) => props.theme.defaultProps}
 
   align-items: center;
@@ -171,9 +172,11 @@ const App = (): ReactElement => {
         <ThemeLabel
           $checked={darkThemeEnabled}
           aria-label={`Turn ${darkThemeEnabled ? "off" : "on"} dark mode`}
+          id="theme-label"
         >
           <ThemeButton
             onClick={() => setDarkThemeEnabled((prevEnabled) => !prevEnabled)}
+            aria-labelledby="theme-label"
           />
         </ThemeLabel>
       </TopRow>

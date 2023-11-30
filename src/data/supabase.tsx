@@ -59,15 +59,20 @@ export const useSupabase = (): SupabaseContextType => {
           projectsData.data?.map((project) => ({
             type: "PROJECT",
             ...project,
+            name: project.name.toLowerCase(),
           })) || [],
         experiences:
           experiencesData.data?.map((experience) => ({
             type: "EXPERIENCE",
             positions:
-              positionsData.data?.filter(
-                ({ experience_id }) => experience.id === experience_id
-              ) || [],
+              positionsData.data
+                ?.filter(({ experience_id }) => experience.id === experience_id)
+                .map((position) => ({
+                  ...position,
+                  title: position.title.toLowerCase(),
+                })) || [],
             ...experience,
+            place_of_work: experience.place_of_work.toLowerCase(),
           })) || [],
       });
     };

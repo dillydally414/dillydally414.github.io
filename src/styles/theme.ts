@@ -18,10 +18,10 @@ export const darkTheme: DefaultTheme = {
 };
 
 export const lightTheme: DefaultTheme = {
-  background: darkTheme.text2,
+  background: "#FCF0EE",
   text: darkTheme.background,
-  text2: "#88665D",
-  accent: "#3772FF",
-  accent2: "#70877F",
+  text2: "#542111",
+  accent: "#DA1643",
+  accent2: "#5465FF",
   ...themeDefaults,
 };

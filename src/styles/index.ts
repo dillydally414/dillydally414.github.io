@@ -125,15 +125,6 @@ export const ProjectDiv = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const ProjectImage = styled.img<{ $active: boolean }>`
-  ${(props) => props.theme.defaultProps}
-  background-color: ${(props) =>
-    props.$active ? props.theme.accent : props.theme.accent2};
-  justify-content: center;
-  max-width: calc(100% - 1rem);
-  padding: 0.5rem 0.5rem;
-`;
-
 export const ProjectLink = styled(Link)`
   justify-content: center;
   margin: 1rem 2rem 0 0;

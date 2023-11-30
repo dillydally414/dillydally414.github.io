@@ -1,43 +1,110 @@
-import React, {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { EntryType } from "../types";
-import { Link, ProjectImage, SubHeader } from "../styles";
+import { FadeColumn, FadeDiv, Link } from "../styles";
 import styled, { useTheme } from "styled-components";
+import { Fade } from "react-awesome-reveal";
+
+const LeftSideContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 0 1 fit-content;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 1rem;
+  height: 100%;
+  max-height: 100%;
+  position: sticky;
+  top: 0;
+`;
 
 const ScrollbarContainer = styled.div`
-  align-self: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-right: 2rem;
+  width: 1rem;
+  min-width: 1rem;
   height: 100%;
-  width: 100%;
-  overflow: scroll;
-  position: sticky;
-  top: 0;
+  max-height: 100%;
 `;
 
 const InnerScrollbarContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 0 1 100%;
   justify-content: start;
-  margin-right: 4rem;
-  max-height: 100%;
-  width: 75%;
-  overflow: scroll;
+  height: 100%;
+  object-fit: contain;
 `;
 
-const ImageLink = styled(Link)`
+const ImageLink = styled(Link)<{
+  $active?: boolean;
+  $name: string;
+}>`
+  ${(props) => props.theme.defaultProps}
+  background-color: ${(props) =>
+    props.$active ? props.theme.accent : props.theme.accent2};
+
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   border: unset;
   padding: unset;
-  margin: 0;
+  margin: 1px;
+  border-radius: 5px;
+  transition-property: background-color;
+  justify-content: center;
+
+  &:after {
+    ${(props) => props.theme.defaultProps};
+    background-color: ${(props) =>
+      props.$active ? props.theme.accent : props.theme.accent2};
+    color: ${(props) => props.theme.background};
+    content: "${(props) => props.$name}";
+    align-self: baseline;
+    position: relative;
+    border-radius: 5px;
+    left: 150%;
+    text-align: start;
+    opacity: 0;
+    transition-property: opacity;
+    max-width: 0;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  &:hover {
+    text-decoration: none;
+    &:after {
+      content: "${(props) => props.$name}";
+      opacity: 1;
+      max-width: 5.5rem;
+      overflow-wrap: break-word;
+      width: max-content;
+      padding: 0.25rem;
+    }
+  }
+`;
+
+const ImageColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 4rem;
+`;
+
+const ProjectImage = styled.img<{ $selected: boolean }>`
+  align-self: start;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  height: fit-content;
+  max-width: 4rem;
+  object-fit: contain;
+  position: absolute;
+  ${(props) => props.theme.defaultProps};
+  opacity: ${(props) => (props.$selected ? "100%" : "50%")};
+  transition-property: opacity;
 `;
 
 const useScrollTo = (
@@ -169,34 +236,35 @@ const useScrollTo = (
           const newVisible = [...prevVisible];
           entries.map((entry) => {
             const entryIndex = anchorRefs.findIndex(
-              (element) => element === entry.target
+              (element) => element?.parentElement === entry.target
             );
             if (entryIndex !== -1) {
               newVisible[entryIndex] = entry.isIntersecting;
             }
             const scrollParent = anchorContainerRef?.parentElement;
-            if (entryIndex === 0 && scrollParent) {
+            if (scrollParent) {
               const newFirst = scrollParent.scrollTop <= 5;
-              newVisible[entryIndex] = newFirst;
-            }
-            if (entryIndex === newVisible.length - 1 && scrollParent) {
               const newLast =
                 Math.abs(
                   scrollParent.scrollTop +
                     scrollParent.offsetHeight -
                     scrollParent.scrollHeight
                 ) <= 5;
-              newVisible[entryIndex] = newLast;
+              newVisible[0] = newFirst;
+              newVisible[newVisible.length - 1] = newLast;
             }
           });
           return newVisible;
         }),
       {
-        rootMargin: "-150px 0px -300px",
+        rootMargin: "-300px 0px",
       }
     );
 
-    anchorRefs.map((element) => element && observer.observe(element));
+    anchorRefs.map(
+      (element) =>
+        element?.parentElement && observer.observe(element.parentElement)
+    );
 
     return () => observer.disconnect();
   }, [anchorRefs, anchorContainerRef, setSelected, setVisible]);
@@ -221,25 +289,42 @@ const Scrollbar = ({
   );
 
   return (
-    <ScrollbarContainer>
-      <InnerScrollbarContainer>
-        {elements.map((e, index) => (
-          <ImageLink
-            onClick={() => {
-              setSelected(index);
-            }}
-            as="button"
-            ref={(current) => (imageRefs[index] = current)}
-          >
-            <ProjectImage
-              src={e.image_url}
-              alt={e.alt_text}
+    <LeftSideContainer>
+      <ScrollbarContainer>
+        <InnerScrollbarContainer>
+          {elements.map((e, index) => (
+            <ImageLink
+              onClick={() => {
+                setSelected(index);
+              }}
+              aria-label={`scroll to ${
+                e.type === "PROJECT" ? e.name : e.place_of_work
+              }`}
               $active={index === selected}
+              $name={e.type === "PROJECT" ? e.name : e.place_of_work}
+              as="button"
+              ref={(current) => (imageRefs[index] = current)}
             />
-          </ImageLink>
+          ))}
+        </InnerScrollbarContainer>
+      </ScrollbarContainer>
+      <ImageColumn>
+        {elements.map((e, index) => (
+          <ProjectImage
+            $selected={index === selected}
+            src={elements[index].image_url}
+            alt={elements[index].alt_text}
+            style={{
+              top:
+                (scrollRefs[index]?.parentElement?.parentElement?.offsetTop ||
+                  0) -
+                (containerRef?.parentElement?.scrollTop || 0) -
+                (containerRef?.offsetTop || 0),
+            }}
+          />
         ))}
-      </InnerScrollbarContainer>
-    </ScrollbarContainer>
+      </ImageColumn>
+    </LeftSideContainer>
   );
 };
 
