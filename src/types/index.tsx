@@ -1,28 +1,12 @@
+import { Database } from "./database";
+
 export type ExperienceType = {
   type: "EXPERIENCE";
-  positions: {
-    title: string;
-    start: string;
-    end?: string;
-    description: string;
-  }[];
-  placeOfWork: string;
-  relevantTech: string;
-  image: string;
-  alt: string;
-};
+  positions: Database["public"]["Tables"]["position"]["Row"][];
+} & Database["public"]["Tables"]["experience"]["Row"];
 
 export type ProjectType = {
   type: "PROJECT";
-  name: string;
-  description: string;
-  techUsed: string;
-  githubLink?: string;
-  visualLink?: string;
-  start: string;
-  end?: string;
-  image: string;
-  alt: string;
-};
+} & Database["public"]["Tables"]["project"]["Row"];
 
 export type EntryType = ExperienceType | ProjectType;

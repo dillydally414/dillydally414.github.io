@@ -1,80 +1,70 @@
 import styled from "styled-components";
-import COLORS from "./colors";
 import ShellType from "../components/ShellType";
 
-export const Link = styled.a`
+export const SubHeader = styled.h2<{
+  $align: "center" | "flex-start";
+  $underline?: boolean;
+}>`
+  ${(props) => props.theme.defaultProps}
+  align-self: ${(props) => props.$align};
+  font-family: ${(props) => props.theme.titleFont};
+  color: ${(props) => props.theme.text};
+  font-size: 2.5rem;
+  margin: 0 0 -0.5rem;
+  scroll-margin: 1.5rem;
+  text-decoration: underline;
+  text-decoration-color: ${(props) =>
+    props.$underline ? "underline" : "transparent"};
+  transition-property: text-decoration-color, color;
+`;
+
+export const Link = styled.a<{ $inline?: boolean }>`
+  ${(props) => props.theme.defaultProps}
+
   align-items: center;
   align-self: center;
-  color: inherit;
+  color: ${(props) => (props.$inline ? props.theme.accent : props.theme.text2)};
   cursor: pointer;
-  display: flex;
+  display: ${(props) => (props.$inline ? "inline" : "flex")};
   flex-direction: row;
   justify-self: center;
   margin: 0.5rem 0;
   text-decoration: underline;
   text-decoration-color: transparent;
-  transition-duration: 0.5s;
   width: 100%;
 
-  :hover {
-    color: ${COLORS.accent};
-    text-decoration-color: ${COLORS.accent};
+  transition-property: text-decoration-color, color;
+
+  &:hover {
+    color: ${(props) => props.theme.accent};
+    text-decoration-color: ${(props) => props.theme.accent};
 
     svg {
-      fill: ${COLORS.accent};
+      fill: ${(props) => props.theme.accent};
       opacity: 100%;
     }
   }
 
   svg {
+    fill: ${(props) =>
+      props.$inline ? props.theme.accent : props.theme.text2};
     align-self: flex-start;
     margin-right: 0.75rem;
-    opacity: 50%;
+    opacity: 100%;
     transition-duration: 0.5s;
   }
 `;
 
-export const LinkColumns = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const LinkText = styled.p`
   align-self: center;
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.bodyFont};
   justify-self: flex-start;
   margin: 0;
 `;
 
-export const NameHeader = styled.h1`
-  font-family: Outfit;
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-`;
-
-export const Resume = styled.iframe`
-  border-color: transparent;
-  margin: 1rem 0;
-`;
-
-export const SandboxLink = styled(Link)`
-  color: ${COLORS.accent};
-  display: inline;
-  margin: 0;
-`;
-
-export const SelfImage = styled.img`
-  border-radius: 50%;
-  box-shadow: 0.2rem 0.2rem 1rem gray;
-  height: auto;
-  max-width: 50%;
-`;
-
 export const StyledShellType = styled(ShellType)`
   align-self: center;
-  font-family: Roboto Mono;
+  font-family: ${(props) => props.theme.titleFont};
   margin: 1rem;
 `;
 
@@ -85,12 +75,6 @@ export const WhoIAm = styled.div`
   justify-content: center;
 `;
 
-export const WhoIAmText = styled.p`
-  align-self: center;
-  font-family: Montserrat;
-  text-align: justify;
-`;
-
 export const FadeDiv = styled.div`
   align-items: center;
   display: flex;
@@ -98,38 +82,35 @@ export const FadeDiv = styled.div`
   width: 90%;
 `;
 
-export const ResumeDiv = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-`;
-
 export const FadeColumn = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  overflow: hidden;
+  margin: -1rem 0;
   padding: 0;
 `;
 
 export const HorizontalLine = styled.div`
-  border-bottom: 0.1rem solid black;
+  ${(props) => props.theme.defaultProps}
+
+  border-bottom: 0.1rem solid ${(props) => props.theme.accent2};
   margin: 1rem 0;
   width: 20%;
 `;
 
 export const ProjectDesc = styled.p`
+  ${(props) => props.theme.defaultProps}
   cursor: default;
-  font-family: Montserrat;
+  font-family: ${(props) => props.theme.bodyFont};
+  color: ${(props) => props.theme.text2};
   margin: 0;
-  margin-top: 1rem;
-  padding: 0 2rem;
-  text-align: justify;
+  margin-top: 0.5rem;
 `;
 
 export const ProjectDetails = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,31 +118,16 @@ export const ProjectDetails = styled.div`
 `;
 
 export const ProjectDiv = styled.div`
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
   display: flex;
-
-  > div {
-    align-items: center;
-    display: flex;
-    height: fit-content;
-    justify-content: space-around;
-    margin-bottom: 1rem;
-    width: 80%;
-  }
-`;
-
-export const ProjectImage = styled.img`
-  filter: drop-shadow(0 0 1rem gray);
-  justify-content: center;
-  margin: 1rem;
-  max-width: 25%;
-  padding: 1rem 0;
+  flex-direction: column;
+  margin-bottom: 1rem;
 `;
 
 export const ProjectLink = styled(Link)`
   justify-content: center;
-  margin: 1rem;
+  margin: 1rem 2rem 0 0;
   width: fit-content;
 `;
 
@@ -175,13 +141,20 @@ export const ProjectLinks = styled.div`
 
 export const ProjectName = styled(ShellType)`
   align-self: center;
-  font-family: Roboto Mono;
+  font-family: ${(props) => props.theme.titleFont};
   margin: 1rem;
   margin-bottom: 0rem;
 `;
 
-export const ProjectTimeframe = styled.p`
-  cursor: default;
-  font-family: Montserrat;
+export const ProjectHighlight = styled.div`
   margin: 1rem 0 0;
+`;
+
+export const ProjectTimeframe = styled.p`
+  ${(props) => props.theme.defaultProps}
+  cursor: default;
+  font-family: ${(props) => props.theme.titleFont};
+  font-size: 1.25rem;
+  color: ${(props) => props.theme.accent};
+  margin: 0;
 `;

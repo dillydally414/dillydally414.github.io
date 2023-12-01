@@ -1,8 +1,16 @@
-import React, { ReactElement } from "react";
+import React, {
+  Dispatch,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { EntryType } from "../types";
-import { ReactComponent as GithubIcon } from "../assets/github.svg";
-import { ReactComponent as ClickIcon } from "../assets/mouse-click.svg";
-import Fade from "react-reveal/Fade";
+import GithubIcon from "../assets/github.svg?react";
+import ClickIcon from "../assets/mouse-click.svg?react";
+import { Fade } from "react-awesome-reveal";
 import {
   HorizontalLine,
   ProjectDiv,
@@ -14,75 +22,77 @@ import {
   ProjectLinks,
   ProjectLink,
   LinkText,
-  ProjectImage,
+  SubHeader,
+  ProjectHighlight,
 } from "../styles";
 
-const formatTime = ({ start, end }: { start: string; end?: string }) => {
-  return `${start}${end ? (end !== start ? " - " + end : "") : " - Current"}`;
+const formatTime = ({ start, end }: { start: string; end: string | null }) => {
+  return `${start.toLowerCase()}${
+    end ? (end !== start ? " - " + end.toLowerCase() : "") : " - current"
+  }`;
 };
 
 const Entry = ({
   info,
-  divider,
-  side,
+  passRef,
 }: {
   info: EntryType;
-  divider: boolean;
-  side: "left" | "right";
+  passRef: (arg: React.RefObject<HTMLElement>) => void;
 }): ReactElement => {
+  const ref = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (ref !== null) {
+      passRef(ref);
+    }
+  }, [ref]);
+
   return (
     <>
-      {divider && <HorizontalLine />}
       <ProjectDiv>
-        <Fade left mirror={side === "left"}>
-          <FadeDiv
-            style={{ flexDirection: side === "left" ? "row" : "row-reverse" }}
-          >
-            <ProjectDetails>
-              <ProjectName
-                text={info.type === "PROJECT" ? info.name : info.placeOfWork}
-              />
-              {info.type === "PROJECT" ? (
-                <>
-                  <ProjectTimeframe>{formatTime(info)}</ProjectTimeframe>
-                  <ProjectDesc>&emsp;{info.description}</ProjectDesc>
-                </>
-              ) : (
-                info.positions.map((position) => (
-                  <>
-                    <ProjectTimeframe>
-                      {position.title}&nbsp;&bull;&nbsp;
-                      {formatTime(position)}
-                    </ProjectTimeframe>
-                    <ProjectDesc>&emsp;{position.description}</ProjectDesc>
-                  </>
-                ))
-              )}
-              <ProjectDesc style={{ textAlign: "center" }}>
-                {info.type === "PROJECT" ? info.techUsed : info.relevantTech}
-              </ProjectDesc>
-              {info.type === "PROJECT" && (
-                <ProjectLinks>
-                  {info.githubLink ? (
-                    <ProjectLink href={info.githubLink} target="_blank">
-                      <GithubIcon />
-                      <LinkText>See the code</LinkText>
-                    </ProjectLink>
-                  ) : (
-                    <ProjectDesc>Available upon request</ProjectDesc>
-                  )}
-                  {info.visualLink && (
-                    <ProjectLink href={info.visualLink} target="_blank">
-                      <ClickIcon height="24" />
-                      <LinkText>See it in action</LinkText>
-                    </ProjectLink>
-                  )}
-                </ProjectLinks>
-              )}
-            </ProjectDetails>
-            {info.image && <ProjectImage src={info.image} alt={info.image} />}
-          </FadeDiv>
-        </Fade>
+        <SubHeader $align="flex-start" $underline={info.id === 1} ref={ref}>
+          {info.type === "PROJECT" ? info.name : info.place_of_work}
+        </SubHeader>
+        {info.type === "PROJECT" ? (
+          <>
+            <ProjectHighlight>
+              <ProjectTimeframe>{formatTime(info)}</ProjectTimeframe>
+            </ProjectHighlight>
+            <ProjectDesc>{info.description}</ProjectDesc>
+          </>
+        ) : (
+          info.positions.map((position) => (
+            <React.Fragment
+              key={`${info.place_of_work} ${position.title} ${position.start}`}
+            >
+              <ProjectHighlight>
+                <ProjectTimeframe>{position.title}</ProjectTimeframe>
+                <ProjectTimeframe>{formatTime(position)}</ProjectTimeframe>
+              </ProjectHighlight>
+              <ProjectDesc>{position.description}</ProjectDesc>
+            </React.Fragment>
+          ))
+        )}
+        <ProjectDesc>
+          {info.type === "PROJECT" ? info.tech_used : info.relevant_tech}
+        </ProjectDesc>
+        {info.type === "PROJECT" && (
+          <ProjectLinks>
+            {info.github_link ? (
+              <ProjectLink href={info.github_link} target="_blank">
+                <GithubIcon />
+                <LinkText>See the code</LinkText>
+              </ProjectLink>
+            ) : (
+              <ProjectDesc>Available upon request</ProjectDesc>
+            )}
+            {info.visual_link && (
+              <ProjectLink href={info.visual_link} target="_blank">
+                <ClickIcon height="24" />
+                <LinkText>See it in action</LinkText>
+              </ProjectLink>
+            )}
+          </ProjectLinks>
+        )}
       </ProjectDiv>
     </>
   );
