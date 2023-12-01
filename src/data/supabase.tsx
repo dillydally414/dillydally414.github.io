@@ -4,9 +4,14 @@ import { Database } from "../types/database";
 import { Link } from "../styles";
 import { ExperienceType, ProjectType } from "../types";
 
+// using anon key which only has read access
+const VITE_SUPABASE_URL = "https://yfaqmlswjffrcahnqlms.supabase.co";
+const VITE_SUPABASE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmYXFtbHN3amZmcmNhaG5xbG1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwMzI3OTcsImV4cCI6MjAxNjYwODc5N30.vgsBnGcwNHuMGzYW7qsUDc5b4OuWLbs2Osm_t7KlxJY";
+
 export const supabase = createClient<Database>(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_KEY
+  VITE_SUPABASE_URL,
+  VITE_SUPABASE_KEY
 );
 
 export type SupabaseContextType = {
