@@ -37,15 +37,15 @@ export const useSupabase = (): SupabaseContextType => {
       const projectsPromise = supabase
         .from("project")
         .select()
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false });
       const experiencesPromise = supabase
         .from("experience")
         .select()
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false });
       const positionsPromise = supabase
         .from("position")
         .select()
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false });
       const [homeData, projectsData, experiencesData, positionsData] =
         await Promise.all([
           homePromise,
