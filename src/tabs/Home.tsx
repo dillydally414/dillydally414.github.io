@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import MailIcon from "../assets/mail.svg?react";
 import LinkedinIcon from "../assets/linkedin.svg?react";
 import GithubIcon from "../assets/github.svg?react";
@@ -35,6 +35,21 @@ const WhoIAmText = styled.p`
   font-family: ${(props) => props.theme.bodyFont};
   color: ${(props) => props.theme.text2};
   width: 85%;
+`;
+
+const WhoIAmInput = styled.textarea`
+  align-self: center;
+  background-color: inherit;
+  border-color: ${(props) => props.theme.accent2};
+  border-style: solid;
+  border-radius: 5px;
+  display: flex;
+  padding: 0.25rem;
+  font-family: ${(props) => props.theme.bodyFont};
+  color: ${(props) => props.theme.text2};
+  width: 50vw;
+  margin-bottom: 1rem;
+  height: 20vh;
 `;
 
 const HomeContainer = styled.div`
@@ -75,7 +90,13 @@ const contactInfo = [
 ];
 
 const Home = (): ReactElement => {
-  const { homeBlurb } = useContext(SupabaseContext);
+  const { editing, homeBlurb, rawHomeData, updateHomeBlurb } =
+    useContext(SupabaseContext);
+  const [newHomeData, setNewHomeData] = useState(rawHomeData);
+
+  useEffect(() => {
+    setNewHomeData(rawHomeData);
+  }, [rawHomeData]);
   return (
     <HomeContainer>
       <LeftColumn>
@@ -95,7 +116,18 @@ const Home = (): ReactElement => {
       <RightColumn>
         <Fade direction="up" cascade triggerOnce>
           <ShellType text="dillon c scott" />
-          {homeBlurb && <WhoIAmText>{homeBlurb}</WhoIAmText>}
+          {homeBlurb &&
+            (editing ? (
+              <WhoIAmInput
+                value={newHomeData}
+                onChange={(evt) => setNewHomeData(evt.target.value)}
+              />
+            ) : (
+              <WhoIAmText>{homeBlurb}</WhoIAmText>
+            ))}
+          {editing && (
+            <button onClick={() => updateHomeBlurb(newHomeData)}>save</button>
+          )}
         </Fade>
       </RightColumn>
     </HomeContainer>

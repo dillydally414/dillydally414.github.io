@@ -67,9 +67,14 @@ const ImageLink = styled(Link)<{
     left: 150%;
     text-align: start;
     opacity: 0;
-    transition-property: opacity;
-    max-width: 0;
+    transition-property: opacity background-color;
+    max-width: 5.5rem;
+    width: max-content;
     overflow: hidden;
+    overflow-wrap: break-word;
+    pointer-events: none;
+    cursor: default;
+    padding: 0.25rem;
     z-index: 10;
   }
 
@@ -78,10 +83,7 @@ const ImageLink = styled(Link)<{
     &:after {
       content: "${(props) => props.$name}";
       opacity: 1;
-      max-width: 5.5rem;
-      overflow-wrap: break-word;
-      width: max-content;
-      padding: 0.25rem;
+      overflow: visible;
     }
   }
 `;

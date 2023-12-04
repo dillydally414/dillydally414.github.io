@@ -7,7 +7,10 @@ import { ExperienceType, ProjectType } from "../types";
 // using anon key which only has read access
 const VITE_SUPABASE_URL = "https://yfaqmlswjffrcahnqlms.supabase.co";
 const VITE_SUPABASE_KEY =
+  import.meta.env.VITE_SUPABASE_KEY ??
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmYXFtbHN3amZmcmNhaG5xbG1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwMzI3OTcsImV4cCI6MjAxNjYwODc5N30.vgsBnGcwNHuMGzYW7qsUDc5b4OuWLbs2Osm_t7KlxJY";
+const canEdit = import.meta.env.VITE_SUPABASE_KEY !== undefined;
+const editModeEnabled = import.meta.env.VITE_EDIT_MODE === "EDIT";
 
 export const supabase = createClient<Database>(
   VITE_SUPABASE_URL,
@@ -18,12 +21,22 @@ export type SupabaseContextType = {
   homeBlurb: ReactElement | null;
   projects: ProjectType[];
   experiences: ExperienceType[];
+  rawHomeData: string;
+  updateHomeBlurb: (newBlurb: string) => Promise<void>;
+  updateProjects: Function;
+  updateExperiences: Function;
+  editing: boolean;
 };
 
 const defaultContext = {
   homeBlurb: null,
   projects: [],
   experiences: [],
+  rawHomeData: "",
+  updateHomeBlurb: async () => {},
+  updateProjects: () => {},
+  updateExperiences: () => {},
+  editing: false,
 } satisfies SupabaseContextType;
 
 export const SupabaseContext =
@@ -79,6 +92,17 @@ export const useSupabase = (): SupabaseContextType => {
             ...experience,
             place_of_work: experience.place_of_work.toLowerCase(),
           })) || [],
+        editing: canEdit && editModeEnabled,
+        rawHomeData: generateStringFromHomeEntries(homeData.data),
+        updateHomeBlurb: async (newBlurb) => {
+          await supabase.from("home").delete().neq("id", -1);
+          await supabase
+            .from("home")
+            .upsert(generateHomeEntriesFromString(newBlurb));
+          await load();
+        },
+        updateExperiences: () => {},
+        updateProjects: () => {},
       });
     };
     load();
@@ -87,31 +111,97 @@ export const useSupabase = (): SupabaseContextType => {
   return supabaseData;
 };
 
+const generateHomeEntriesFromString = (
+  newBlurb: string
+): Database["public"]["Tables"]["home"]["Insert"][] => {
+  const paragraphs = newBlurb.split("\n\n");
+  const substitutionEntries: Database["public"]["Tables"]["home"]["Insert"][] =
+    [];
+
+  const paragraphEntries: Database["public"]["Tables"]["home"]["Insert"][] =
+    paragraphs.map((paragraph) => {
+      let newParagraph = paragraph;
+      const substitutions = [...paragraph.matchAll(/\[.*\]\(.*\)/g)].map(
+        ([substitution]) => {
+          const [substitutionText, substitutionLink] = substitution
+            .split(/\[|\]|\(|\)/g)
+            .filter((value) => value !== "");
+          newParagraph = newParagraph.replace(substitution, substitutionText);
+          return [substitutionText, substitutionLink] as const;
+        }
+      );
+      substitutions.forEach(([substitutionText, substitutionLink]) => {
+        substitutionEntries.push({
+          type: "substitution",
+          substitute_text: substitutionText,
+          substitute_link: substitutionLink,
+        });
+      });
+      return {
+        type: "paragraph",
+        paragraph: newParagraph,
+      };
+    });
+
+  return [...paragraphEntries, ...substitutionEntries];
+};
+
+const generateStringFromHomeEntries = (
+  homeEntries: Database["public"]["Tables"]["home"]["Row"][] | null
+): string => {
+  if (homeEntries === null) {
+    return "";
+  }
+  const paragraphs = homeEntries.filter(({ type }) => type === "paragraph");
+  const substitutions = homeEntries.filter(
+    ({ type }) => type === "substitution"
+  );
+  return paragraphs
+    .map(({ paragraph }) => {
+      return substitutions.reduce(
+        (paragraphSoFar, { substitute_text, substitute_link }) => {
+          if (!paragraphSoFar.includes(substitute_text!)) {
+            return paragraphSoFar;
+          }
+          const [firstPart, secondPart] = paragraphSoFar.split(
+            substitute_text!
+          );
+          return `${firstPart}[${substitute_text}](${substitute_link})${secondPart}`;
+        },
+        paragraph!
+      );
+    })
+    .join("\n\n");
+};
+
 const generateBlurb = (
   home: Database["public"]["Tables"]["home"]["Row"][] | null
-): ReactElement | null => {
-  if (home === null) {
-    return null;
+): ReactElement => {
+  const stringifiedBlurb = generateStringFromHomeEntries(home);
+  if (stringifiedBlurb === "") {
+    return <></>;
   }
-  const paragraphs = home.filter(({ type }) => type === "paragraph");
-  const substitutions = home.filter(({ type }) => type === "substitution");
-  const substitutedParagraphs = paragraphs.map(({ paragraph }) => {
+  const paragraphs = stringifiedBlurb.split("\n\n");
+  const substitutedParagraphs = paragraphs.map((paragraph) => {
+    const substitutions = [...paragraph.matchAll(/\[.*\]\(.*\)/g)].map(
+      ([substitution]) => [
+        substitution,
+        ...substitution.split(/\[|\]|\(|\)/g).filter((value) => value !== ""),
+      ]
+    );
     return (
       <>
         {substitutions.reduce(
-          (paragraphSoFar, { substitute_text, substitute_link }) => {
+          (paragraphSoFar, [fullText, substituteText, substituteLink]) => {
             return paragraphSoFar.flatMap((text) => {
-              if (
-                typeof text !== "string" ||
-                !text.includes(substitute_text!)
-              ) {
+              if (typeof text !== "string" || !text.includes(substituteText!)) {
                 return text;
               }
-              const [firstPart, secondPart] = text.split(substitute_text!);
+              const [firstPart, secondPart] = text.split(fullText!);
               return [
                 firstPart,
-                <Link href={substitute_link!} target="_blank" $inline>
-                  {substitute_text}
+                <Link href={substituteLink!} target="_blank" $inline>
+                  {substituteText}
                 </Link>,
                 secondPart,
               ];
