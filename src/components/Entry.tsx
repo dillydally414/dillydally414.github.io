@@ -4,6 +4,7 @@ import React, {
   ReactNode,
   RefObject,
   SetStateAction,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -27,6 +28,7 @@ import {
   ProjectHighlight,
   EditableInput,
 } from "../styles";
+import { SupabaseContext } from "../data/supabase";
 
 const formatTime = ({ start, end }: { start: string; end: string | null }) => {
   return `${start.toLowerCase()}${
@@ -37,15 +39,15 @@ const formatTime = ({ start, end }: { start: string; end: string | null }) => {
 const Entry = <T extends EntryType>({
   info,
   passRef,
-  editing,
   updateFn,
 }: {
   info: T;
   passRef: (arg: React.RefObject<HTMLElement>) => void;
-  editing: boolean;
   updateFn: (arg: T) => void;
 }): ReactElement => {
+  const { editing, uploadFile } = useContext(SupabaseContext);
   const ref = useRef<HTMLHeadingElement | HTMLTextAreaElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (ref !== null) {
       passRef(ref);
@@ -66,21 +68,44 @@ const Entry = <T extends EntryType>({
     <>
       <ProjectDiv>
         {editing ? (
-          <EditableInput
-            $align="flex-start"
-            $height="1rem"
-            value={
-              newInfo.type === "PROJECT" ? newInfo.name : newInfo.place_of_work
-            }
-            onChange={(evt) =>
-              setNewInfo({
-                ...newInfo,
-                [newInfo.type === "PROJECT" ? "name" : "place_of_work"]:
-                  evt.target.value,
-              })
-            }
-            ref={ref as RefObject<HTMLTextAreaElement>}
-          />
+          <>
+            <EditableInput
+              $align="flex-start"
+              $height="1rem"
+              $width="15rem"
+              value={
+                newInfo.type === "PROJECT"
+                  ? newInfo.name
+                  : newInfo.place_of_work
+              }
+              onChange={(evt) =>
+                setNewInfo({
+                  ...newInfo,
+                  [newInfo.type === "PROJECT" ? "name" : "place_of_work"]:
+                    evt.target.value,
+                })
+              }
+              ref={ref as RefObject<HTMLTextAreaElement>}
+            />
+            <div>
+              <input type="file" accept="image/*" ref={fileRef} />
+              <button
+                onClick={async () => {
+                  const file = fileRef.current?.files?.item(0);
+                  if (!file) return;
+                  const fileInfo = await uploadFile(file.name, file);
+                  if (fileInfo?.data) {
+                    setNewInfo({
+                      ...newInfo,
+                      image_url: fileInfo.data.publicUrl,
+                    });
+                  }
+                }}
+              >
+                upload
+              </button>
+            </div>
+          </>
         ) : (
           <SubHeader
             $align="flex-start"

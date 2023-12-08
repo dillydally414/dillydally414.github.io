@@ -48,7 +48,6 @@ const Projects = (): ReactElement => {
                 info={project}
                 passRef={(ref) => (projectRefs[index] = ref.current)}
                 key={project.id}
-                editing={editing}
                 updateFn={(newProjectInfo) =>
                   setNewProjects([
                     ...newProjects.slice(0, index),

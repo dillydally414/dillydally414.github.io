@@ -51,7 +51,6 @@ const Experience = (): ReactElement => {
                 info={experience}
                 passRef={(ref) => (experienceRefs[index] = ref.current)}
                 key={experience.id}
-                editing={editing}
                 updateFn={(newExperienceInfo) =>
                   setNewExperiences([
                     ...newExperiences.slice(0, index),

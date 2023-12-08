@@ -25,7 +25,13 @@ export type SupabaseContextType = {
   updateHomeBlurb: (newBlurb: string) => Promise<void>;
   updateProjects: (newProjects: ProjectType[]) => Promise<void>;
   updateExperiences: (newExperiences: ExperienceType[]) => Promise<void>;
-  uploadFile: (fileName: string, file: File) => Promise<void>;
+  uploadFile: (
+    fileName: string,
+    file: File
+  ) => Promise<
+    | ReturnType<ReturnType<typeof supabase.storage.from>["getPublicUrl"]>
+    | undefined
+  >;
   editing: boolean;
 };
 
@@ -37,7 +43,7 @@ const defaultContext = {
   updateHomeBlurb: async () => {},
   updateProjects: async () => {},
   updateExperiences: async () => {},
-  uploadFile: async () => {},
+  uploadFile: async () => undefined,
   editing: false,
 } satisfies SupabaseContextType;
 
@@ -140,6 +146,7 @@ export const useSupabase = (): SupabaseContextType => {
           await supabase.storage
             .from("assets")
             .upload(fileName, file, { upsert: true });
+          return supabase.storage.from("assets").getPublicUrl(fileName);
         },
       });
     };
