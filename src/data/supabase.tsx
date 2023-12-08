@@ -23,7 +23,9 @@ export type SupabaseContextType = {
   experiences: ExperienceType[];
   rawHomeData: string;
   updateHomeBlurb: (newBlurb: string) => Promise<void>;
-  updateProjects: (newProjects: ProjectType[]) => Promise<void>;
+  updateProjects: (
+    newProjects: ({ type?: "PROJECT" } & TablesInsert<"project">)[]
+  ) => Promise<void>;
   updateExperiences: (newExperiences: ExperienceType[]) => Promise<void>;
   uploadFile: (
     fileName: string,
@@ -111,15 +113,19 @@ export const useSupabase = (): SupabaseContextType => {
         },
         updateProjects: async (newProjects) => {
           const newProjectsWithType = newProjects.map((p) => {
-            const newProjectType: Omit<ProjectType, "type"> & {
-              type?: ProjectType["type"];
-            } = {
+            const newProjectType = {
               ...p,
             };
             delete newProjectType.type;
             return newProjectType;
           });
-          await supabase.from("project").upsert(newProjectsWithType);
+          await supabase
+            .from("project")
+            .upsert(newProjectsWithType.filter((p) => p.id !== undefined));
+          await supabase.from("project").delete().eq("name", "delete");
+          await supabase
+            .from("project")
+            .insert(newProjectsWithType.filter((p) => p.id === undefined));
           await load();
         },
         updateExperiences: async (newExperiences) => {

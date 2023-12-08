@@ -35,12 +35,32 @@ const Projects = (): ReactElement => {
       <FadeColumn ref={setProjectContainerRef}>
         <Fade direction="up" cascade triggerOnce damping={0.05}>
           {editing && (
-            <button
-              style={{ margin: "1rem 0" }}
-              onClick={() => updateProjects(newProjects)}
-            >
-              save
-            </button>
+            <>
+              <button
+                style={{ margin: "1rem 3rem 1rem 0" }}
+                onClick={() => updateProjects(newProjects)}
+              >
+                save
+              </button>
+              <button
+                style={{ margin: "1rem 0" }}
+                onClick={() =>
+                  updateProjects([
+                    ...newProjects,
+                    {
+                      name: "",
+                      start: "",
+                      description: "",
+                      tech_used: "",
+                      image_url: "",
+                      alt_text: "",
+                    },
+                  ])
+                }
+              >
+                add project
+              </button>
+            </>
           )}
           {newProjects.map((project: ProjectType, index: number) => {
             return (
