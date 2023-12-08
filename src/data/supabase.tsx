@@ -23,8 +23,8 @@ export type SupabaseContextType = {
   experiences: ExperienceType[];
   rawHomeData: string;
   updateHomeBlurb: (newBlurb: string) => Promise<void>;
-  updateProjects: Function;
-  updateExperiences: Function;
+  updateProjects: (newProjects: ProjectType[]) => Promise<void>;
+  updateExperiences: (newExperiences: ExperienceType[]) => Promise<void>;
   editing: boolean;
 };
 
@@ -34,8 +34,8 @@ const defaultContext = {
   experiences: [],
   rawHomeData: "",
   updateHomeBlurb: async () => {},
-  updateProjects: () => {},
-  updateExperiences: () => {},
+  updateProjects: async () => {},
+  updateExperiences: async () => {},
   editing: false,
 } satisfies SupabaseContextType;
 
@@ -101,8 +101,39 @@ export const useSupabase = (): SupabaseContextType => {
             .upsert(generateHomeEntriesFromString(newBlurb));
           await load();
         },
-        updateExperiences: () => {},
-        updateProjects: () => {},
+        updateProjects: async (newProjects) => {
+          const newProjectsWithType = newProjects.map((p) => {
+            const newProjectType: Omit<ProjectType, "type"> & {
+              type?: ProjectType["type"];
+            } = {
+              ...p,
+            };
+            delete newProjectType.type;
+            return newProjectType;
+          });
+          await supabase.from("project").upsert(newProjectsWithType);
+          await load();
+        },
+        updateExperiences: async (newExperiences) => {
+          const newPositions = newExperiences.flatMap((e) => e.positions);
+          const newExperiencesTyped = newExperiences.map((e) => {
+            const newExperienceTyped: Omit<
+              ExperienceType,
+              "type" | "positions"
+            > & {
+              type?: ExperienceType["type"];
+              positions?: ExperienceType["positions"];
+            } = {
+              ...e,
+            };
+            delete newExperienceTyped.type;
+            delete newExperienceTyped.positions;
+            return newExperienceTyped;
+          });
+          await supabase.from("experience").upsert(newExperiencesTyped);
+          await supabase.from("position").upsert(newPositions);
+          await load();
+        },
       });
     };
     load();

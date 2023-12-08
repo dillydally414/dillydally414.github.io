@@ -4,7 +4,13 @@ import LinkedinIcon from "../assets/linkedin.svg?react";
 import GithubIcon from "../assets/github.svg?react";
 import ScottJpg from "../assets/scott.jpg";
 import { Fade } from "react-awesome-reveal";
-import { Link, LinkText, FadeColumn, SubHeader } from "../styles";
+import {
+  Link,
+  LinkText,
+  FadeColumn,
+  SubHeader,
+  EditableInput,
+} from "../styles";
 import styled from "styled-components";
 import { SupabaseContext } from "../data/supabase";
 import ShellType from "../components/ShellType";
@@ -35,21 +41,6 @@ const WhoIAmText = styled.p`
   font-family: ${(props) => props.theme.bodyFont};
   color: ${(props) => props.theme.text2};
   width: 85%;
-`;
-
-const WhoIAmInput = styled.textarea`
-  align-self: center;
-  background-color: inherit;
-  border-color: ${(props) => props.theme.accent2};
-  border-style: solid;
-  border-radius: 5px;
-  display: flex;
-  padding: 0.25rem;
-  font-family: ${(props) => props.theme.bodyFont};
-  color: ${(props) => props.theme.text2};
-  width: 50vw;
-  margin-bottom: 1rem;
-  height: 20vh;
 `;
 
 const HomeContainer = styled.div`
@@ -118,7 +109,8 @@ const Home = (): ReactElement => {
           <ShellType text="dillon c scott" />
           {homeBlurb &&
             (editing ? (
-              <WhoIAmInput
+              <EditableInput
+                $align="center"
                 value={newHomeData}
                 onChange={(evt) => setNewHomeData(evt.target.value)}
               />
@@ -126,7 +118,12 @@ const Home = (): ReactElement => {
               <WhoIAmText>{homeBlurb}</WhoIAmText>
             ))}
           {editing && (
-            <button onClick={() => updateHomeBlurb(newHomeData)}>save</button>
+            <button
+              style={{ margin: "1rem 0" }}
+              onClick={() => updateHomeBlurb(newHomeData)}
+            >
+              save
+            </button>
           )}
         </Fade>
       </RightColumn>

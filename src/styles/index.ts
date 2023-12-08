@@ -158,3 +158,21 @@ export const ProjectTimeframe = styled.p`
   color: ${(props) => props.theme.accent};
   margin: 0;
 `;
+
+export const EditableInput = styled.textarea<{
+  $align: "center" | "flex-start";
+  $height?: string;
+  $width?: string;
+}>`
+  align-self: ${(props) => props.$align};
+  background-color: inherit;
+  border-color: ${(props) => props.theme.accent2};
+  border-style: solid;
+  border-radius: 5px;
+  display: flex;
+  padding: 0.25rem;
+  font-family: ${(props) => props.theme.bodyFont};
+  color: ${(props) => props.theme.text2};
+  width: ${(props) => props.$width ?? "50vw"};
+  height: ${(props) => props.$height ?? "20vh"};
+`;

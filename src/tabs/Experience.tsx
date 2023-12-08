@@ -16,10 +16,17 @@ import Scrollbar from "../components/Scrollbar";
 import { FadeColumn } from "../styles";
 
 const Experience = (): ReactElement => {
-  const { experiences } = useContext(SupabaseContext);
+  const { experiences, updateExperiences, editing } =
+    useContext(SupabaseContext);
   const experienceRefs = useRef<Array<HTMLElement | null>>([]).current;
   const [experienceContainerRef, setExperienceContainerRef] =
     useState<HTMLDivElement | null>(null);
+
+  const [newExperiences, setNewExperiences] = useState(experiences);
+
+  useEffect(() => {
+    setNewExperiences(experiences);
+  }, [experiences]);
 
   return (
     <>
@@ -29,13 +36,29 @@ const Experience = (): ReactElement => {
         containerRef={experienceContainerRef}
       />
       <FadeColumn ref={setExperienceContainerRef}>
+        {editing && (
+          <button
+            style={{ margin: "1rem 0" }}
+            onClick={() => updateExperiences(newExperiences)}
+          >
+            save
+          </button>
+        )}
         <Fade direction="up" cascade triggerOnce damping={0.05}>
-          {experiences.map((experience: ExperienceType, index: number) => {
+          {newExperiences.map((experience: ExperienceType, index: number) => {
             return (
               <Project
                 info={experience}
                 passRef={(ref) => (experienceRefs[index] = ref.current)}
-                key={`${experience.id} ${experience.place_of_work}`}
+                key={experience.id}
+                editing={editing}
+                updateFn={(newExperienceInfo) =>
+                  setNewExperiences([
+                    ...newExperiences.slice(0, index),
+                    newExperienceInfo,
+                    ...newExperiences.slice(index + 1),
+                  ])
+                }
               />
             );
           })}
