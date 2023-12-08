@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { ReactElement, createContext, useEffect, useState } from "react";
-import { Database } from "../types/database";
+import { Database, Tables, TablesInsert } from "../types/database";
 import { Link } from "../styles";
 import { ExperienceType, ProjectType } from "../types";
 
@@ -25,6 +25,7 @@ export type SupabaseContextType = {
   updateHomeBlurb: (newBlurb: string) => Promise<void>;
   updateProjects: (newProjects: ProjectType[]) => Promise<void>;
   updateExperiences: (newExperiences: ExperienceType[]) => Promise<void>;
+  uploadFile: (fileName: string, file: File) => Promise<void>;
   editing: boolean;
 };
 
@@ -36,6 +37,7 @@ const defaultContext = {
   updateHomeBlurb: async () => {},
   updateProjects: async () => {},
   updateExperiences: async () => {},
+  uploadFile: async () => {},
   editing: false,
 } satisfies SupabaseContextType;
 
@@ -134,6 +136,11 @@ export const useSupabase = (): SupabaseContextType => {
           await supabase.from("position").upsert(newPositions);
           await load();
         },
+        uploadFile: async (fileName, file) => {
+          await supabase.storage
+            .from("assets")
+            .upload(fileName, file, { upsert: true });
+        },
       });
     };
     load();
@@ -144,13 +151,12 @@ export const useSupabase = (): SupabaseContextType => {
 
 const generateHomeEntriesFromString = (
   newBlurb: string
-): Database["public"]["Tables"]["home"]["Insert"][] => {
+): TablesInsert<"home">[] => {
   const paragraphs = newBlurb.split("\n\n");
-  const substitutionEntries: Database["public"]["Tables"]["home"]["Insert"][] =
-    [];
+  const substitutionEntries: TablesInsert<"home">[] = [];
 
-  const paragraphEntries: Database["public"]["Tables"]["home"]["Insert"][] =
-    paragraphs.map((paragraph) => {
+  const paragraphEntries: TablesInsert<"home">[] = paragraphs.map(
+    (paragraph) => {
       let newParagraph = paragraph;
       const substitutions = [...paragraph.matchAll(/\[.*\]\(.*\)/g)].map(
         ([substitution]) => {
@@ -172,13 +178,14 @@ const generateHomeEntriesFromString = (
         type: "paragraph",
         paragraph: newParagraph,
       };
-    });
+    }
+  );
 
   return [...paragraphEntries, ...substitutionEntries];
 };
 
 const generateStringFromHomeEntries = (
-  homeEntries: Database["public"]["Tables"]["home"]["Row"][] | null
+  homeEntries: Tables<"home">[] | null
 ): string => {
   if (homeEntries === null) {
     return "";
@@ -205,9 +212,7 @@ const generateStringFromHomeEntries = (
     .join("\n\n");
 };
 
-const generateBlurb = (
-  home: Database["public"]["Tables"]["home"]["Row"][] | null
-): ReactElement => {
+const generateBlurb = (home: Tables<"home">[] | null): ReactElement => {
   const stringifiedBlurb = generateStringFromHomeEntries(home);
   if (stringifiedBlurb === "") {
     return <></>;
