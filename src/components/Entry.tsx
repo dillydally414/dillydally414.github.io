@@ -167,87 +167,111 @@ const Entry = <T extends EntryType>({
             )}
           </>
         ) : (
-          newInfo.positions.map((position, index) => (
-            <React.Fragment key={position.id}>
-              <ProjectHighlight>
-                {editing ? (
-                  <>
-                    <EditableInput
-                      $align="flex-start"
-                      $height="1rem"
-                      $width="21rem"
-                      value={position.title}
-                      onChange={(evt) =>
-                        setNewInfo({
-                          ...newInfo,
-                          positions: newInfo.positions.map((p, i) =>
-                            i === index ? { ...p, title: evt.target.value } : p
-                          ),
-                        })
-                      }
-                    />
-                    <div style={{ display: "flex", flexDirection: "row" }}>
+          <>
+            {editing && (
+              <button
+                style={{ margin: "1rem 0" }}
+                onClick={() =>
+                  setNewInfo({
+                    ...newInfo,
+                    positions: [
+                      ...newInfo.positions,
+                      { experience_id: newInfo.id },
+                    ],
+                  })
+                }
+              >
+                add position
+              </button>
+            )}
+            {newInfo.positions.map((position, index) => (
+              <React.Fragment key={position.id}>
+                <ProjectHighlight>
+                  {editing ? (
+                    <>
                       <EditableInput
                         $align="flex-start"
                         $height="1rem"
-                        $width="10rem"
-                        value={position.start}
+                        $width="21rem"
+                        value={position.title}
                         onChange={(evt) =>
                           setNewInfo({
                             ...newInfo,
                             positions: newInfo.positions.map((p, i) =>
                               i === index
-                                ? { ...p, start: evt.target.value }
+                                ? { ...p, title: evt.target.value }
                                 : p
                             ),
                           })
                         }
                       />
-                      {" - "}
-                      <EditableInput
-                        $align="flex-start"
-                        $height="1rem"
-                        $width="10rem"
-                        value={position.end || ""}
-                        onChange={(evt) =>
-                          setNewInfo({
-                            ...newInfo,
-                            positions: newInfo.positions.map((p, i) =>
-                              i === index ? { ...p, end: evt.target.value } : p
-                            ),
-                          })
-                        }
-                      />
-                    </div>
-                  </>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <EditableInput
+                          $align="flex-start"
+                          $height="1rem"
+                          $width="10rem"
+                          value={position.start}
+                          onChange={(evt) =>
+                            setNewInfo({
+                              ...newInfo,
+                              positions: newInfo.positions.map((p, i) =>
+                                i === index
+                                  ? { ...p, start: evt.target.value }
+                                  : p
+                              ),
+                            })
+                          }
+                        />
+                        {" - "}
+                        <EditableInput
+                          $align="flex-start"
+                          $height="1rem"
+                          $width="10rem"
+                          value={position.end || ""}
+                          onChange={(evt) =>
+                            setNewInfo({
+                              ...newInfo,
+                              positions: newInfo.positions.map((p, i) =>
+                                i === index
+                                  ? { ...p, end: evt.target.value }
+                                  : p
+                              ),
+                            })
+                          }
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <ProjectTimeframe>{position.title}</ProjectTimeframe>
+                      <ProjectTimeframe>
+                        {formatTime(position)}
+                      </ProjectTimeframe>
+                    </>
+                  )}
+                </ProjectHighlight>
+                {editing ? (
+                  <EditableInput
+                    $align="flex-start"
+                    $height="5rem"
+                    value={position.description}
+                    onChange={(evt) =>
+                      setNewInfo({
+                        ...newInfo,
+                        positions: newInfo.positions.map((p, i) =>
+                          i === index
+                            ? { ...p, description: evt.target.value }
+                            : p
+                        ),
+                      })
+                    }
+                  />
                 ) : (
-                  <>
-                    <ProjectTimeframe>{position.title}</ProjectTimeframe>
-                    <ProjectTimeframe>{formatTime(position)}</ProjectTimeframe>
-                  </>
+                  <ProjectDesc>{position.description}</ProjectDesc>
                 )}
-              </ProjectHighlight>
-              {editing ? (
-                <EditableInput
-                  $align="flex-start"
-                  $height="5rem"
-                  value={position.description}
-                  onChange={(evt) =>
-                    setNewInfo({
-                      ...newInfo,
-                      positions: newInfo.positions.map((p, i) =>
-                        i === index
-                          ? { ...p, description: evt.target.value }
-                          : p
-                      ),
-                    })
-                  }
-                />
-              ) : (
-                <ProjectDesc>{position.description}</ProjectDesc>
-              )}
-            </React.Fragment>
-          ))
+              </React.Fragment>
+            ))}
+          </>
         )}
         {editing ? (
           <EditableInput

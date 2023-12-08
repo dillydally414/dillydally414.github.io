@@ -26,7 +26,11 @@ export type SupabaseContextType = {
   updateProjects: (
     newProjects: ({ type?: "PROJECT" } & TablesInsert<"project">)[]
   ) => Promise<void>;
-  updateExperiences: (newExperiences: ExperienceType[]) => Promise<void>;
+  updateExperiences: (
+    newExperiences: ({ type?: "EXPERIENCE" } & TablesInsert<"experience"> & {
+        positions?: TablesInsert<"position">[];
+      })[]
+  ) => Promise<void>;
   uploadFile: (
     fileName: string,
     file: File
@@ -129,23 +133,32 @@ export const useSupabase = (): SupabaseContextType => {
           await load();
         },
         updateExperiences: async (newExperiences) => {
-          const newPositions = newExperiences.flatMap((e) => e.positions);
+          const newPositions = newExperiences.flatMap((e) => e.positions || []);
           const newExperiencesTyped = newExperiences.map((e) => {
-            const newExperienceTyped: Omit<
-              ExperienceType,
-              "type" | "positions"
-            > & {
-              type?: ExperienceType["type"];
-              positions?: ExperienceType["positions"];
-            } = {
+            const newExperienceTyped = {
               ...e,
             };
             delete newExperienceTyped.type;
             delete newExperienceTyped.positions;
             return newExperienceTyped;
           });
-          await supabase.from("experience").upsert(newExperiencesTyped);
-          await supabase.from("position").upsert(newPositions);
+          await supabase
+            .from("experience")
+            .upsert(newExperiencesTyped.filter((e) => e.id !== undefined));
+          await supabase
+            .from("position")
+            .upsert(newPositions.filter((p) => p.id !== undefined));
+          await supabase.from("position").delete().eq("title", "delete");
+          await supabase
+            .from("experience")
+            .delete()
+            .eq("place_of_work", "delete");
+          await supabase
+            .from("experience")
+            .insert(newExperiencesTyped.filter((e) => e.id === undefined));
+          await supabase
+            .from("position")
+            .insert(newPositions.filter((p) => p.id === undefined));
           await load();
         },
         uploadFile: async (fileName, file) => {

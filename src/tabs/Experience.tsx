@@ -36,15 +36,33 @@ const Experience = (): ReactElement => {
         containerRef={experienceContainerRef}
       />
       <FadeColumn ref={setExperienceContainerRef}>
-        {editing && (
-          <button
-            style={{ margin: "1rem 0" }}
-            onClick={() => updateExperiences(newExperiences)}
-          >
-            save
-          </button>
-        )}
         <Fade direction="up" cascade triggerOnce damping={0.05}>
+          {editing && (
+            <>
+              <button
+                style={{ margin: "1rem 3rem 1rem 0" }}
+                onClick={() => updateExperiences(newExperiences)}
+              >
+                save
+              </button>
+              <button
+                style={{ margin: "1rem 0" }}
+                onClick={() =>
+                  updateExperiences([
+                    ...newExperiences,
+                    {
+                      place_of_work: "",
+                      relevant_tech: "",
+                      image_url: "",
+                      alt_text: "",
+                    },
+                  ])
+                }
+              >
+                add experience
+              </button>
+            </>
+          )}
           {newExperiences.map((experience: ExperienceType, index: number) => {
             return (
               <Project
