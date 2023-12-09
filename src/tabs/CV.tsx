@@ -1,7 +1,8 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link, SubHeader } from "../styles";
 import NewTabIcon from "../assets/newtab.svg?react";
+import { SupabaseContext } from "../data/supabase";
 
 const cvLink =
   "https://yfaqmlswjffrcahnqlms.supabase.co/storage/v1/object/public/assets/cv.pdf";
@@ -42,8 +43,26 @@ export const Resume = styled.iframe`
 `;
 
 const CV = (): ReactElement => {
+  const { editing, uploadFile } = useContext(SupabaseContext);
+  const filesRef = useRef<HTMLInputElement | null>(null);
+
   return (
     <ResumeDiv>
+      {editing && (
+        <>
+          <input type="file" accept=".pdf" ref={filesRef} />
+          <button
+            onClick={() => {
+              const file = filesRef.current?.files?.item(0);
+              if (file) {
+                uploadFile("cv.pdf", file);
+              }
+            }}
+          >
+            save
+          </button>
+        </>
+      )}
       <CenteredLink href={cvLink} target="_blank">
         <NewTabIcon height="100%" />
         <SubHeader $align="center">open in new tab</SubHeader>

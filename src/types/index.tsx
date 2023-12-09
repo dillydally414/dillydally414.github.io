@@ -1,12 +1,12 @@
-import { Database } from "./database";
+import { Database, Tables } from "./database";
 
 export type ExperienceType = {
   type: "EXPERIENCE";
-  positions: Database["public"]["Tables"]["position"]["Row"][];
-} & Database["public"]["Tables"]["experience"]["Row"];
+  positions: Tables<"position">[];
+} & Tables<"experience">;
 
 export type ProjectType = {
   type: "PROJECT";
-} & Database["public"]["Tables"]["project"]["Row"];
+} & Tables<"project">;
 
 export type EntryType = ExperienceType | ProjectType;

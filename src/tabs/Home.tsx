@@ -1,10 +1,16 @@
-import React, { ReactElement, useContext } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import MailIcon from "../assets/mail.svg?react";
 import LinkedinIcon from "../assets/linkedin.svg?react";
 import GithubIcon from "../assets/github.svg?react";
 import ScottJpg from "../assets/scott.jpg";
 import { Fade } from "react-awesome-reveal";
-import { Link, LinkText, FadeColumn, SubHeader } from "../styles";
+import {
+  Link,
+  LinkText,
+  FadeColumn,
+  SubHeader,
+  EditableInput,
+} from "../styles";
 import styled from "styled-components";
 import { SupabaseContext } from "../data/supabase";
 import ShellType from "../components/ShellType";
@@ -75,7 +81,13 @@ const contactInfo = [
 ];
 
 const Home = (): ReactElement => {
-  const { homeBlurb } = useContext(SupabaseContext);
+  const { editing, homeBlurb, rawHomeData, updateHomeBlurb } =
+    useContext(SupabaseContext);
+  const [newHomeData, setNewHomeData] = useState(rawHomeData);
+
+  useEffect(() => {
+    setNewHomeData(rawHomeData);
+  }, [rawHomeData]);
   return (
     <HomeContainer>
       <LeftColumn>
@@ -95,7 +107,24 @@ const Home = (): ReactElement => {
       <RightColumn>
         <Fade direction="up" cascade triggerOnce>
           <ShellType text="dillon c scott" />
-          {homeBlurb && <WhoIAmText>{homeBlurb}</WhoIAmText>}
+          {homeBlurb &&
+            (editing ? (
+              <EditableInput
+                $align="center"
+                value={newHomeData}
+                onChange={(evt) => setNewHomeData(evt.target.value)}
+              />
+            ) : (
+              <WhoIAmText>{homeBlurb}</WhoIAmText>
+            ))}
+          {editing && (
+            <button
+              style={{ margin: "1rem 0" }}
+              onClick={() => updateHomeBlurb(newHomeData)}
+            >
+              save
+            </button>
+          )}
         </Fade>
       </RightColumn>
     </HomeContainer>
