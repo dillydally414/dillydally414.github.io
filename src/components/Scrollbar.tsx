@@ -171,15 +171,14 @@ const useScrollTo = (
   };
 
   useEffect(() => {
-    anchorRefs[selected]?.attributeStyleMap.set(
-      "text-decoration-color",
-      theme.accent
-    );
-    anchorRefs.map(
-      (element, index) =>
-        index !== selected &&
-        element?.attributeStyleMap.set("text-decoration-color", theme.accent2)
-    );
+    if (anchorRefs[selected]) {
+      anchorRefs[selected]!.style.textDecorationColor = theme.accent;
+    }
+    anchorRefs.map((element, index) => {
+      if (index !== selected && element) {
+        element.style.textDecorationColor = theme.accent2;
+      }
+    });
   }, [theme, anchorRefs, selected]);
 
   useEffect(() => {
