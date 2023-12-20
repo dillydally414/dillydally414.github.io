@@ -15,6 +15,10 @@ const LeftSideContainer = styled.div`
   max-height: 100%;
   position: sticky;
   top: 0;
+
+  @media screen and (max-width: 480px) {
+    margin-right: 0;
+  }
 `;
 
 const ScrollbarContainer = styled.div`
@@ -76,6 +80,10 @@ const ImageLink = styled(Link)<{
     cursor: default;
     padding: 0.25rem;
     z-index: 10;
+
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
   }
 
   &:hover {
@@ -92,6 +100,10 @@ const ImageColumn = styled.div`
   display: flex;
   flex-direction: column;
   width: 4rem;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const ProjectImage = styled.img<{ $selected: boolean }>`
@@ -244,13 +256,16 @@ const useScrollTo = (
             }
             const scrollParent = anchorContainerRef?.parentElement;
             if (scrollParent) {
-              const newFirst = scrollParent.scrollTop <= 5;
+              const newFirst =
+                scrollParent.scrollTop <= 5 ||
+                (entryIndex === 0 && entry.isIntersecting);
               const newLast =
                 Math.abs(
                   scrollParent.scrollTop +
                     scrollParent.offsetHeight -
                     scrollParent.scrollHeight
-                ) <= 5;
+                ) <= 5 ||
+                (entryIndex === newVisible.length - 1 && entry.isIntersecting);
               newVisible[0] = newFirst;
               newVisible[newVisible.length - 1] = newLast;
             }

@@ -35,11 +35,18 @@ const ResumeDiv = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
+  height: 100%;
 `;
 
 export const Resume = styled.iframe`
   border-color: transparent;
   margin: 1rem 0;
+  width: 650px;
+  height: 100%;
+
+  @media screen and (max-width: 480px) {
+    width: 300px;
+  }
 `;
 
 const CV = (): ReactElement => {
@@ -63,16 +70,9 @@ const CV = (): ReactElement => {
           </button>
         </>
       )}
-      <CenteredLink href={cvLink} target="_blank">
-        <NewTabIcon height="100%" />
-        <SubHeader $align="center">open in new tab</SubHeader>
-      </CenteredLink>
       <Resume
-        src={cvLink}
-        width="650rem"
-        height="900rem"
+        src={`https://docs.google.com/gview?url=${cvLink}&embedded=true`}
         title="Dillon Scott CV"
-        allowFullScreen={true}
       />
     </ResumeDiv>
   );

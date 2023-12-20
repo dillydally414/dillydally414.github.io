@@ -16,6 +16,10 @@ export const SubHeader = styled.h2<{
   text-decoration-color: ${(props) =>
     props.$underline ? "underline" : "transparent"};
   transition-property: text-decoration-color, color;
+
+  @media screen and (max-width: 480px) {
+    font-size: 1.75rem;
+  }
 `;
 
 export const Link = styled.a<{ $inline?: boolean }>`
@@ -126,6 +130,7 @@ export const ProjectDiv = styled.div`
 `;
 
 export const ProjectLink = styled(Link)`
+  align-self: unset;
   justify-content: center;
   margin: 1rem 2rem 0 0;
   width: fit-content;
@@ -137,6 +142,11 @@ export const ProjectLinks = styled.div`
   flex-direction: row;
   justify-content: space-around;
   width: fit-content;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: self-start;
+  }
 `;
 
 export const ProjectName = styled(ShellType)`

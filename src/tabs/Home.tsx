@@ -17,10 +17,22 @@ import ShellType from "../components/ShellType";
 
 const LeftColumn = styled(FadeColumn)`
   width: 30%;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    h2 {
+      display: none;
+    }
+  }
 `;
 
 const RightColumn = styled(FadeColumn)`
   width: 65%;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    align-items: center;
+  }
 `;
 
 const SelfImage = styled.img`
@@ -34,6 +46,10 @@ const SelfImage = styled.img`
   height: auto;
   max-width: 75%;
   transition-property: border-color;
+
+  @media screen and (max-width: 480px) {
+    margin-top: 12.5rem;
+  }
 `;
 
 const WhoIAmText = styled.p`
@@ -41,6 +57,11 @@ const WhoIAmText = styled.p`
   font-family: ${(props) => props.theme.bodyFont};
   color: ${(props) => props.theme.text2};
   width: 85%;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    align-items: center;
+  }
 `;
 
 const HomeContainer = styled.div`
@@ -52,6 +73,11 @@ const HomeContainer = styled.div`
   padding: calc(10vh-2rem) 0 2rem;
   align-items: flex-start;
   justify-content: space-between;
+  width: 100%;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 const LinkColumns = styled.div`
@@ -60,6 +86,14 @@ const LinkColumns = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: row;
+    margin-top: 0;
+    p {
+      display: none;
+    }
+  }
 `;
 
 const contactInfo = [

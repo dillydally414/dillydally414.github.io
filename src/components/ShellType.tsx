@@ -15,6 +15,11 @@ const StyledH2 = styled.h1<{ $text: string; $animate: boolean }>`
   margin-top: 2rem;
   transition-property: color;
 
+  @media screen and (max-width: 480px) {
+    font-size: 2.5rem;
+    margin-left: 1rem;
+  }
+
   &:after {
     animation: ${(props) => (props.$animate ? animation(props.$text) : "none")}
       ${(props) =>
@@ -22,8 +27,16 @@ const StyledH2 = styled.h1<{ $text: string; $animate: boolean }>`
       ease-in-out ${(props) => (props.id ? props.id : "0s")};
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    content: ${(props) => "'" + " ".repeat(props.$text.length + 1) + "'"};
-    white-space: pre;
+    content: "";
+    white-space: pre-wrap;
+  }
+
+  &:before {
+    display: block;
+    content: "${(props) => props.$text}_";
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
   }
 `;
 

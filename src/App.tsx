@@ -41,6 +41,10 @@ const TabTitleSpan = styled.span<{ $active: boolean }>`
     mask-size: ${(props) => (props.$active ? "100%" : "0%")};
     transition-property: background-color, -webkit-mask-size, mask-size;
     ${(props) => props.theme.defaultProps}
+
+    @media screen and (max-width: 480px) {
+      visibility: hidden;
+    }
   }
 `;
 
@@ -95,6 +99,7 @@ const TopRow = styled.header`
   position: sticky;
   top: 0;
   z-index: 1;
+  overflow: auto hidden;
 `;
 
 const ThemeLabel = styled.label<{ $checked: boolean }>`
@@ -103,8 +108,10 @@ const ThemeLabel = styled.label<{ $checked: boolean }>`
   display: flex;
   cursor: pointer;
   padding-left: ${(props) => (props.$checked ? "2rem" : "0")};
+  margin-left: 1.5rem;
   height: 2rem;
   width: 4rem;
+  min-width: 4rem;
   background-color: ${(props) => props.theme.background};
   background: url("/sun.svg") 2.25rem center, url("/moon.svg") 0.25rem center;
   background-repeat: no-repeat;

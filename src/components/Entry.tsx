@@ -342,7 +342,7 @@ const Entry = <T extends EntryType>({
               <>
                 {newInfo.github_link ? (
                   <ProjectLink href={newInfo.github_link} target="_blank">
-                    <GithubIcon />
+                    <GithubIcon height="24" width="24" />
                     <LinkText>See the code</LinkText>
                   </ProjectLink>
                 ) : (
@@ -350,7 +350,7 @@ const Entry = <T extends EntryType>({
                 )}
                 {newInfo.visual_link && (
                   <ProjectLink href={newInfo.visual_link} target="_blank">
-                    <ClickIcon height="24" />
+                    <ClickIcon height="24" width="24" />
                     <LinkText>See it in action</LinkText>
                   </ProjectLink>
                 )}
