@@ -24,7 +24,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "gen-types": ". .env && supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/types/database.ts"
   },
   "eslintConfig": {
     "extends": [

@@ -81,7 +81,7 @@ const TabWidth = styled.div`
   display: flex;
   justify-content: flex-start;
   flex: auto;
-  max-width: 40rem;
+  max-width: 50rem;
   min-width: fit-content;
 `;
 

@@ -9,4 +9,11 @@ export type ProjectType = {
   type: "PROJECT";
 } & Tables<"project">;
 
-export type EntryType = ExperienceType | ProjectType;
+export type PaperType = Tables<"paper">;
+
+export type ResearchType = {
+  type: "RESEARCH";
+  papers: PaperType[];
+} & Tables<"research">;
+
+export type EntryType = ExperienceType | ProjectType | ResearchType;

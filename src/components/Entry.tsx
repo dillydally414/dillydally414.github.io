@@ -9,9 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { EntryType, ProjectType } from "../types";
-import GithubIcon from "../assets/github.svg?react";
-import ClickIcon from "../assets/mouse-click.svg?react";
+import { EntryType, ExperienceType, ProjectType, ResearchType } from "../types";
 import { Fade } from "react-awesome-reveal";
 import {
   HorizontalLine,
@@ -29,6 +27,8 @@ import {
   EditableInput,
 } from "../styles";
 import { SupabaseContext } from "../data/supabase";
+import { getTitle, getTitleProperty } from "../data/utils";
+import LinkRow from "./LinkRow";
 
 const formatTime = ({ start, end }: { start: string; end: string | null }) => {
   return `${start.toLowerCase()}${
@@ -73,16 +73,11 @@ const Entry = <T extends EntryType>({
               $align="flex-start"
               $height="1rem"
               $width="15rem"
-              value={
-                newInfo.type === "PROJECT"
-                  ? newInfo.name
-                  : newInfo.place_of_work
-              }
+              value={getTitle(newInfo)}
               onChange={(evt) =>
                 setNewInfo({
                   ...newInfo,
-                  [newInfo.type === "PROJECT" ? "name" : "place_of_work"]:
-                    evt.target.value,
+                  [getTitleProperty(newInfo)]: evt.target.value,
                 })
               }
               ref={ref as RefObject<HTMLTextAreaElement>}
@@ -112,61 +107,10 @@ const Entry = <T extends EntryType>({
             $underline={info.id === 1}
             ref={ref as RefObject<HTMLHeadingElement>}
           >
-            {info.type === "PROJECT" ? info.name : info.place_of_work}
+            {getTitle(info)}
           </SubHeader>
         )}
-        {newInfo.type === "PROJECT" ? (
-          <>
-            <ProjectHighlight>
-              {editing ? (
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                  <EditableInput
-                    $align="flex-start"
-                    $height="1rem"
-                    $width="10rem"
-                    value={newInfo.start}
-                    onChange={(evt) =>
-                      setNewInfo({
-                        ...newInfo,
-                        start: evt.target.value,
-                      })
-                    }
-                  />
-                  {" - "}
-                  <EditableInput
-                    $align="flex-start"
-                    $height="1rem"
-                    $width="10rem"
-                    value={newInfo.end || ""}
-                    onChange={(evt) =>
-                      setNewInfo({
-                        ...newInfo,
-                        end: evt.target.value,
-                      })
-                    }
-                  />
-                </div>
-              ) : (
-                <ProjectTimeframe>{formatTime(newInfo)}</ProjectTimeframe>
-              )}
-            </ProjectHighlight>
-            {editing ? (
-              <EditableInput
-                $align="flex-start"
-                $height="5rem"
-                value={newInfo.description}
-                onChange={(evt) =>
-                  setNewInfo({
-                    ...newInfo,
-                    description: evt.target.value,
-                  })
-                }
-              />
-            ) : (
-              <ProjectDesc>{newInfo.description}</ProjectDesc>
-            )}
-          </>
-        ) : (
+        {newInfo.type === "EXPERIENCE" ? (
           <>
             {editing && (
               <button
@@ -272,8 +216,188 @@ const Entry = <T extends EntryType>({
               </React.Fragment>
             ))}
           </>
+        ) : newInfo.type === "PROJECT" ? (
+          <>
+            <ProjectHighlight>
+              {editing ? (
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <EditableInput
+                    $align="flex-start"
+                    $height="1rem"
+                    $width="10rem"
+                    value={newInfo.start}
+                    onChange={(evt) =>
+                      setNewInfo({
+                        ...newInfo,
+                        start: evt.target.value,
+                      })
+                    }
+                  />
+                  {" - "}
+                  <EditableInput
+                    $align="flex-start"
+                    $height="1rem"
+                    $width="10rem"
+                    value={newInfo.end || ""}
+                    onChange={(evt) =>
+                      setNewInfo({
+                        ...newInfo,
+                        end: evt.target.value,
+                      })
+                    }
+                  />
+                </div>
+              ) : (
+                <ProjectTimeframe>{formatTime(newInfo)}</ProjectTimeframe>
+              )}
+            </ProjectHighlight>
+            {editing ? (
+              <EditableInput
+                $align="flex-start"
+                $height="5rem"
+                value={newInfo.description}
+                onChange={(evt) =>
+                  setNewInfo({
+                    ...newInfo,
+                    description: evt.target.value,
+                  })
+                }
+              />
+            ) : (
+              <ProjectDesc>{newInfo.description}</ProjectDesc>
+            )}
+          </>
+        ) : (
+          <>
+            {editing ? (
+              <EditableInput
+                $align="flex-start"
+                $height="5rem"
+                value={newInfo.description}
+                onChange={(evt) =>
+                  setNewInfo({
+                    ...newInfo,
+                    description: evt.target.value,
+                  })
+                }
+              />
+            ) : (
+              <ProjectDesc>{newInfo.description}</ProjectDesc>
+            )}
+            {editing && (
+              <button
+                style={{ margin: "1rem 0" }}
+                onClick={() =>
+                  setNewInfo({
+                    ...newInfo,
+                    papers: [...newInfo.papers, { research_id: newInfo.id }],
+                  })
+                }
+              >
+                add paper
+              </button>
+            )}
+            {newInfo.papers.map((paper, index) => (
+              <React.Fragment key={paper.id}>
+                {editing ? (
+                  <>
+                    <EditableInput
+                      $align="flex-start"
+                      $height="2rem"
+                      value={paper.title}
+                      onChange={(evt) =>
+                        setNewInfo({
+                          ...newInfo,
+                          papers: newInfo.papers.map((p, i) =>
+                            i === index ? { ...p, title: evt.target.value } : p
+                          ),
+                        })
+                      }
+                    />
+                    <EditableInput
+                      $align="flex-start"
+                      $height="3rem"
+                      value={paper.authors}
+                      onChange={(evt) =>
+                        setNewInfo({
+                          ...newInfo,
+                          papers: newInfo.papers.map((p, i) =>
+                            i === index
+                              ? { ...p, authors: evt.target.value }
+                              : p
+                          ),
+                        })
+                      }
+                    />
+                    <ProjectLinks>
+                      <EditableInput
+                        $align="center"
+                        $height="1rem"
+                        $width="5rem"
+                        value={paper.journal}
+                        onChange={(evt) =>
+                          setNewInfo({
+                            ...newInfo,
+                            papers: newInfo.papers.map((p, i) =>
+                              i === index
+                                ? { ...p, journal: evt.target.value }
+                                : p
+                            ),
+                          })
+                        }
+                      />
+                      {", "}
+                      <EditableInput
+                        $align="center"
+                        $height="1rem"
+                        $width="5rem"
+                        value={paper.year}
+                        onChange={(evt) =>
+                          setNewInfo({
+                            ...newInfo,
+                            papers: newInfo.papers.map((p, i) =>
+                              i === index ? { ...p, year: evt.target.value } : p
+                            ),
+                          })
+                        }
+                      />
+                    </ProjectLinks>
+                  </>
+                ) : (
+                  <>
+                    <ProjectDesc>{paper.title}</ProjectDesc>
+                    <ProjectDesc>{paper.authors}</ProjectDesc>
+                    <ProjectDesc>
+                      {paper.journal}, {paper.year}
+                    </ProjectDesc>
+                  </>
+                )}
+                <LinkRow
+                  github={paper.github_link}
+                  visual={paper.doi}
+                  editing={editing}
+                  updateGithub={(github_link) =>
+                    setNewInfo({
+                      ...newInfo,
+                      papers: newInfo.papers.map((p, i) =>
+                        i === index ? { ...p, github_link } : p
+                      ),
+                    })
+                  }
+                  updateVisual={(visual_link) =>
+                    setNewInfo({
+                      ...newInfo,
+                      papers: newInfo.papers.map((p, i) =>
+                        i === index ? { ...p, doi: visual_link } : p
+                      ),
+                    })
+                  }
+                />
+              </React.Fragment>
+            ))}
+          </>
         )}
-        {editing ? (
+        {editing && newInfo.type !== "RESEARCH" ? (
           <EditableInput
             $align="flex-start"
             $height="1rem"
@@ -291,72 +415,32 @@ const Entry = <T extends EntryType>({
             }
           />
         ) : (
-          <ProjectDesc>
-            {info.type === "PROJECT" ? info.tech_used : info.relevant_tech}
-          </ProjectDesc>
+          !editing &&
+          info.type !== "RESEARCH" && (
+            <ProjectDesc>
+              {info.type === "PROJECT" ? info.tech_used : info.relevant_tech}
+            </ProjectDesc>
+          )
         )}
         {newInfo.type === "PROJECT" && (
-          <ProjectLinks>
-            {editing ? (
-              <>
-                <EditableInput
-                  $align="center"
-                  $height="1rem"
-                  $width="5rem"
-                  value={newInfo.github_link ?? ""}
-                  onChange={(evt) =>
-                    setNewInfo({
-                      ...newInfo,
-                      github_link: evt.target.value,
-                    })
-                  }
-                />
-                <ProjectLink
-                  href={newInfo.visual_link ?? ""}
-                  target="_blank"
-                  style={{ margin: 0 }}
-                >
-                  <GithubIcon />
-                </ProjectLink>
-                <EditableInput
-                  $align="center"
-                  $height="1rem"
-                  $width="5rem"
-                  value={newInfo.visual_link ?? ""}
-                  onChange={(evt) =>
-                    setNewInfo({
-                      ...newInfo,
-                      visual_link: evt.target.value,
-                    })
-                  }
-                />
-                <ProjectLink
-                  href={newInfo.visual_link ?? ""}
-                  target="_blank"
-                  style={{ margin: 0 }}
-                >
-                  <ClickIcon height="24" />
-                </ProjectLink>
-              </>
-            ) : (
-              <>
-                {newInfo.github_link ? (
-                  <ProjectLink href={newInfo.github_link} target="_blank">
-                    <GithubIcon height="24" width="24" />
-                    <LinkText>See the code</LinkText>
-                  </ProjectLink>
-                ) : (
-                  <ProjectDesc>Available upon request</ProjectDesc>
-                )}
-                {newInfo.visual_link && (
-                  <ProjectLink href={newInfo.visual_link} target="_blank">
-                    <ClickIcon height="24" width="24" />
-                    <LinkText>See it in action</LinkText>
-                  </ProjectLink>
-                )}
-              </>
-            )}
-          </ProjectLinks>
+          <LinkRow
+            github={newInfo.github_link}
+            visual={newInfo.visual_link}
+            project
+            editing={editing}
+            updateGithub={(github_link) =>
+              setNewInfo({
+                ...newInfo,
+                github_link,
+              })
+            }
+            updateVisual={(visual_link) =>
+              setNewInfo({
+                ...newInfo,
+                visual_link,
+              })
+            }
+          />
         )}
       </ProjectDiv>
     </>
