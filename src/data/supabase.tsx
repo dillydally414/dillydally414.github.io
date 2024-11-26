@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import { ReactElement, createContext, useEffect, useState } from "react";
 import { Database, Tables, TablesInsert } from "../types/database";
 import { Link } from "../styles";
-import { ExperienceType, ProjectType } from "../types";
+import { ExperienceType, ProjectType, ResearchType } from "../types";
 
 // using anon key which only has read access
 const VITE_SUPABASE_URL = "https://yfaqmlswjffrcahnqlms.supabase.co";
@@ -21,6 +21,7 @@ export type SupabaseContextType = {
   homeBlurb: ReactElement | null;
   projects: ProjectType[];
   experiences: ExperienceType[];
+  research: ResearchType[];
   rawHomeData: string;
   updateHomeBlurb: (newBlurb: string) => Promise<void>;
   updateProjects: (
@@ -29,6 +30,11 @@ export type SupabaseContextType = {
   updateExperiences: (
     newExperiences: ({ type?: "EXPERIENCE" } & TablesInsert<"experience"> & {
         positions?: TablesInsert<"position">[];
+      })[]
+  ) => Promise<void>;
+  updateResearch: (
+    newResearch: ({ type?: "RESEARCH" } & TablesInsert<"research"> & {
+        papers?: TablesInsert<"paper">[];
       })[]
   ) => Promise<void>;
   uploadFile: (
@@ -45,10 +51,12 @@ const defaultContext = {
   homeBlurb: null,
   projects: [],
   experiences: [],
+  research: [],
   rawHomeData: "",
   updateHomeBlurb: async () => {},
   updateProjects: async () => {},
   updateExperiences: async () => {},
+  updateResearch: async () => {},
   uploadFile: async () => undefined,
   editing: false,
 } satisfies SupabaseContextType;
@@ -78,13 +86,29 @@ export const useSupabase = (): SupabaseContextType => {
         .from("position")
         .select()
         .order("created_at", { ascending: false });
-      const [homeData, projectsData, experiencesData, positionsData] =
-        await Promise.all([
-          homePromise,
-          projectsPromise,
-          experiencesPromise,
-          positionsPromise,
-        ]);
+      const researchPromise = supabase
+        .from("research")
+        .select()
+        .order("created_at", { ascending: false });
+      const papersPromise = supabase
+        .from("paper")
+        .select()
+        .order("created_at", { ascending: false });
+      const [
+        homeData,
+        projectsData,
+        experiencesData,
+        positionsData,
+        researchData,
+        papersData,
+      ] = await Promise.all([
+        homePromise,
+        projectsPromise,
+        experiencesPromise,
+        positionsPromise,
+        researchPromise,
+        papersPromise,
+      ]);
       setSupabaseData({
         homeBlurb: generateBlurb(homeData.data),
         projects:
@@ -105,6 +129,16 @@ export const useSupabase = (): SupabaseContextType => {
                 })) || [],
             ...experience,
             place_of_work: experience.place_of_work.toLowerCase(),
+          })) || [],
+        research:
+          researchData.data?.map((research) => ({
+            type: "RESEARCH",
+            papers:
+              papersData.data?.filter(
+                ({ research_id }) => research.id === research_id
+              ) || [],
+            ...research,
+            area: research.area.toLowerCase(),
           })) || [],
         editing: canEdit && editModeEnabled,
         rawHomeData: generateStringFromHomeEntries(homeData.data),
@@ -159,6 +193,32 @@ export const useSupabase = (): SupabaseContextType => {
           await supabase
             .from("position")
             .insert(newPositions.filter((p) => p.id === undefined));
+          await load();
+        },
+        updateResearch: async (newResearch) => {
+          const newPapers = newResearch.flatMap((r) => r.papers || []);
+          const newResearchTyped = newResearch.map((r) => {
+            const newResearchTyped = {
+              ...r,
+            };
+            delete newResearchTyped.type;
+            delete newResearchTyped.papers;
+            return newResearchTyped;
+          });
+          await supabase
+            .from("research")
+            .upsert(newResearchTyped.filter((r) => r.id !== undefined));
+          await supabase
+            .from("paper")
+            .upsert(newPapers.filter((p) => p.id !== undefined));
+          await supabase.from("paper").delete().eq("title", "delete");
+          await supabase.from("research").delete().eq("area", "delete");
+          await supabase
+            .from("research")
+            .insert(newResearchTyped.filter((r) => r.id === undefined));
+          await supabase
+            .from("paper")
+            .insert(newPapers.filter((p) => p.id === undefined));
           await load();
         },
         uploadFile: async (fileName, file) => {

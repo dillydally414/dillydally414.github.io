@@ -3,6 +3,7 @@ import { EntryType } from "../types";
 import { FadeColumn, FadeDiv, Link } from "../styles";
 import styled, { useTheme } from "styled-components";
 import { Fade } from "react-awesome-reveal";
+import { getTitle } from "../data/utils";
 
 const LeftSideContainer = styled.div`
   align-items: center;
@@ -313,11 +314,9 @@ const Scrollbar = ({
               onClick={() => {
                 setSelected(index);
               }}
-              aria-label={`scroll to ${
-                e.type === "PROJECT" ? e.name : e.place_of_work
-              }`}
+              aria-label={`scroll to ${getTitle(e)}`}
               $active={index === selected}
-              $name={e.type === "PROJECT" ? e.name : e.place_of_work}
+              $name={getTitle(e)}
               as="button"
               ref={(current) => (imageRefs[index] = current)}
             />
