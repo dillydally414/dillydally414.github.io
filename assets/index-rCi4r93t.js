@@ -1468,6 +1468,10 @@ Error generating stack: `+s.message+`
   width: 65%;
 
   @media screen and (max-width: 480px) {
+    margin-top: 2rem;
+    h1 {
+      margin-top: 0;
+    }
     width: 100%;
     align-items: center;
   }
