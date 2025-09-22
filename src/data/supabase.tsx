@@ -5,10 +5,10 @@ import { Link } from "../styles";
 import { ExperienceType, ProjectType, ResearchType } from "../types";
 
 // using anon key which only has read access
-const VITE_SUPABASE_URL = "https://yfaqmlswjffrcahnqlms.supabase.co";
+const VITE_SUPABASE_URL = "https://qkoimibdfohulojztfsx.supabase.co";
 const VITE_SUPABASE_KEY =
   import.meta.env.VITE_SUPABASE_KEY ??
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmYXFtbHN3amZmcmNhaG5xbG1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwMzI3OTcsImV4cCI6MjAxNjYwODc5N30.vgsBnGcwNHuMGzYW7qsUDc5b4OuWLbs2Osm_t7KlxJY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrb2ltaWJkZm9odWxvanp0ZnN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1NzUwOTksImV4cCI6MjA3NDE1MTA5OX0.x0gkhi2QbvEB4xy1Txiirc5CKSdWLYm5_HBcVtZ3cYY";
 const canEdit = import.meta.env.VITE_SUPABASE_KEY !== undefined;
 const editModeEnabled = import.meta.env.VITE_EDIT_MODE === "EDIT";
 
